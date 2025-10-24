@@ -22,7 +22,7 @@ jobs:
           
       - name: Install dependencies
         run: |
-          pip install mkdocs mkdocs-material mkdocs-glightbox  # 安装 mkdocs、主题和 glightbox 插件
+          pip install mkdocs mkdocs-material mkdocs-glightbox mkdocs-pdf # 安装 mkdocs、主题和 glightbox 插件
           
       - name: Build and deploy
         run: |
