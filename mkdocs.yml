@@ -78,6 +78,7 @@ nav:
       - 专业课程:
           - Fundamentals of C Programming and Laboratory: courses/CS101.md
           - Fundamentals of Data Structures: courses/CS102.md
+          - Computer System: courses/CS104.md
           - HPC101: courses/HPC1.md
       - 体育类课程: courses/PE.md
       - 思政类课程: courses/Political.md
@@ -138,6 +139,7 @@ extra:
 
 plugins:
   - search #搜索配置
+  - mkdocs-pdf
   - glightbox:
       enabled: !ENV [glightbox, false]
       touchNavigation: true
