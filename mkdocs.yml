@@ -79,6 +79,7 @@ nav:
           - Fundamentals of C Programming and Laboratory: courses/CS101.md
           - Fundamentals of Data Structures: courses/CS102.md
           - Computer System: courses/CS104.md
+          - Deep Learning: DL/index.md
       - 体育类课程: courses/PE.md
       - 思政类课程: courses/Political.md
       - 通识类课程: courses/General.md
