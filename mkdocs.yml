@@ -85,7 +85,7 @@ nav:
           - 通识类课程: courses/General.md
   - About: about/about.md
 
-copyright: Copyright &copy; 2024~2025 Gaiake/All Rights Reserved. # 左下角的版权声明
+copyright: Copyright &copy; Gaiake/All Rights Reserved. # 左下角的版权声明
 extra:
   mathjax_config:
     chtml:

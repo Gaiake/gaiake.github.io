@@ -7,6 +7,10 @@ time {
   display: none !important;
 }
 
+footer > p:first-child {
+  display: none !important;
+}
+
 .mermaid {
   background: var(--light);
   border: 1px solid var(--lightgray);
