@@ -67,7 +67,19 @@ nav:
   - 首页: README.md
   - 课程: courses/index.md
   - 深度学习导论: /DL/
-  - 深度学习: deep-learning.md
+  - 深度学习:
+      - 总览: deep-learning/index.md
+      - 第2章: deep-learning/chapter-02.md
+      - 第3章: deep-learning/chapter-03.md
+      - 第4章: deep-learning/chapter-04.md
+      - 第5章: deep-learning/chapter-05.md
+      - 第6章: deep-learning/chapter-06.md
+      - 第7章: deep-learning/chapter-07.md
+      - 第8章: deep-learning/chapter-08.md
+      - 第9章: deep-learning/chapter-09.md
+      - 第10章: deep-learning/chapter-10.md
+      - 第11章: deep-learning/chapter-11.md
+      - 第12章: deep-learning/chapter-12.md
   - 因果推理: causal-inference.md
   - 计算机视觉导论: computer-vision.md
   - 自然语言处理: natural-language-processing.md
