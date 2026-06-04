@@ -65,7 +65,7 @@ repo_name: Gaiake # 右上角的名字
 # [Navigtion]
 nav:
   - Home: README.md
-  - DL Notes: /DL/
+  - 深度学习导论: /DL/
   - Courses:
       - 基础课程:
           - 微积分: courses/MA101.md
@@ -78,7 +78,7 @@ nav:
           - 数据结构基础: courses/CS102.md
           - 离散数学及其应用: courses/CS103.md
           - 计算机系统: courses/CS104.md
-          - 深度学习导论: https://gaiake.github.io/DL/
+          - 深度学习导论: /DL/
       - 综合课程:
           - 体育类课程: courses/PE.md
           - 思政类课程: courses/Political.md

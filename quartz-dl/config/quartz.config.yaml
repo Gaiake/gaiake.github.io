@@ -20,24 +20,24 @@ configuration:
       code: IBM Plex Mono
     colors:
       lightMode:
-        light: "#faf8f8"
-        lightgray: "#e5e5e5"
-        gray: "#b8b8b8"
-        darkgray: "#4e4e4e"
-        dark: "#2b2b2b"
-        secondary: "#284b63"
-        tertiary: "#84a59d"
-        highlight: rgba(143, 159, 169, 0.15)
+        light: "#f8faf7"
+        lightgray: "#d7e0dc"
+        gray: "#8ca09b"
+        darkgray: "#5f6f73"
+        dark: "#172026"
+        secondary: "#236b63"
+        tertiary: "#4e5f9d"
+        highlight: rgba(35, 107, 99, 0.12)
         textHighlight: "#fff23688"
       darkMode:
-        light: "#161618"
-        lightgray: "#393639"
-        gray: "#646464"
-        darkgray: "#d4d4d4"
-        dark: "#ebebec"
-        secondary: "#7b97aa"
-        tertiary: "#84a59d"
-        highlight: rgba(143, 159, 169, 0.15)
+        light: "#1b211f"
+        lightgray: "#33413d"
+        gray: "#84928e"
+        darkgray: "#b5c2bd"
+        dark: "#edf2ef"
+        secondary: "#7fc8bb"
+        tertiary: "#aab6ff"
+        highlight: rgba(127, 200, 187, 0.16)
         textHighlight: "#b3aa0288"
 plugins:
   - source: github:quartz-community/created-modified-date
@@ -166,7 +166,9 @@ plugins:
     enabled: true
     options:
       links:
-        Main Site: https://gaiake.github.io/
+        首页: https://gaiake.github.io/
+        课程: https://gaiake.github.io/#_1
+        深度学习: https://gaiake.github.io/DL/
         GitHub: https://github.com/Gaiake/gaiake.github.io
   - source: github:quartz-community/spacer
     enabled: true
