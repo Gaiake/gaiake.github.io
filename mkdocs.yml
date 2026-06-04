@@ -64,26 +64,12 @@ repo_url: https://github.com/Gaiake # 右上角点击跳转的链接
 repo_name: Gaiake # 右上角的名字
 # [Navigtion]
 nav:
-  - Home: README.md
+  - 首页: README.md
+  - 课程: courses/index.md
   - 深度学习导论: /DL/
-  - Courses:
-      - 基础课程:
-          - 微积分: courses/MA101.md
-          - 线性代数: courses/MA102.md
-          - 概率论与数理统计: courses/MA103.md
-          - 常微分方程: courses/MA104.md
-          - 大学物理: courses/PHY.md
-      - 计算机课程:
-          - C 程序设计基础及实验: courses/CS101.md
-          - 数据结构基础: courses/CS102.md
-          - 离散数学及其应用: courses/CS103.md
-          - 计算机系统: courses/CS104.md
-          - 深度学习导论: /DL/
-      - 综合课程:
-          - 体育类课程: courses/PE.md
-          - 思政类课程: courses/Political.md
-          - 通识类课程: courses/General.md
-  - About: about/about.md
+  - 因果推理: causal-inference.md
+  - 计算机视觉导论: computer-vision.md
+  - 自然语言处理: natural-language-processing.md
 
 copyright: Copyright &copy; Gaiake/All Rights Reserved. # 左下角的版权声明
 extra:

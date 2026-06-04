@@ -34,7 +34,7 @@ footer {
   box-shadow: 0 1px 0 rgba(0, 0, 0, 0.08);
   box-sizing: border-box;
   display: flex;
-  gap: 1.4rem;
+  gap: 0.9rem;
   height: 3.05rem;
   justify-content: space-between;
   left: 0;
@@ -64,7 +64,7 @@ footer > p {
 footer ul {
   align-items: center;
   display: flex;
-  gap: 0.2rem;
+  gap: 0.08rem;
   list-style: none;
   margin: 0;
   padding: 0;
@@ -78,11 +78,11 @@ footer a {
   border-radius: 6px;
   color: var(--gkb-nav-text);
   display: block;
-  font-size: 0.82rem;
+  font-size: 0.78rem;
   font-weight: 650;
   line-height: 1;
   opacity: 0.9;
-  padding: 0.58rem 0.72rem;
+  padding: 0.58rem 0.55rem;
   text-decoration: none;
 }
 

@@ -167,9 +167,11 @@ plugins:
     options:
       links:
         首页: https://gaiake.github.io/
-        课程: https://gaiake.github.io/#_1
-        深度学习: https://gaiake.github.io/DL/
-        GitHub: https://github.com/Gaiake/gaiake.github.io
+        课程: https://gaiake.github.io/courses/
+        深度学习导论: https://gaiake.github.io/DL/
+        因果推理: https://gaiake.github.io/causal-inference/
+        计算机视觉导论: https://gaiake.github.io/computer-vision/
+        自然语言处理: https://gaiake.github.io/natural-language-processing/
   - source: github:quartz-community/spacer
     enabled: true
     options: {}
