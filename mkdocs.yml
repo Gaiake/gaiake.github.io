@@ -65,6 +65,7 @@ repo_name: Gaiake # 右上角的名字
 # [Navigtion]
 nav:
   - Home: README.md
+  - Deep Learning Notes: /DL/
   - About: 
       - What can I say?: about/about.md
   - Academic Courses:
