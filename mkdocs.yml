@@ -1,7 +1,7 @@
-site_name: Gaiake Documentation
+site_name: Gaiake Knowledge Base
 site_url: https://gaiake.github.io
 site_author: Gaiake 
-site_description: Documentation for Gaiake, a high-performance computing project.
+site_description: Course notes, learning resources, and personal knowledge base.
 #[UI]
 theme:
   name: material
@@ -19,8 +19,8 @@ theme:
     #primary: blue grey
     - media: "(prefers-color-scheme: light)"
       scheme: default # 日间模式
-      primary: blue grey # 上方的
-      accent: blue # 链接等可交互元件的高亮色
+      primary: teal # 上方的
+      accent: indigo # 链接等可交互元件的高亮色
       # teal
       toggle:
         icon: material/toggle-switch # 图标
@@ -65,25 +65,25 @@ repo_name: Gaiake # 右上角的名字
 # [Navigtion]
 nav:
   - Home: README.md
-  - Deep Learning Notes: /DL/
-  - About: 
-      - What can I say?: about/about.md
-  - Academic Courses:
+  - DL Notes: /DL/
+  - Courses:
       - 基础课程:
-          - Calculus: courses/MA101.md
-          - Linear Algebra: courses/MA102.md
-          - Probability Theory and Mathematical Statistics: courses/MA103.md
-          - Ordinary Differential Equations: courses/MA104.md
-          - Discrete Mathematics and its Applications: courses/CS103.md
-          - Physics: courses/PHY.md
-      - 专业课程:
-          - Fundamentals of C Programming and Laboratory: courses/CS101.md
-          - Fundamentals of Data Structures: courses/CS102.md
-          - Computer System: courses/CS104.md
-          - Deep Learning: https://gaiake.github.io/DL/
-      - 体育类课程: courses/PE.md
-      - 思政类课程: courses/Political.md
-      - 通识类课程: courses/General.md
+          - 微积分: courses/MA101.md
+          - 线性代数: courses/MA102.md
+          - 概率论与数理统计: courses/MA103.md
+          - 常微分方程: courses/MA104.md
+          - 大学物理: courses/PHY.md
+      - 计算机课程:
+          - C 程序设计基础及实验: courses/CS101.md
+          - 数据结构基础: courses/CS102.md
+          - 离散数学及其应用: courses/CS103.md
+          - 计算机系统: courses/CS104.md
+          - 深度学习导论: https://gaiake.github.io/DL/
+      - 综合课程:
+          - 体育类课程: courses/PE.md
+          - 思政类课程: courses/Political.md
+          - 通识类课程: courses/General.md
+  - About: about/about.md
 
 copyright: Copyright &copy; 2024~2025 Gaiake/All Rights Reserved. # 左下角的版权声明
 extra:
@@ -185,7 +185,7 @@ plugins:
       post_date_format: full #时间
       draft: true
       draft_if_future_date: true #自动将具有未来日期的帖子标记为草稿
-      post_readtime: true
+      post_readtime: false
       post_readtime_words_per_minute: 265 #计算帖子的阅读时间时读者每分钟预计阅读的字数
       post_url_format: "{date}/{slug}"
       # categories_slugify: !!python/object/apply:pymdownx.slugs.slugify
@@ -252,8 +252,9 @@ extra_css:
   # - https://cdn.staticfile.org/font-awesome/4.7.0/css/font-awesome.css # font-awesome表情支持
   # - https://cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/css/share.min.css  #分享支持
   - https://cdn.jsdelivr.net/npm/lxgw-wenkai-webfont@1.1.0/style.css #字体
+  - stylesheets/site.css
   # - https://cdn.jsdelivr.net/npm/lxgw-wenkai-lite-webfont@1.1.0/style.css #字体
   # - https://cdn.jsdelivr.net/npm/lxgw-wenkai-tc-webfont@1.0.0/style.css  #字体
   # - https://cdn.jsdelivr.net/npm/lxgw-wenkai-screen-webfont@1.1.0/style.css  #字体
-hooks:
-  - docs/overrides/hooks/reading_time.py    # 阅读时间统计
+# hooks:
+#   - docs/overrides/hooks/reading_time.py    # 阅读时间统计

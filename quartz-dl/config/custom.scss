@@ -1,0 +1,42 @@
+@use "./variables.scss" as *;
+
+.content-meta,
+.page-listing .meta,
+.page-listing time,
+time {
+  display: none !important;
+}
+
+.mermaid {
+  background: var(--light);
+  border: 1px solid var(--lightgray);
+  border-radius: 8px;
+  color: var(--dark);
+  padding: 0.75rem;
+}
+
+.mermaid svg {
+  max-width: 100%;
+}
+
+.mermaid svg text,
+.mermaid svg .nodeLabel,
+.mermaid svg .edgeLabel {
+  fill: var(--dark) !important;
+  color: var(--dark) !important;
+  font-family: "Noto Sans SC", sans-serif !important;
+  font-weight: 650 !important;
+}
+
+.mermaid svg .mindmap-node,
+.mermaid svg .node rect,
+.mermaid svg .node circle,
+.mermaid svg .node polygon,
+.mermaid svg .node path {
+  stroke: var(--secondary) !important;
+}
+
+.mermaid svg line,
+.mermaid svg path {
+  stroke-width: 1.7px;
+}

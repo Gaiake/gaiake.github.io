@@ -3,7 +3,6 @@ title: 深度学习课程总索引
 aliases: [DL MOC, 深度学习索引, 课程地图, 深度学习目录]
 tags: [MOC, 索引, 深度学习]
 course: 深度学习
-created: 2026-06-03
 ---
 
 # 🧠 深度学习 · 课程地图
@@ -15,6 +14,7 @@ created: 2026-06-03
 ## 知识全景（思维导图）
 
 ```mermaid
+%%{init: {"theme": "base", "themeVariables": {"fontFamily": "Noto Sans SC", "primaryColor": "#f5faf7", "primaryTextColor": "#16202a", "primaryBorderColor": "#236b63", "lineColor": "#58756f", "secondaryColor": "#eef3ff", "tertiaryColor": "#fff8e6", "background": "#ffffff", "mainBkg": "#f5faf7", "secondBkg": "#eef3ff", "tertiaryBkg": "#fff8e6"}}}%%
 mindmap
   root((🧠 深度学习))
     📐 机器学习基础
