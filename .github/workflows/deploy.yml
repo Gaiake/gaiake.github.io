@@ -19,15 +19,35 @@ jobs:
         uses: actions/setup-python@v3
         with:
           python-version: 3.9
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
           
       - name: Install dependencies
         run: |
-          pip install mkdocs mkdocs-material mkdocs-glightbox mkdocs-pdf # 安装 mkdocs、主题和 glightbox 插件
+          pip install mkdocs mkdocs-material mkdocs-glightbox mkdocs-pdf ghp-import # 安装 mkdocs、主题和部署工具
           
-      - name: Build and deploy
+      - name: Build MkDocs main site
         run: |
-          mkdocs gh-deploy --force  # 执行部署，--force 覆盖旧提交
+          mkdocs build --strict
+
+      - name: Build Quartz DL notes
+        run: |
+          git clone --depth 1 --branch v5 https://github.com/jackyzha0/quartz.git .quartz-dl
+          cp quartz-dl/config/quartz.config.yaml .quartz-dl/quartz.config.yaml
+          rm -rf .quartz-dl/content
+          cp -R quartz-dl/content .quartz-dl/content
+          cd .quartz-dl
+          npm ci
+          npx quartz plugin install --from-config
+          npx quartz build --output ../site/DL
+
+      - name: Deploy combined site
+        run: |
+          ghp-import -n -p -f site
           
       - name: Clean up (确保本地不残留)
         run: |
-          rm -rf site/  # 手动删除可能生成的 site/ 目录
+          rm -rf site/ .quartz-dl/  # 手动删除可能生成的目录
