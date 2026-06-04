@@ -37,6 +37,7 @@ jobs:
         run: |
           git clone --depth 1 --branch v5 https://github.com/jackyzha0/quartz.git .quartz-dl
           cp quartz-dl/config/quartz.config.yaml .quartz-dl/quartz.config.yaml
+          cp quartz-dl/config/quartz.ts .quartz-dl/quartz.ts
           rm -rf .quartz-dl/content
           cp -R quartz-dl/content .quartz-dl/content
           cd .quartz-dl
