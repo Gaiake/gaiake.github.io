@@ -67,6 +67,7 @@ nav:
   - 首页: README.md
   - 课程: courses/index.md
   - 深度学习导论: /DL/
+  - 深度学习: deep-learning.md
   - 因果推理: causal-inference.md
   - 计算机视觉导论: computer-vision.md
   - 自然语言处理: natural-language-processing.md
