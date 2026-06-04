@@ -3,25 +3,35 @@ import * as ExternalPlugin from "./.quartz/plugins"
 import type { ExplorerOptions } from "./.quartz/plugins"
 
 const sortFn: ExplorerOptions["sortFn"] = (a, b) => {
-  const chapterNumber = (node: typeof a) => {
-    const candidates = [
-      node.slugSegment,
-      node.displayName,
-      typeof node.data?.slug === "string" ? node.data.slug : undefined,
-    ]
+  const aCandidates = [
+    a.slugSegment,
+    a.displayName,
+    typeof a.data?.slug === "string" ? a.data.slug : undefined,
+  ]
+  const bCandidates = [
+    b.slugSegment,
+    b.displayName,
+    typeof b.data?.slug === "string" ? b.data.slug : undefined,
+  ]
 
-    for (const value of candidates) {
-      const match = value?.match(/第(\d+)章/)
-      if (match) {
-        return Number(match[1])
-      }
+  let aChapter: number | null = null
+  let bChapter: number | null = null
+
+  for (const value of aCandidates) {
+    const match = value?.match(/第(\d+)章/)
+    if (match) {
+      aChapter = Number(match[1])
+      break
     }
-
-    return null
   }
 
-  const aChapter = chapterNumber(a)
-  const bChapter = chapterNumber(b)
+  for (const value of bCandidates) {
+    const match = value?.match(/第(\d+)章/)
+    if (match) {
+      bChapter = Number(match[1])
+      break
+    }
+  }
 
   if (aChapter !== null && bChapter !== null) {
     return aChapter - bChapter
