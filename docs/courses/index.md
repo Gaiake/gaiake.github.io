@@ -14,7 +14,7 @@ hide:
   <div class="course-hero__meta" aria-label="课程概览">
     <span><strong>13</strong> 门课程</span>
     <span><strong>4</strong> 个模块</span>
-    <span><strong>2</strong> 套深度学习入口</span>
+    <span><strong>1</strong> 套深度学习入口</span>
   </div>
 </section>
 
@@ -96,15 +96,10 @@ hide:
         <h2>深度学习专题</h2>
       </div>
       <div class="course-grid course-grid--two">
-        <a class="course-card course-card--accent" href="/DL/">
-          <span class="course-card__code">Quartz</span>
-          <strong>深度学习导论</strong>
-          <span>保留 Obsidian 风格的双链、关系图谱和笔记阅读体验。</span>
-        </a>
         <a class="course-card course-card--accent" href="/deep-learning/">
-          <span class="course-card__code">MkDocs</span>
-          <strong>深度学习</strong>
-          <span>同一批 DL 笔记的 MkDocs 渲染版本，方便和主站风格对比。</span>
+          <span class="course-card__code">DL</span>
+          <strong>深度学习导论</strong>
+          <span>统一到 MkDocs 主站的课程地图、章节笔记、图片和全文搜索。</span>
         </a>
       </div>
     </section>

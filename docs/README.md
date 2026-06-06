@@ -5,14 +5,14 @@ hide:
 
 # Gaiake Knowledge Base
 
-这里是我的课程资料、学习笔记和复习索引。主站负责整理课程经验、资料入口和长期维护的归档；深度学习导论使用同一套站点导航进入 Quartz 笔记区，保留 Obsidian 笔记的双链、关系图谱和搜索体验。
+这里是我的课程资料、学习笔记和复习索引。主站负责整理课程经验、资料入口和长期维护的归档；深度学习导论已统一到 MkDocs 主站内，保留章节索引、搜索和移动端适配。
 
 <div class="home-grid" markdown>
 
-<a class="home-card home-card--primary" href="/DL/">
-  <span class="home-card__eyebrow">Obsidian 笔记</span>
+<a class="home-card home-card--primary" href="deep-learning/">
+  <span class="home-card__eyebrow">Deep Learning</span>
   <strong>深度学习导论</strong>
-  <span>统一导航下的课程地图、章节笔记、图谱与全文搜索。</span>
+  <span>统一导航下的课程地图、章节笔记和全文搜索。</span>
 </a>
 
 <a class="home-card" href="courses/MA101/">
@@ -40,11 +40,11 @@ hide:
 | 模块 | 内容 |
 | --- | --- |
 | 基础课程 | [微积分](courses/MA101.md) · [线性代数](courses/MA102.md) · [概率论与数理统计](courses/MA103.md) · [常微分方程](courses/MA104.md) · [大学物理](courses/PHY.md) |
-| 计算机课程 | [C 程序设计基础及实验](courses/CS101.md) · [数据结构基础](courses/CS102.md) · [离散数学及其应用](courses/CS103.md) · [计算机系统](courses/CS104.md) · [深度学习导论](/DL/) |
+| 计算机课程 | [C 程序设计基础及实验](courses/CS101.md) · [数据结构基础](courses/CS102.md) · [离散数学及其应用](courses/CS103.md) · [计算机系统](courses/CS104.md) · [深度学习导论](deep-learning/index.md) |
 | 综合经验 | [体育类课程](courses/PE.md) · [思政类课程](courses/Political.md) · [通识类课程](courses/General.md) |
 
 ## 使用方式
 
 - 找课程资料：从上方课程入口进入对应页面。
-- 找深度学习笔记：直接进入 [深度学习导论](/DL/)。
+- 找深度学习笔记：直接进入 [深度学习导论](deep-learning/index.md)。
 - 找附件：课程页中的 PDF、图片和文档会就地嵌入或链接到原文件。

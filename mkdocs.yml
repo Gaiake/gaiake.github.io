@@ -66,8 +66,7 @@ repo_name: Gaiake # 右上角的名字
 nav:
   - 首页: README.md
   - 课程: courses/index.md
-  - 深度学习导论: /DL/
-  - 深度学习:
+  - 深度学习导论:
       - 总览: deep-learning/index.md
       - 第2章: deep-learning/chapter-02.md
       - 第3章: deep-learning/chapter-03.md
