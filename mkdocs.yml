@@ -78,7 +78,15 @@ nav:
       - 专业课程:
           - Fundamentals of C Programming and Laboratory: courses/CS101.md
           - Fundamentals of Data Structures: courses/CS102.md
+          - Computer System I: courses/CS105.md
           - Computer System: courses/CS104.md
+          - Advanced Data Structures and Algorithm Analysis: courses/CS106.md
+          - Introduction to Artificial Intelligence: courses/CS107.md
+          - Object-Oriented Programming: courses/CS108.md
+          - Course Comprehensive Practice I: courses/CS109.md
+          - Causal Inference: courses/CS110.md
+          - Social Networks and Security Privacy: courses/CS111.md
+          - Mathematical Software: courses/CS112.md
           - Deep Learning: DL/index.md
       - 体育类课程: courses/PE.md
       - 思政类课程: courses/Political.md

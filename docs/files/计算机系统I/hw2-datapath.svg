@@ -1,0 +1,109 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1180" height="720" viewBox="0 0 1180 720">
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#222" />
+    </marker>
+    <style>
+      text { font-family: Arial, Helvetica, sans-serif; font-size: 16px; fill: #111; }
+      .title { font-size: 24px; font-weight: 700; }
+      .block { fill: #f7f9fc; stroke: #222; stroke-width: 2; rx: 6; }
+      .control { fill: #fff6df; stroke: #222; stroke-width: 2; rx: 6; }
+      .line { stroke: #222; stroke-width: 2; fill: none; marker-end: url(#arrow); }
+      .ctrl { stroke: #9a5b00; stroke-width: 2; fill: none; stroke-dasharray: 7 5; marker-end: url(#arrow); }
+      .label { font-size: 14px; fill: #222; }
+      .small { font-size: 13px; fill: #333; }
+    </style>
+  </defs>
+
+  <text x="40" y="42" class="title">Single-cycle datapath for lw, sw, and add</text>
+
+  <rect x="45" y="120" width="90" height="70" class="block" />
+  <text x="78" y="160">PC</text>
+
+  <rect x="205" y="100" width="165" height="110" class="block" />
+  <text x="235" y="145">Instruction</text>
+  <text x="250" y="170">memory</text>
+
+  <rect x="220" y="315" width="130" height="70" class="block" />
+  <text x="242" y="356">PC + 4</text>
+  <text x="254" y="376" class="small">adder</text>
+
+  <rect x="455" y="90" width="120" height="80" class="block" />
+  <text x="486" y="125">Imm</text>
+  <text x="486" y="150">gen</text>
+
+  <rect x="450" y="235" width="170" height="130" class="block" />
+  <text x="490" y="280">Register</text>
+  <text x="510" y="305">file</text>
+  <text x="463" y="335" class="small">ReadReg = ri</text>
+  <text x="463" y="352" class="small">WriteReg = ri</text>
+
+  <rect x="725" y="95" width="170" height="115" class="block" />
+  <text x="765" y="145">Data</text>
+  <text x="750" y="170">memory</text>
+
+  <rect x="730" y="310" width="165" height="75" class="block" />
+  <text x="761" y="348">Reg[ri]</text>
+  <text x="780" y="370">+ imm</text>
+
+  <path d="M990 205 L1070 250 L990 295 Z" fill="#f7f9fc" stroke="#222" stroke-width="2" />
+  <text x="1006" y="255">Mux</text>
+  <text x="995" y="276" class="small">WBSel</text>
+
+  <rect x="725" y="485" width="170" height="80" class="control" />
+  <text x="763" y="520">Control</text>
+  <text x="774" y="543">unit</text>
+
+  <!-- Main datapath -->
+  <path d="M135 155 H205" class="line" />
+  <text x="147" y="145" class="label">instruction address</text>
+
+  <path d="M90 190 V350 H220" class="line" />
+  <path d="M350 350 H405 V190 H85" class="line" />
+  <text x="140" y="333" class="label">next PC</text>
+
+  <path d="M370 123 H455" class="line" />
+  <text x="386" y="114" class="label">imm field</text>
+
+  <path d="M370 160 H450" class="line" />
+  <text x="392" y="151" class="label">ri</text>
+
+  <path d="M370 190 H720 V510 H725" class="line" />
+  <text x="392" y="207" class="label">opcode</text>
+
+  <path d="M575 130 H700 V125 H725" class="line" />
+  <text x="620" y="116" class="label">Addr = imm</text>
+
+  <path d="M575 150 H685 V330 H730" class="line" />
+  <text x="604" y="318" class="label">imm</text>
+
+  <path d="M620 270 H700 V170 H725" class="line" />
+  <text x="625" y="260" class="label">WriteData = Reg[ri]</text>
+
+  <path d="M620 335 H730" class="line" />
+  <text x="638" y="325" class="label">Reg[ri]</text>
+
+  <path d="M895 150 H990" class="line" />
+  <text x="913" y="140" class="label">ReadData</text>
+
+  <path d="M895 348 H980 V275 H990" class="line" />
+  <text x="910" y="340" class="label">add result</text>
+
+  <path d="M1070 250 H1120 V430 H425 V330 H450" class="line" />
+  <text x="880" y="421" class="label">WriteData to Reg[ri]</text>
+
+  <!-- Control signals -->
+  <path d="M810 485 V210" class="ctrl" />
+  <text x="820" y="462" class="label">MemRead / MemWrite</text>
+
+  <path d="M725 528 H640 V330 H620" class="ctrl" />
+  <text x="640" y="515" class="label">RegWrite</text>
+
+  <path d="M895 525 H1025 V295" class="ctrl" />
+  <text x="920" y="515" class="label">WBSel</text>
+
+  <!-- Notes -->
+  <text x="45" y="645" class="label">lw: Reg[ri] = Mem[imm], pc = pc + 4</text>
+  <text x="45" y="670" class="label">sw: Mem[imm] = Reg[ri], pc = pc + 4</text>
+  <text x="45" y="695" class="label">add: Reg[ri] = Reg[ri] + imm, pc = pc + 4</text>
+</svg>
