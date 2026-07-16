@@ -1,0 +1,3783 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Documentation for Gaiake, a high-performance computing project.">
+      
+      
+        <meta name="author" content="Gaiake">
+      
+      
+        <link rel="canonical" href="https://gaiake.github.io/DL/%E7%AC%AC5%E7%AB%A0/">
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="https://s2.loli.net/2024/04/26/PmRdM9iGnvOJHgu.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>神经网络基础（二） - Gaiake Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lxgw-wenkai-webfont@1.1.0/style.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+  
+
+
+  
+  
+
+<script id="__analytics">function __md_analytics(){function e(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],e("js",new Date),e("config",""),document.addEventListener("DOMContentLoaded",(function(){document.forms.search&&document.forms.search.query.addEventListener("blur",(function(){this.value&&e("event","search",{search_term:this.value})}));document$.subscribe((function(){var t=document.forms.feedback;if(void 0!==t)for(var a of t.querySelectorAll("[type=submit]"))a.addEventListener("click",(function(a){a.preventDefault();var n=document.location.pathname,d=this.getAttribute("data-md-value");e("event","feedback",{page:n,data:d}),t.firstElementChild.disabled=!0;var r=t.querySelector(".md-feedback__note [data-md-value='"+d+"']");r&&(r.hidden=!1)})),t.hidden=!1})),location$.subscribe((function(t){e("config","",{page_path:t.pathname})}))}));var t=document.createElement("script");t.async=!0,t.src="https://www.googletagmanager.com/gtag/js?id=",document.getElementById("__analytics").insertAdjacentElement("afterEnd",t)}</script>
+  
+    <script>"undefined"!=typeof __md_analytics&&__md_analytics()</script>
+  
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#_1" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../.." title="Gaiake Documentation" class="md-header__button md-logo" aria-label="Gaiake Documentation" data-md-component="logo">
+      
+  <img src="../../about/image/top.jpg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Gaiake Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              神经网络基础（二）
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="关闭自动模式"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="关闭自动模式" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1M8 13h8v-2H8zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4a5 5 0 0 0 5-5 5 5 0 0 0-5-5"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="blue-grey" data-md-color-accent="blue"  aria-label="切换至夜间模式"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="切换至夜间模式" for="__palette_2" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="indigo"  aria-label="切换至日间模式"  type="radio" name="__palette" id="__palette_2">
+    
+      <label class="md-header__button md-icon" title="切换至日间模式" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 6H7c-3.31 0-6 2.69-6 6s2.69 6 6 6h10c3.31 0 6-2.69 6-6s-2.69-6-6-6m0 10H7c-2.21 0-4-1.79-4-4s1.79-4 4-4h10c2.21 0 4 1.79 4 4s-1.79 4-4 4M7 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="分享" aria-label="分享" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/Gaiake" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Gaiake
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="标签" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../about/about/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  About
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../courses/MA101/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Academic Courses
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Gaiake Documentation" class="md-nav__button md-logo" aria-label="Gaiake Documentation" data-md-component="logo">
+      
+  <img src="../../about/image/top.jpg" alt="logo">
+
+    </a>
+    Gaiake Documentation
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/Gaiake" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Gaiake
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    About
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    About
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../about/about/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    What can I say?
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Academic Courses
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Academic Courses
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_1" id="__nav_3_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    基础课程
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    基础课程
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../courses/MA101/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Calculus
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../courses/MA102/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Linear Algebra
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../courses/MA103/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Probability Theory and Mathematical Statistics
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../courses/MA104/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ordinary Differential Equations
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../courses/CS103/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Discrete Mathematics and its Applications
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../courses/PHY/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Physics
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+          
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3_2" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    专业课程
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_2" id="__nav_3_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    专业课程
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../courses/CS101/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Fundamentals of C Programming and Laboratory
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../courses/CS102/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Fundamentals of Data Structures
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../courses/CS105/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Computer System I
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../courses/CS104/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Computer System
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../courses/CS106/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Advanced Data Structures and Algorithm Analysis
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../courses/CS107/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Introduction to Artificial Intelligence
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../courses/CS108/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Object-Oriented Programming
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../courses/CS109/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Course Comprehensive Practice I
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../courses/CS110/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Causal Inference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../courses/CS111/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Social Networks and Security Privacy
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../courses/CS112/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Mathematical Software
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../courses/PE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    体育类课程
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../courses/Political/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    思政类课程
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../courses/General/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    通识类课程
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        一、训练流程总览
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="一、训练流程总览">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#keras-mnist" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Keras MNIST 完整示例
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        二、数据准备
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#21-normalization" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1 归一化（Normalization）
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.1 归一化（Normalization）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#22-data-augmentation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2 数据增强（Data Augmentation）
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.2 数据增强（Data Augmentation）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        图像变换方法
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#random-erasing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        图像擦除（Random Erasing）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        图像混合方法
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        文本增强
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#23" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3 类型转换
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.3 类型转换">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#24-nlp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.4 文本数据：NLP 完整流程
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#24-bpebyte-pair-encoding" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.4 BPE（Byte Pair Encoding）——当前最主流的分词方法
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.4 BPE（Byte Pair Encoding）——当前最主流的分词方法">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        三种分词粒度对比
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bpe" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        BPE 核心逻辑
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        三、模型构建：正则化与归一化层
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#31-dropout" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1 Dropout（丢弃层）
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3.1 Dropout（丢弃层）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#32-batch-normalization-bn" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2 批归一化（Batch Normalization, BN）
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3.2 批归一化（Batch Normalization, BN）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#internal-covariate-shift-ics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        内部协变量偏移（Internal Covariate Shift, ICS）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bn" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        BN 训练公式
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bn_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        BN 反向传播推导
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bn_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        BN 测试阶段
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bn_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        BN 到底在做什么？
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#33-layer-normalization-ln" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.3 层归一化（Layer Normalization, LN）
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3.3 层归一化（Layer Normalization, LN）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#34-instance-normalization-in" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.4 实例归一化（Instance Normalization, IN）
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#35-group-normalization-gn" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.5 组归一化（Group Normalization, GN）
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3.5 组归一化（Group Normalization, GN）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#36" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.6 四种归一化方法对比
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3.6 四种归一化方法对比">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        归一化维度对比图
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        核心特点对比
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#imagenet-32" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ImageNet 验证集误差对比（批大小 32）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bn-vs-gn" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        不同批大小下 BN vs GN 对比
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        选择指南
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#37" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.7 参数初始化
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3.7 参数初始化">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        初始化方法总结
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_13" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        四、训练与优化
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="四、训练与优化">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.1 优化器族谱
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.2 各优化器详解
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4.2 各优化器详解">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1sgd" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        （1）SGD（随机梯度下降）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2momentum" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        （2）Momentum（动量法）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3adagrad" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        （3）AdaGrad（自适应梯度）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4rmsprop" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        （4）RMSProp（均方根传递）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5adamadaptive-moment-estimation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        （5）Adam（Adaptive Moment Estimation）—— 最常用优化器
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6amsgrad" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        （6）AMSGrad
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#7adamwadam" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        （7）AdamW（Adam + 权重衰减）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_14" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        优化器总结
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#43" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.3 学习率调度技巧
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4.3 学习率调度技巧">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_15" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        学习率衰减
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#warmup" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        预热（Warmup）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cyclical-learning-rate-clr" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        周期性学习率（Cyclical Learning Rate, CLR）
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#44-keras" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.4 Keras 训练实战
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_16" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        五、关键公式速查
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_17" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        六、总结
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="六、总结">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_18" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        知识体系总览
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_19" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        核心要点
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  <nav class="md-tags" >
+    
+      
+      
+      
+      
+        <span class="md-tag">Dropout</span>
+      
+    
+      
+      
+      
+      
+        <span class="md-tag">归一化</span>
+      
+    
+      
+      
+      
+      
+        <span class="md-tag">正则化</span>
+      
+    
+      
+      
+      
+      
+        <span class="md-tag">深度学习</span>
+      
+    
+      
+      
+      
+      
+        <span class="md-tag">神经网络</span>
+      
+    
+      
+      
+      
+      
+        <span class="md-tag">训练技巧</span>
+      
+    
+      
+      
+      
+      
+        <span class="md-tag">课程笔记</span>
+      
+    
+  </nav>
+
+
+  
+  
+
+
+<div><div class="admonition info">
+<p class="admonition-title">📖 阅读信息</p>
+<p>阅读时间：<strong>10</strong> 分钟 | 中文字符：<strong>4103</strong> | 有效代码行数：<strong>87</strong></p>
+</div>
+<h1 id="_1">第五章 神经网络基础（二）<a class="headerlink" href="#_1" title="Permanent link">¶</a></h1>
+<blockquote>
+<p>数据准备 → 模型构建 → 训练优化 → 模型评估——深度神经网络训练的完整四阶段</p>
+</blockquote>
+<hr>
+<h2 id="_2">一、训练流程总览<a class="headerlink" href="#_2" title="Permanent link">¶</a></h2>
+<p>深度神经网络模型的训练通常包含以下四个阶段，形成闭环：</p>
+<pre class="mermaid"><code>graph LR
+    A[数据准备] --&gt; B[模型构建]
+    B --&gt; C[训练与优化]
+    C --&gt; D[模型评估]
+    D -.-&gt;|超参数调优| A</code></pre>
+<table>
+<thead>
+<tr>
+<th>阶段</th>
+<th>核心任务</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>数据准备</td>
+<td>归一化、数据增强、类型转换</td>
+</tr>
+<tr>
+<td>模型构建</td>
+<td>选择网络结构、添加正则化层（Dropout/BN等）、参数初始化</td>
+</tr>
+<tr>
+<td>训练与优化</td>
+<td>定义损失函数、选择优化器、权重衰减、学习率调度</td>
+</tr>
+<tr>
+<td>模型评估</td>
+<td>在测试集上评估性能，根据结果调优超参数</td>
+</tr>
+</tbody>
+</table>
+<h3 id="keras-mnist">Keras MNIST 完整示例<a class="headerlink" href="#keras-mnist" title="Permanent link">¶</a></h3>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-0-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-0-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-0-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-0-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-0-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-0-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-0-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-0-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-0-10">10</a></span>
+<span class="normal"><a href="#__codelineno-0-11">11</a></span>
+<span class="normal"><a href="#__codelineno-0-12">12</a></span>
+<span class="normal"><a href="#__codelineno-0-13">13</a></span>
+<span class="normal"><a href="#__codelineno-0-14">14</a></span>
+<span class="normal"><a href="#__codelineno-0-15">15</a></span>
+<span class="normal"><a href="#__codelineno-0-16">16</a></span>
+<span class="normal"><a href="#__codelineno-0-17">17</a></span>
+<span class="normal"><a href="#__codelineno-0-18">18</a></span>
+<span class="normal"><a href="#__codelineno-0-19">19</a></span>
+<span class="normal"><a href="#__codelineno-0-20">20</a></span>
+<span class="normal"><a href="#__codelineno-0-21">21</a></span>
+<span class="normal"><a href="#__codelineno-0-22">22</a></span>
+<span class="normal"><a href="#__codelineno-0-23">23</a></span>
+<span class="normal"><a href="#__codelineno-0-24">24</a></span>
+<span class="normal"><a href="#__codelineno-0-25">25</a></span>
+<span class="normal"><a href="#__codelineno-0-26">26</a></span>
+<span class="normal"><a href="#__codelineno-0-27">27</a></span>
+<span class="normal"><a href="#__codelineno-0-28">28</a></span>
+<span class="normal"><a href="#__codelineno-0-29">29</a></span>
+<span class="normal"><a href="#__codelineno-0-30">30</a></span>
+<span class="normal"><a href="#__codelineno-0-31">31</a></span>
+<span class="normal"><a href="#__codelineno-0-32">32</a></span>
+<span class="normal"><a href="#__codelineno-0-33">33</a></span>
+<span class="normal"><a href="#__codelineno-0-34">34</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1"></a><span class="c1"># 1. 数据准备</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2"></a><span class="n">num_classes</span> <span class="o">=</span> <span class="mi">10</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3"></a><span class="n">input_shape</span> <span class="o">=</span> <span class="p">(</span><span class="mi">28</span><span class="p">,</span> <span class="mi">28</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4"></a><span class="p">(</span><span class="n">x_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">),</span> <span class="p">(</span><span class="n">x_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">)</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">datasets</span><span class="o">.</span><span class="n">mnist</span><span class="o">.</span><span class="n">load_data</span><span class="p">()</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5"></a><span class="n">x_train</span> <span class="o">=</span> <span class="n">x_train</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">"float32"</span><span class="p">)</span> <span class="o">/</span> <span class="mi">255</span>   <span class="c1"># 归一化到 [0,1]</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6"></a><span class="n">x_test</span>  <span class="o">=</span> <span class="n">x_test</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">"float32"</span><span class="p">)</span> <span class="o">/</span> <span class="mi">255</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7"></a><span class="n">x_train</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">expand_dims</span><span class="p">(</span><span class="n">x_train</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>       <span class="c1"># 增加通道维度</span>
+<a id="__codelineno-0-8" name="__codelineno-0-8"></a><span class="n">x_test</span>  <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">expand_dims</span><span class="p">(</span><span class="n">x_test</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+<a id="__codelineno-0-9" name="__codelineno-0-9"></a><span class="n">y_train</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">to_categorical</span><span class="p">(</span><span class="n">y_train</span><span class="p">,</span> <span class="n">num_classes</span><span class="p">)</span>  <span class="c1"># One-Hot</span>
+<a id="__codelineno-0-10" name="__codelineno-0-10"></a><span class="n">y_test</span>  <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">to_categorical</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">num_classes</span><span class="p">)</span>
+<a id="__codelineno-0-11" name="__codelineno-0-11"></a>
+<a id="__codelineno-0-12" name="__codelineno-0-12"></a><span class="c1"># 2. 模型构建</span>
+<a id="__codelineno-0-13" name="__codelineno-0-13"></a><span class="n">model</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">Sequential</span><span class="p">([</span>
+<a id="__codelineno-0-14" name="__codelineno-0-14"></a>    <span class="n">keras</span><span class="o">.</span><span class="n">Input</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="n">input_shape</span><span class="p">),</span>
+<a id="__codelineno-0-15" name="__codelineno-0-15"></a>    <span class="n">layers</span><span class="o">.</span><span class="n">Conv2D</span><span class="p">(</span><span class="mi">32</span><span class="p">,</span> <span class="n">kernel_size</span><span class="o">=</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="n">activation</span><span class="o">=</span><span class="s2">"relu"</span><span class="p">),</span>
+<a id="__codelineno-0-16" name="__codelineno-0-16"></a>    <span class="n">layers</span><span class="o">.</span><span class="n">MaxPooling2D</span><span class="p">(</span><span class="n">pool_size</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)),</span>
+<a id="__codelineno-0-17" name="__codelineno-0-17"></a>    <span class="n">layers</span><span class="o">.</span><span class="n">Conv2D</span><span class="p">(</span><span class="mi">64</span><span class="p">,</span> <span class="n">kernel_size</span><span class="o">=</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="n">activation</span><span class="o">=</span><span class="s2">"relu"</span><span class="p">),</span>
+<a id="__codelineno-0-18" name="__codelineno-0-18"></a>    <span class="n">layers</span><span class="o">.</span><span class="n">MaxPooling2D</span><span class="p">(</span><span class="n">pool_size</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)),</span>
+<a id="__codelineno-0-19" name="__codelineno-0-19"></a>    <span class="n">layers</span><span class="o">.</span><span class="n">Flatten</span><span class="p">(),</span>
+<a id="__codelineno-0-20" name="__codelineno-0-20"></a>    <span class="n">layers</span><span class="o">.</span><span class="n">Dropout</span><span class="p">(</span><span class="mf">0.5</span><span class="p">),</span>                     <span class="c1"># 正则化</span>
+<a id="__codelineno-0-21" name="__codelineno-0-21"></a>    <span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="n">num_classes</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s2">"softmax"</span><span class="p">),</span>
+<a id="__codelineno-0-22" name="__codelineno-0-22"></a><span class="p">])</span>
+<a id="__codelineno-0-23" name="__codelineno-0-23"></a>
+<a id="__codelineno-0-24" name="__codelineno-0-24"></a><span class="c1"># 3. 训练与优化</span>
+<a id="__codelineno-0-25" name="__codelineno-0-25"></a><span class="n">model</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">loss</span><span class="o">=</span><span class="s2">"categorical_crossentropy"</span><span class="p">,</span>
+<a id="__codelineno-0-26" name="__codelineno-0-26"></a>              <span class="n">optimizer</span><span class="o">=</span><span class="s2">"adam"</span><span class="p">,</span>
+<a id="__codelineno-0-27" name="__codelineno-0-27"></a>              <span class="n">metrics</span><span class="o">=</span><span class="p">[</span><span class="s2">"accuracy"</span><span class="p">])</span>
+<a id="__codelineno-0-28" name="__codelineno-0-28"></a><span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">x_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span>
+<a id="__codelineno-0-29" name="__codelineno-0-29"></a>          <span class="n">batch_size</span><span class="o">=</span><span class="mi">128</span><span class="p">,</span> <span class="n">epochs</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span> <span class="n">validation_split</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
+<a id="__codelineno-0-30" name="__codelineno-0-30"></a>
+<a id="__codelineno-0-31" name="__codelineno-0-31"></a><span class="c1"># 4. 模型评估</span>
+<a id="__codelineno-0-32" name="__codelineno-0-32"></a><span class="n">score</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span><span class="n">x_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<a id="__codelineno-0-33" name="__codelineno-0-33"></a><span class="nb">print</span><span class="p">(</span><span class="s2">"Test loss:"</span><span class="p">,</span> <span class="n">score</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<a id="__codelineno-0-34" name="__codelineno-0-34"></a><span class="nb">print</span><span class="p">(</span><span class="s2">"Test accuracy:"</span><span class="p">,</span> <span class="n">score</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+</code></pre></div></td></tr></table></div>
+<hr>
+<h2 id="_3">二、数据准备<a class="headerlink" href="#_3" title="Permanent link">¶</a></h2>
+<h2 id="21-normalization">2.1 归一化（Normalization）<a class="headerlink" href="#21-normalization" title="Permanent link">¶</a></h2>
+<div class="admonition question">
+<p class="admonition-title">为什么需要归一化？</p>
+<p>不同量纲或不同取值范围的特征在梯度下降中会产生 <strong>Zigzag 效应</strong>，导致收敛缓慢。</p>
+</div>
+<p>直观理解：捐款预测实例</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Age</th>
+<th>Salary</th>
+<th>Donor?</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Nancy</td>
+<td>21</td>
+<td>37,000</td>
+<td>N</td>
+</tr>
+<tr>
+<td>Jim</td>
+<td>27</td>
+<td>41,000</td>
+<td>N</td>
+</tr>
+<tr>
+<td>Allen</td>
+<td>43</td>
+<td>61,000</td>
+<td>Y</td>
+</tr>
+<tr>
+<td>Jane</td>
+<td>38</td>
+<td>55,000</td>
+<td>N</td>
+</tr>
+<tr>
+<td>Steve</td>
+<td>44</td>
+<td>30,000</td>
+<td>N</td>
+</tr>
+<tr>
+<td>Peter</td>
+<td>51</td>
+<td>56,000</td>
+<td>Y</td>
+</tr>
+<tr>
+<td>Sayani</td>
+<td>53</td>
+<td>70,000</td>
+<td>Y</td>
+</tr>
+<tr>
+<td>Lata</td>
+<td>56</td>
+<td>74,000</td>
+<td>Y</td>
+</tr>
+<tr>
+<td>Mary</td>
+<td>59</td>
+<td>25,000</td>
+<td>N</td>
+</tr>
+<tr>
+<td>Victor</td>
+<td>61</td>
+<td>68,000</td>
+<td>Y</td>
+</tr>
+<tr>
+<td>Dale</td>
+<td>63</td>
+<td>51,000</td>
+<td>Y</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>Age</strong> 范围 21-63（小量纲）</li>
+<li><strong>Salary</strong> 范围 25,000-74,000（大量纲）</li>
+<li>未归一化时，Salary 在梯度中占主导 → 等高线呈<strong>椭圆状</strong>，梯度方向 zigzag</li>
+<li>归一化后 → <strong>圆形</strong>等高线，梯度直指最优解</li>
+</ul>
+<p>逻辑回归梯度公式</p>
+<div class="arithmatex">\[
+\min_{w,b} \sum_{i=1}^{m} \log\left(1 + \exp\left(-y_i(w^\top x_i + b)\right)\right)
+\]</div>
+<p>对于单个数据 (x, y) 的梯度：</p>
+<div class="arithmatex">\[
+\nabla_w = \frac{-1}{1 + \exp(y(w^\top x + b))} y x
+\]</div>
+<p><mark>量纲差异直接影响梯度方向，导致优化路径弯曲</mark></p>
+<p>常用归一化方法</p>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>公式</th>
+<th>说明</th>
+<th>特点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><mark>标准化</mark></td>
+<td><span class="arithmatex">\(\displaystyle z_i^j = \frac{x_i^j - \mu_j}{\sigma_j}\)</span></td>
+<td>使特征服从 N(0,1)</td>
+<td>对异常值不敏感</td>
+</tr>
+<tr>
+<td><mark>Min-Max</mark></td>
+<td><span class="arithmatex">\(\displaystyle z_i^j = \frac{x_i^j - \min_j}{\max_j - \min_j}\)</span></td>
+<td>映射到 [0,1]</td>
+<td><mark>对异常值敏感</mark></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition tip">
+<p class="admonition-title">选择指南</p>
+<ul>
+<li>数据近似正态分布或存在异常值 → <strong>标准化</strong></li>
+<li>数据有明确上下界且无异常值 → <strong>Min-Max</strong></li>
+<li>图像像素 [0,255] → <strong>Min-Max 到 [0,1]</strong>（最常用）</li>
+</ul>
+</div>
+<hr>
+<h3 id="22-data-augmentation">2.2 数据增强（Data Augmentation）<a class="headerlink" href="#22-data-augmentation" title="Permanent link">¶</a></h3>
+<blockquote>
+<p>通过对原始样本进行旋转、翻转、裁剪、加噪声等变换，构造更多训练样本，扩大数据分布，提升模型泛化能力</p>
+</blockquote>
+<h4 id="_4">图像变换方法<a class="headerlink" href="#_4" title="Permanent link">¶</a></h4>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>翻转</strong></td>
+<td>水平翻转、垂直翻转或同时翻转</td>
+</tr>
+<tr>
+<td><strong>旋转</strong></td>
+<td>以某一角度旋转图像</td>
+</tr>
+<tr>
+<td><strong>缩放</strong></td>
+<td>增大或减小图像尺寸</td>
+</tr>
+<tr>
+<td><strong>噪声注入</strong></td>
+<td>在图像中加入随机噪声</td>
+</tr>
+<tr>
+<td><strong>颜色空间</strong></td>
+<td>改变图像颜色通道</td>
+</tr>
+<tr>
+<td><strong>对比度</strong></td>
+<td>改变图像对比度</td>
+</tr>
+<tr>
+<td><strong>锐化</strong></td>
+<td>修改图像清晰度</td>
+</tr>
+<tr>
+<td><strong>平移</strong></td>
+<td>水平移动、垂直移动或同时移动</td>
+</tr>
+<tr>
+<td><strong>裁剪</strong></td>
+<td>裁剪图像的一个子区域</td>
+</tr>
+</tbody>
+</table>
+<h4 id="random-erasing">图像擦除（Random Erasing）<a class="headerlink" href="#random-erasing" title="Permanent link">¶</a></h4>
+<blockquote>
+<p>从训练图像中抹去一部分信息，迫使模型关注其他相关部分，而不仅仅是最具判别力的部分</p>
+</blockquote>
+<h4 id="_5">图像混合方法<a class="headerlink" href="#_5" title="Permanent link">¶</a></h4>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>核心思想</th>
+<th>特点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><mark>Mixup</mark></td>
+<td>两张图按比例像素融合，标签也按比例混合</td>
+<td>简单有效，线性插值</td>
+</tr>
+<tr>
+<td><mark>CutMix</mark></td>
+<td>将一张图的一部分贴到另一张图上</td>
+<td>保留局部信息，矩形区域</td>
+</tr>
+<tr>
+<td><mark>FMix</mark></td>
+<td>通过频率空间操作生成形状光滑自然的掩码</td>
+<td>掩码更自然，非矩形</td>
+</tr>
+<tr>
+<td><mark>AugMix</mark></td>
+<td>多种增强操作的加权组合</td>
+<td>多样性更强</td>
+</tr>
+</tbody>
+</table>
+<h4 id="_6">文本增强<a class="headerlink" href="#_6" title="Permanent link">¶</a></h4>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>描述</th>
+<th>示例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><mark>回译法</mark></td>
+<td>语言 A → 语言 B → 语言 A，生成新表达</td>
+<td>"To be or not to be" → "生存还是毁灭" → "Survival or destruction"</td>
+</tr>
+<tr>
+<td>随机词替换</td>
+<td>同义词替换、随机插入、随机交换、随机删除</td>
+<td>"今天天气很好" → "今天天气不错"（同义词替换）</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="23">2.3 类型转换<a class="headerlink" href="#23" title="Permanent link">¶</a></h2>
+<div class="admonition tip">
+<p class="admonition-title">神经网络要求输入为 <strong>连续数值型</strong></p>
+</div>
+<p>类别型数据</p>
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th>编码方式</th>
+<th>示例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>二分类</td>
+<td>{0,1} 或 {-1,+1}</td>
+<td>M→0, F→1</td>
+</tr>
+<tr>
+<td><mark>多分类</mark></td>
+<td><mark>One-Hot编码</mark>：k 维向量中对应位置为1</td>
+<td>第2类→<span class="arithmatex">\([0,1,0,\dots,0]\)</span></td>
+</tr>
+</tbody>
+</table>
+<div class="arithmatex">\[
+\begin{bmatrix}
+1 &amp; 0 &amp; 0 \\
+0 &amp; 1 &amp; 0 \\
+0 &amp; 0 &amp; 1
+\end{bmatrix} \xrightarrow{} \begin{array}{ll}
+1^{st}  Category \\
+2^{nd}  Category \\
+3^{rd}  Category
+\end{array}
+\]</div>
+<h3 id="24-nlp">2.4 文本数据：NLP 完整流程<a class="headerlink" href="#24-nlp" title="Permanent link">¶</a></h3>
+<pre class="mermaid"><code>graph LR
+    A[原始字符串] --&gt; B[分词 Tokenization]
+    B --&gt; C[移除停止词]
+    C --&gt; D[提取词干 Stemming]
+    D --&gt; E[词袋模型 BoW / 构建词典]
+    E --&gt; F[Embedding 嵌入]</code></pre>
+<table>
+<thead>
+<tr>
+<th>步骤</th>
+<th>说明</th>
+<th>示例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><mark>分词</mark></td>
+<td>切分成最小语义单位，确定模型处理的最小信息单元</td>
+<td>"John likes to watch movies." → <code>["John", "likes", "to", "watch", "movies", "."]</code></td>
+</tr>
+<tr>
+<td>移除停止词</td>
+<td>删除频率极高但携带语义信息极少的词</td>
+<td>英文："the", "a", "is", "at"；中文："的", "了", "在"</td>
+</tr>
+<tr>
+<td>提取词干</td>
+<td>归并单词变体</td>
+<td>running/runs/ran → run</td>
+</tr>
+<tr>
+<td><mark>词袋模型</mark></td>
+<td>统计词频得到向量表示</td>
+<td>"John likes to watch movies." → <code>[1,1,1,1,1,0,0]</code>（词典：<code>{John, likes, to, watch, movies, Mary, too}</code>）</td>
+</tr>
+<tr>
+<td><mark>Embedding</mark></td>
+<td>将每个词映射为稠密向量，整合为矩阵</td>
+<td>One-Hot → 可学习嵌入矩阵</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition warning">
+<p class="admonition-title">词袋模型的重大局限</p>
+<p><strong>丢失语序信息！</strong>
+- "I love you" 的 BoW 向量与 "You love me" 完全一样 → 语义天差地别</p>
+</div>
+<p><strong>变长文本的四种处理方式</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>填充（Padding）</td>
+<td>设定最大长度，短句后面补 0 或 <code>[PAD]</code></td>
+</tr>
+<tr>
+<td>截断（Truncation）</td>
+<td>过长的句子直接裁剪尾部</td>
+</tr>
+<tr>
+<td>池化（Pooling）</td>
+<td>对 Embedding 矩阵做平均/最大池化，压缩为固定长度向量</td>
+</tr>
+<tr>
+<td>RNN / Transformer</td>
+<td><mark>原生支持变长序列</mark>（通过 Masking 技术忽略填充位）</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h3 id="24-bpebyte-pair-encoding">2.4 BPE（Byte Pair Encoding）——当前最主流的分词方法<a class="headerlink" href="#24-bpebyte-pair-encoding" title="Permanent link">¶</a></h3>
+<div class="admonition quote">
+<p class="admonition-title">BPE 的核心定位</p>
+<p><strong>子词（Subword）分词法</strong>，介于 <strong>Word-level</strong> 和 <strong>Character-level</strong> 之间，取两者之长</p>
+</div>
+<h4 id="_7">三种分词粒度对比<a class="headerlink" href="#_7" title="Permanent link">¶</a></h4>
+<table>
+<thead>
+<tr>
+<th>粒度</th>
+<th>优点</th>
+<th>缺点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Word-level</td>
+<td>语义完整</td>
+<td>词表巨大（几十万词）、遇到未登录词（OOV）报 <code>[UNK]</code></td>
+</tr>
+<tr>
+<td>Character-level</td>
+<td>无 OOV，词表小</td>
+<td>序列过长、单个字母缺乏语义</td>
+</tr>
+<tr>
+<td><mark>BPE (Subword)</mark></td>
+<td><mark>解决 OOV、词表可控、高效语义压缩</mark></td>
+<td>实现略复杂</td>
+</tr>
+</tbody>
+</table>
+<h4 id="bpe">BPE 核心逻辑<a class="headerlink" href="#bpe" title="Permanent link">¶</a></h4>
+<blockquote>
+<p><mark>不断合并出现频率最高的相邻字符对</mark></p>
+</blockquote>
+<p><strong>举例</strong>：语料库 "hug" 10次, "pug" 5次, "pun" 12次, "bun" 4次</p>
+<table>
+<thead>
+<tr>
+<th>步骤</th>
+<th>操作</th>
+<th>词表</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>拆分为基础字符</td>
+<td>h, u, g, p, n, b</td>
+</tr>
+<tr>
+<td>2</td>
+<td>统计相邻对频率：u+n 出现 12+4=16 次（最高）</td>
+<td>h, u, g, p, n, b</td>
+</tr>
+<tr>
+<td>3</td>
+<td><strong>合并</strong> u+n → <strong>un</strong></td>
+<td>h, u, g, p, n, b, <strong>un</strong></td>
+</tr>
+<tr>
+<td>4</td>
+<td>统计相邻对：u+g 出现 10+5=15 次</td>
+<td>h, u, g, p, n, b, un</td>
+</tr>
+<tr>
+<td>5</td>
+<td>合并 u+g → <strong>ug</strong></td>
+<td>h, u, g, p, n, b, un, <strong>ug</strong></td>
+</tr>
+<tr>
+<td>6</td>
+<td>继续迭代直到词表大小满足要求</td>
+<td>...</td>
+</tr>
+</tbody>
+</table>
+<p><mark>BPE 的核心优势：即使遇到未见过的词（如 "hugish"），也能分解为已知子词 "hug" + "ish"，彻底解决 OOV 问题</mark></p>
+<hr>
+<h2 id="_8">三、模型构建：正则化与归一化层<a class="headerlink" href="#_8" title="Permanent link">¶</a></h2>
+<h2 id="31-dropout">3.1 Dropout（丢弃层）<a class="headerlink" href="#31-dropout" title="Permanent link">¶</a></h2>
+<blockquote>
+<p>Dropout 是一种缓解神经网络模型<strong>过拟合</strong>的关键技术，其核心思想是在训练过程中随机丢弃神经元及其连接，防止神经元之间产生<strong>过强的共适应</strong>。</p>
+</blockquote>
+<p>共适应（Co-adaptation）</p>
+<p>在深度神经网络中，如果某些神经元总是协同工作，它们可能会产生一种依赖性——一个神经元的权重是为了弥补另一个神经元的错误而存在。这种现象称为 <mark>共适应</mark>，会导致模型过于依赖训练数据的特定组合，产生严重的过拟合。</p>
+<p>公式推导</p>
+<p><strong>常规隐藏层</strong>（第 <span class="arithmatex">\(\ell+1\)</span> 层）：</p>
+<div class="arithmatex">\[
+z^{(\ell+1)} = W^{(\ell+1)} x^{(\ell)} + b^{(\ell+1)}, \quad x^{(\ell+1)} = \sigma^{(\ell+1)}(z^{(\ell+1)})
+\]</div>
+<p><strong>加入 Dropout 后</strong>（第 <span class="arithmatex">\(\ell\)</span> 层）：</p>
+<p><mark>训练时</mark>：</p>
+<p>$$
+\tilde{x}^{(\ell)} = r^{(\ell)} \odot x^{(\ell)}, \quad r_j^{(\ell)} \sim Bernoulli(p)</p>
+<p>z^{(\ell+1)} = W^{(\ell+1)} \tilde{x}^{(\ell)} + b^{(\ell+1)}, \quad x^{(\ell+1)} = \sigma<sup _ell_1_="(\ell+1)">{(\ell+1)}(z</sup>)
+$$</p>
+<p><mark>测试时</mark>（缩放对齐）：</p>
+<div class="arithmatex">\[
+\tilde{x}^{(\ell)} = p \cdot x^{(\ell)}
+\]</div>
+<div class="admonition tip">
+<p class="admonition-title">为什么测试时要缩放？</p>
+<p>训练时只有 p 比例的神经元活跃，期望输出为 <span class="arithmatex">\(p \cdot x\)</span>；测试时<strong>所有神经元都活跃</strong>，输出为 x。
+乘以 p 使测试时的输出范围与训练时对齐，保证训练和测试的一致性。</p>
+</div>
+<p>算例说明（p=0.5）</p>
+<p>假设隐藏层后接 Dropout 层，保留概率 p=0.5：
+- <strong>训练时</strong>：随机丢弃一半神经元，如某神经元输出 14，但以 0.5 概率保留 → 期望输出 7
+- <strong>测试时</strong>：所有神经元输出 x，统一乘以 p=0.5 → 输出 0.5x，与训练时期望对齐</p>
+<p>Dropout 的三大作用</p>
+<ol>
+<li><strong>降低拟合训练集的模型容量</strong> → 减少过拟合</li>
+<li><strong>破坏神经元间的关联性</strong> → 防止共适应</li>
+<li><strong>近似于训练大量不同的"子网络"</strong> → 模型集成（Ensemble）效果</li>
+</ol>
+<p>保留概率 p 对 Test Error 的影响</p>
+<table>
+<thead>
+<tr>
+<th>p</th>
+<th>Test Error</th>
+<th>Training Error</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0.0</td>
+<td>3.2</td>
+<td>2.7</td>
+</tr>
+<tr>
+<td>0.2</td>
+<td>1.8</td>
+<td>0.6</td>
+</tr>
+<tr>
+<td>0.3</td>
+<td>1.2</td>
+<td>0.0</td>
+</tr>
+<tr>
+<td>0.4</td>
+<td>1.1</td>
+<td>0.0</td>
+</tr>
+<tr>
+<td><mark>0.5</mark></td>
+<td><mark>1.1</mark></td>
+<td><mark>0.0</mark></td>
+</tr>
+<tr>
+<td>0.6</td>
+<td>1.1</td>
+<td>0.0</td>
+</tr>
+<tr>
+<td>0.7</td>
+<td>1.1</td>
+<td>0.0</td>
+</tr>
+<tr>
+<td>0.8</td>
+<td>1.1</td>
+<td>0.0</td>
+</tr>
+<tr>
+<td>0.9</td>
+<td>1.3</td>
+<td>0.0</td>
+</tr>
+<tr>
+<td>1.0</td>
+<td>1.7</td>
+<td>0.0</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="admonition-title">观察结论</p>
+<ul>
+<li>p 过小（丢弃太多）→ 欠拟合，训练误差大</li>
+<li>p 过大（接近 1.0）→ 接近无 Dropout，过拟合</li>
+<li><mark>p=0.5 附近通常取得最佳泛化效果</mark></li>
+</ul>
+</div>
+<hr>
+<h3 id="32-batch-normalization-bn">3.2 批归一化（Batch Normalization, BN）<a class="headerlink" href="#32-batch-normalization-bn" title="Permanent link">¶</a></h3>
+<blockquote>
+<p>对每层的激活值进行归一化，减小不同维度或不同样本之间的分布差异，稳定训练、加速收敛。</p>
+</blockquote>
+<h4 id="internal-covariate-shift-ics">内部协变量偏移（Internal Covariate Shift, ICS）<a class="headerlink" href="#internal-covariate-shift-ics" title="Permanent link">¶</a></h4>
+<p>多层感知机第 <span class="arithmatex">\(\ell\)</span> 层梯度：</p>
+<div class="arithmatex">\[
+\frac{\partial \ell(\theta, x, y)}{\partial \theta^{(\ell)}} = \frac{\partial \ell(\theta, x, y)}{\partial z^{(\ell)}} \cdot \frac{\partial z^{(\ell)}}{\partial \theta^{(\ell)}}, \qquad z^{(\ell)} = W^{(\ell)} x^{(\ell-1)} + b^{(\ell)}, \quad \theta^{(\ell)} = (W^{(\ell)}, b^{(\ell)})
+\]</div>
+<p>仅考虑关于 <span class="arithmatex">\(W^{(\ell)}\)</span> 的部分：</p>
+<div class="arithmatex">\[
+\frac{\partial \ell(\theta, x, y)}{\partial W^{(\ell)}} = \frac{\partial \ell(\theta, x, y)}{\partial z^{(\ell)}} \cdot x^{(\ell-1)}
+\]</div>
+<div class="admonition danger">
+<p class="admonition-title">ICS 的问题</p>
+<ul>
+<li><strong>前层参数改变</strong> → 后层神经元输入分布发生变化</li>
+<li>后层需不断适应新的输入分布 → 训练速度变慢</li>
+<li>网络层数增加会<strong>加剧</strong>这种影响 → 梯度爆炸/消失 → 训练不稳定</li>
+</ul>
+</div>
+<h4 id="bn">BN 训练公式<a class="headerlink" href="#bn" title="Permanent link">¶</a></h4>
+<p>考虑小批量 <span class="arithmatex">\(\{x_1, \ldots, x_m\}\)</span>：</p>
+<p><strong>Step 1</strong>：计算小批量均值和方差</p>
+<div class="arithmatex">\[
+\mu_m = \frac{1}{m} \sum_{i=1}^m x_i, \quad \sigma_m^2 = \frac{1}{m} \sum_{i=1}^m (x_i - \mu_m)^2
+\]</div>
+<p><strong>Step 2</strong>：归一化（含 <span class="arithmatex">\(\epsilon\)</span> 防止除零）</p>
+<div class="arithmatex">\[
+\hat{x}_i = \frac{x_i - \mu_m}{\sqrt{\sigma_m^2 + \epsilon}}
+\]</div>
+<p><strong>Step 3</strong>：可学习的线性变换（<mark>恢复表达能力</mark>）</p>
+<div class="arithmatex">\[
+y_i = \gamma \hat{x}_i + \beta \equiv BN_{\gamma,\beta}(x_i)
+\]</div>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<ul>
+<li><span class="arithmatex">\(\gamma, \beta\)</span> 是<strong>可学习参数</strong></li>
+<li>归一化削弱了非线性激活函数的表达能力 → <span class="arithmatex">\(\gamma, \beta\)</span> 可学习到最佳缩放和偏移</li>
+</ul>
+</div>
+<h4 id="bn_1">BN 反向传播推导<a class="headerlink" href="#bn_1" title="Permanent link">¶</a></h4>
+<p>需计算 <span class="arithmatex">\(\partial \ell / \partial x_i, \partial \ell / \partial \gamma, \partial \ell / \partial \beta\)</span>。</p>
+<p>链式法则：三条路径影响 <span class="arithmatex">\(x_i\)</span></p>
+<ol>
+<li><span class="arithmatex">\(x_i \to \hat{x}_i \to \ell(\cdot)\)</span></li>
+<li><span class="arithmatex">\(x_i \to \mu_m \to \ell(\cdot)\)</span></li>
+<li><span class="arithmatex">\(x_i \to \sigma_m^2 \to \ell(\cdot)\)</span></li>
+</ol>
+<p><strong>中间变量梯度</strong>：</p>
+<div class="arithmatex">\[
+\frac{\partial \ell}{\partial \hat{x}_i} = \frac{\partial \ell}{\partial y_i} \cdot \gamma
+\]</div>
+<div class="arithmatex">\[
+\frac{\partial \ell}{\partial \sigma_m^2} = \sum_{i=1}^m \frac{\partial \ell}{\partial \hat{x}_i} (x_i - \mu_m) \cdot \frac{-1}{2} (\sigma_m^2 + \epsilon)^{-3/2}
+\]</div>
+<div class="arithmatex">\[
+\frac{\partial \ell}{\partial \mu_m} = \sum_{i=1}^m \frac{\partial \ell}{\partial \hat{x}_i} \cdot \frac{-1}{\sqrt{\sigma_m^2 + \epsilon}} + \frac{\partial \ell}{\partial \sigma_m^2} \cdot \frac{\sum_{i=1}^m -2 (x_i - \mu_m)}{m}
+\]</div>
+<p><strong>最终梯度</strong>（三条路径求和）：</p>
+<div class="arithmatex">\[
+\frac{\partial \ell}{\partial x_i} = \frac{\partial \ell}{\partial \hat{x}_i} \cdot \frac{1}{\sqrt{\sigma_m^2 + \epsilon}} + \frac{\partial \ell}{\partial \sigma_m^2} \cdot \frac{2(x_i - \mu_m)}{m} + \frac{\partial \ell}{\partial \mu_m} \cdot \frac{1}{m}
+\]</div>
+<p><strong>对 <span class="arithmatex">\(\gamma, \beta\)</span> 的梯度</strong>：</p>
+<div class="arithmatex">\[
+\frac{\partial \ell}{\partial \gamma} = \sum_{i=1}^m \frac{\partial \ell}{\partial y_i} \cdot \hat{x}_i, \qquad \frac{\partial \ell}{\partial \beta} = \sum_{i=1}^m \frac{\partial \ell}{\partial y_i}
+\]</div>
+<h4 id="bn_2">BN 测试阶段<a class="headerlink" href="#bn_2" title="Permanent link">¶</a></h4>
+<p>训练时累积的全局统计量（滑动平均）：</p>
+<ul>
+<li>均值：<span class="arithmatex">\(E[x] = \mathbb{E}_m[\mu_m]\)</span></li>
+<li>方差：<span class="arithmatex">\(\text{Var}[x] = \frac{m}{m-1} \mathbb{E}_m[\sigma_m^2]\)</span>（无偏估计）</li>
+</ul>
+<p><strong>测试时 BN 层输出</strong>（线性变换形式）：</p>
+<div class="arithmatex">\[
+y = \frac{\gamma}{\sqrt{Var[x] + \epsilon}} \cdot x + \left(\beta - \frac{\gamma E[x]}{\sqrt{Var[x] + \epsilon}}\right)
+\]</div>
+<div class="admonition warning">
+<p class="admonition-title">小批量问题</p>
+<p>批大小 m 太小时，<span class="arithmatex">\(\mu_m, \sigma_m^2\)</span> 估计不准确 → BN 效果变差 → 此时应考虑 Group Norm</p>
+</div>
+<h4 id="bn_3">BN 到底在做什么？<a class="headerlink" href="#bn_3" title="Permanent link">¶</a></h4>
+<div class="admonition question">
+<p class="admonition-title">BN 缓解了 ICS 吗？</p>
+<p>实验表明：向已使用 BN 的网络<strong>加入随机噪声</strong>（使 ICS 更严重），其性能<strong>依然优于</strong>未使用 BN 的网络。
+→ <mark>BN 和 ICS 的关系并不大</mark></p>
+</div>
+<p><strong>更可能的解释——损失面平滑化</strong>：</p>
+<p>BN 使损失函数满足 <strong>Lipschitz 平滑</strong>——即函数值和梯度的变化均有上界：</p>
+<p>函数 Lipschitz 连续：</p>
+<div class="arithmatex">\[
+\|f(x_1) - f(x_2)\| \leq L \|x_1 - x_2\|
+\]</div>
+<p>梯度 Lipschitz 连续（<span class="arithmatex">\(\beta-\)</span>平滑）：</p>
+<div class="arithmatex">\[
+\|\nabla f(x_1) - \nabla f(x_2)\| \leq \beta \|x_1 - x_2\|
+\]</div>
+<div class="admonition success">
+<p class="admonition-title">平滑的意义</p>
+<ul>
+<li><strong>平滑的损失面</strong> → 可以使用<strong>更大的学习率</strong></li>
+<li>更大学习率 → <strong>更快收敛</strong></li>
+<li>对比 ResNet：有 Skip Connection 的损失面明显比无 Skip Connection 的平坦</li>
+</ul>
+</div>
+<hr>
+<h2 id="33-layer-normalization-ln">3.3 层归一化（Layer Normalization, LN）<a class="headerlink" href="#33-layer-normalization-ln" title="Permanent link">¶</a></h2>
+<blockquote>
+<p>对某层<strong>所有神经元</strong>的输入进行归一化（跨特征维度）</p>
+</blockquote>
+<p>令 <span class="arithmatex">\(x = (x_1, x_2, \ldots, x_d) \in\)</span> <span class="arithmatex">\(\mathbb{R}\)</span>^d 表示某层加权求和输入：</p>
+<p>$$
+\mu = \frac{1}{d} \sum_{i=1}^d x_i, \quad \sigma^2 = \frac{1}{d} \sum_{i=1}^d (x_i - \mu)^2</p>
+<p>\hat{x}<em _gamma_beta="\gamma,\beta">i = \frac{x_i - \mu}{\sqrt{\sigma^2 + \epsilon}}, \quad y_i = \gamma \hat{x}_i + \beta \equiv LN</em>(x_i)
+$$</p>
+<div class="admonition check">
+<p class="admonition-title">LN 的核心优势</p>
+<p><mark>适用于任意批大小！</mark>
+- 不依赖 batch 维度，每个样本独立计算均值和方差
+- <strong>Transformer 首选归一化方法</strong></p>
+</div>
+<hr>
+<h3 id="34-instance-normalization-in">3.4 实例归一化（Instance Normalization, IN）<a class="headerlink" href="#34-instance-normalization-in" title="Permanent link">¶</a></h3>
+<p>考虑输入 <span class="arithmatex">\(x \in \mathbb{R}^{N \times C \times H \times W}\)</span>（N个图片，C个通道，H×W大小）：</p>
+<p><strong>对每个样本 n、每个通道 c</strong>，在 <span class="arithmatex">\(H×W\)</span> 上归一化：</p>
+<div class="arithmatex">\[
+\mu_{nc} = \frac{1}{HW} \sum_{w=1}^W \sum_{h=1}^H x_{nchw}
+\]</div>
+<div class="arithmatex">\[
+\sigma_{nc}^2 = \frac{1}{HW} \sum_{w=1}^W \sum_{h=1}^H (x_{nchw} - \mu_{nc})^2
+\]</div>
+<div class="arithmatex">\[
+\hat{x}_{nchw} = \frac{x_{nchw} - \mu_{nc}}{\sqrt{\sigma_{nc}^2 + \epsilon}}, \quad y_{nchw} = \gamma \hat{x}_{nchw} + \beta \equiv IN_{\gamma,\beta}(x_{nchw})
+\]</div>
+<div class="admonition tip">
+<p class="admonition-title">IN 的典型应用</p>
+<p><mark>多用于图像风格迁移</mark>
+- IN 有助于<strong>消除内容图的原风格</strong>，保留语义内容
+- BN 会进一步<strong>混淆不同样本</strong>（跨样本归一化）
+- LN 会进一步<strong>混淆不同通道</strong>（跨通道归一化）</p>
+</div>
+<hr>
+<h2 id="35-group-normalization-gn">3.5 组归一化（Group Normalization, GN）<a class="headerlink" href="#35-group-normalization-gn" title="Permanent link">¶</a></h2>
+<blockquote>
+<p>介于 LN 和 IN 之间：将特征通道等分为 G 组，对每组通道的 H×W 区域归一化</p>
+</blockquote>
+<ul>
+<li>输入 <span class="arithmatex">\(x \in\)</span> <span class="arithmatex">\(\mathbb{R} ^{N \times C \times H \times W}\)</span></li>
+<li>将 C 个通道分为 G 组，每组 <span class="arithmatex">\(\frac{C}{G}\)</span> 个通道</li>
+<li>对每个样本 n、每组 g，在 <span class="arithmatex">\(\frac{C}{G} \times H \times W\)</span> 上归一化</li>
+</ul>
+<hr>
+<h3 id="36">3.6 四种归一化方法对比<a class="headerlink" href="#36" title="Permanent link">¶</a></h3>
+<h4 id="_9">归一化维度对比图<a class="headerlink" href="#_9" title="Permanent link">¶</a></h4>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>归一化维度</th>
+<th>缩写</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Batch Norm</strong></td>
+<td>跨 <span class="arithmatex">\(N \times H \times W\)</span>，每个通道独立</td>
+<td>BN</td>
+</tr>
+<tr>
+<td><strong>Layer Norm</strong></td>
+<td>跨 <span class="arithmatex">\(C \times H \times W\)</span>，每个样本独立</td>
+<td>LN</td>
+</tr>
+<tr>
+<td><strong>Instance Norm</strong></td>
+<td>跨 <span class="arithmatex">\(H \times W\)</span>，每个样本每个通道独立</td>
+<td>IN</td>
+</tr>
+<tr>
+<td><strong>Group Norm</strong></td>
+<td>跨每组 <span class="arithmatex">\(C/G \times H \times W\)</span>，每个样本每组独立</td>
+<td>GN</td>
+</tr>
+</tbody>
+</table>
+<h4 id="_10">核心特点对比<a class="headerlink" href="#_10" title="Permanent link">¶</a></h4>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>归一化范围</th>
+<th>适用场景</th>
+<th style="text-align: center;">对批大小敏感？</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><mark>Batch Norm</mark></td>
+<td>每个通道，跨样本N和空间<span class="arithmatex">\(H\times W\)</span></td>
+<td>大 batch 训练（CV 主流）</td>
+<td style="text-align: center;"><mark>是</mark></td>
+</tr>
+<tr>
+<td><mark>Layer Norm</mark></td>
+<td>每个样本，跨通道C和空间<span class="arithmatex">\(H\times W\)</span></td>
+<td>Transformer, RNN（NLP 主流）</td>
+<td style="text-align: center;"><strong>否</strong></td>
+</tr>
+<tr>
+<td><mark>Instance Norm</mark></td>
+<td>每个样本每个通道，跨空间<span class="arithmatex">\(H\times W\)</span></td>
+<td>图像风格迁移</td>
+<td style="text-align: center;">否</td>
+</tr>
+<tr>
+<td><mark>Group Norm</mark></td>
+<td>每组通道，跨空间 <span class="arithmatex">\(H \times W\)</span></td>
+<td>小 batch 替代 BN</td>
+<td style="text-align: center;">否</td>
+</tr>
+</tbody>
+</table>
+<h4 id="imagenet-32">ImageNet 验证集误差对比（批大小 32）<a class="headerlink" href="#imagenet-32" title="Permanent link">¶</a></h4>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">Epoch</th>
+<th style="text-align: center;">BN</th>
+<th style="text-align: center;">LN</th>
+<th style="text-align: center;">IN</th>
+<th style="text-align: center;">GN</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">60.0</td>
+<td style="text-align: center;">60.0</td>
+<td style="text-align: center;">60.0</td>
+<td style="text-align: center;">60.0</td>
+</tr>
+<tr>
+<td style="text-align: center;">20</td>
+<td style="text-align: center;">52.0</td>
+<td style="text-align: center;">53.0</td>
+<td style="text-align: center;">54.0</td>
+<td style="text-align: center;">51.0</td>
+</tr>
+<tr>
+<td style="text-align: center;">40</td>
+<td style="text-align: center;">34.0</td>
+<td style="text-align: center;">35.0</td>
+<td style="text-align: center;">36.0</td>
+<td style="text-align: center;">33.0</td>
+</tr>
+<tr>
+<td style="text-align: center;">60</td>
+<td style="text-align: center;">28.0</td>
+<td style="text-align: center;">29.0</td>
+<td style="text-align: center;">30.0</td>
+<td style="text-align: center;">27.0</td>
+</tr>
+<tr>
+<td style="text-align: center;">80</td>
+<td style="text-align: center;">24.0</td>
+<td style="text-align: center;">25.0</td>
+<td style="text-align: center;">26.0</td>
+<td style="text-align: center;">23.0</td>
+</tr>
+<tr>
+<td style="text-align: center;">100</td>
+<td style="text-align: center;">22.0</td>
+<td style="text-align: center;">23.0</td>
+<td style="text-align: center;">24.0</td>
+<td style="text-align: center;"><strong>21.0</strong></td>
+</tr>
+</tbody>
+</table>
+<p><mark>批大小 32 时，GN 表现最优！</mark></p>
+<h4 id="bn-vs-gn">不同批大小下 BN vs GN 对比<a class="headerlink" href="#bn-vs-gn" title="Permanent link">¶</a></h4>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">Batch Size</th>
+<th style="text-align: center;">BN (Error %)</th>
+<th style="text-align: center;">GN (Error %)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">32</td>
+<td style="text-align: center;">23.5</td>
+<td style="text-align: center;"><strong>24.0</strong></td>
+</tr>
+<tr>
+<td style="text-align: center;">16</td>
+<td style="text-align: center;">23.5</td>
+<td style="text-align: center;"><strong>24.0</strong></td>
+</tr>
+<tr>
+<td style="text-align: center;">8</td>
+<td style="text-align: center;">25.0</td>
+<td style="text-align: center;"><strong>24.0</strong></td>
+</tr>
+<tr>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">27.0</td>
+<td style="text-align: center;"><strong>24.0</strong></td>
+</tr>
+<tr>
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">35.0</td>
+<td style="text-align: center;"><strong>24.0</strong></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition success">
+<p class="admonition-title">关键结论</p>
+<ul>
+<li><strong>大 batch</strong> (32) → BN 和 GN 不相上下</li>
+<li><mark><strong>小 batch</strong> (≤8) → GN 显著优于 BN！</mark></li>
+<li>GN 在批大小变化时<strong>性能稳定</strong>，BN 随批大小减小急剧恶化</li>
+</ul>
+</div>
+<h4 id="_11">选择指南<a class="headerlink" href="#_11" title="Permanent link">¶</a></h4>
+<pre class="mermaid"><code>graph TD
+    A[选择归一化方法] --&gt; B{批大小足够大?}
+    B --&gt;|是| C[BN - 大batch CV首选]
+    B --&gt;|否| D[GN - 小batch最佳替代]
+    A --&gt; E{模型类型}
+    E --&gt;|Transformer / RNN| F[LN - NLP主流]
+    E --&gt;|风格迁移| G[IN - 消除原风格]
+    E --&gt;|其他| C</code></pre>
+<div class="admonition tip">
+<p class="admonition-title">快捷记忆</p>
+<ul>
+<li>大 batch → <strong>B</strong>N</li>
+<li>Transformer → <strong>L</strong>N</li>
+<li>风格迁移 → <strong>I</strong>N</li>
+<li>小 batch → <strong>G</strong>N</li>
+</ul>
+</div>
+<hr>
+<h2 id="37">3.7 参数初始化<a class="headerlink" href="#37" title="Permanent link">¶</a></h2>
+<blockquote>
+<p>一个好的模型参数初始化对于大多数优化算法的收敛起到关键作用，尤其是神经网络模型所面临的<strong>非凸目标函数</strong>。</p>
+</blockquote>
+<p>为什么不能全 0 初始化？</p>
+<p>若初始化 <span class="arithmatex">\(w_{11}=w_{12}=w_{21}=w_{22}=w_{31}=w_{32}=0\)</span>：</p>
+<pre class="mermaid"><code>graph LR
+    x1 --&gt;|w11| h1
+    x1 --&gt;|w12| h2
+    x2 --&gt;|w21| h1
+    x2 --&gt;|w22| h2
+    h1 --&gt;|w31| y
+    h2 --&gt;|w32| y</code></pre>
+<blockquote>
+<p>回传梯度相等：<span class="arithmatex">\(W_{11}=W_{21}, W_{12}=W_{22}, W_{31}=W_{32}\)</span>
+→ <mark>对称权重问题</mark>：同一层神经元参数完全相同，等价于该层只有一个神经元！</p>
+</blockquote>
+<p>小随机数初始化的方差传播</p>
+<p>对于线性层 <span class="arithmatex">\(z^{(\ell)} = W^{(\ell)} x^{(\ell-1)}\)</span>：</p>
+<p>假设 <span class="arithmatex">\(x_j^{(\ell-1)}\)</span> 和 <span class="arithmatex">\(W_{ij}^{(\ell)}\)</span> 均独立同分布，均值为 0，方差分别为 <span class="arithmatex">\(\sigma_x^{(\ell-1)2}, \sigma_W^{(\ell)2}\)</span>：</p>
+<div class="arithmatex">\[
+Var[z_i^{(\ell)}] = n_{\ell-1} \sigma_W^{(\ell)2} \sigma_x^{(\ell-1)2}
+\]</div>
+<p><strong>tanh 激活函数</strong>（近似线性：<span class="arithmatex">\(\tanh(z) \approx z\)</span>）：</p>
+<div class="arithmatex">\[
+\sigma_x^{(\ell)2} \approx n_{\ell-1} \sigma_W^{(\ell)2} \sigma_x^{(\ell-1)2}
+\]</div>
+<p><strong>ReLU 激活函数</strong>（<span class="arithmatex">\(\text{ReLU}(z)=\max(0,z)\)</span>，一半梯度被置零）：</p>
+<div class="arithmatex">\[
+\sigma_x^{(\ell)2} \approx \frac{1}{2} n_{\ell-1} \sigma_W^{(\ell)2} \sigma_x^{(\ell-1)2}
+\]</div>
+<div class="admonition warning">
+<p class="admonition-title">方差失稳</p>
+<ul>
+<li>初始化<strong>过大</strong> → 激活值逐层爆炸 → <strong>梯度爆炸</strong></li>
+<li>初始化<strong>过小</strong> → 激活值逐层衰减到 0 → <strong>梯度消失</strong></li>
+<li>50 层网络，<span class="arithmatex">\(\sigma=0.01\)</span> 高斯初始化 → 层层激活值逐渐趋向 0</li>
+</ul>
+</div>
+<p>Xavier 初始化（针对 tanh / 对称激活函数）</p>
+<p>同时控制前向和反向传播的方差：</p>
+<div class="arithmatex">\[
+\sigma_W^{(\ell)2} = \frac{2}{n_\ell + n_{\ell-1}}
+\]</div>
+<table>
+<thead>
+<tr>
+<th>分布</th>
+<th>参数</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>均匀分布 <span class="arithmatex">\(U[-r, r]\)</span></td>
+<td><span class="arithmatex">\(\displaystyle r = \sqrt{\frac{6}{n_\ell + n_{\ell-1}}}\)</span></td>
+</tr>
+<tr>
+<td>高斯分布 <span class="arithmatex">\(\mathcal{N}(0, \sigma^2)\)</span></td>
+<td><span class="arithmatex">\(\displaystyle \sigma^2 = \frac{2}{n_\ell + n_{\ell-1}}\)</span></td>
+</tr>
+</tbody>
+</table>
+<p>考虑 ReLU 使方差减半的特性：</p>
+<div class="arithmatex">\[
+\sigma_W^{(\ell)2} = \frac{2}{n_{\ell-1}}
+\]</div>
+<table>
+<thead>
+<tr>
+<th>分布</th>
+<th>参数</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>均匀分布 <span class="arithmatex">\(U[-r, r]\)</span></td>
+<td><span class="arithmatex">\(\displaystyle r = \sqrt{\frac{6}{n_{\ell-1}}}\)</span></td>
+</tr>
+<tr>
+<td>高斯分布 <span class="arithmatex">\(\mathcal{N}(0, \sigma^2)\)</span></td>
+<td><span class="arithmatex">\(\displaystyle \sigma^2 = \frac{2}{n_{\ell-1}}\)</span></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition success">
+<p class="admonition-title">He 初始化后的效果</p>
+<p>合理控制方差后，即使 50 层网络，各层激活值<strong>仍远大于 0</strong>，梯度可正常传播</p>
+</div>
+<h4 id="_12">初始化方法总结<a class="headerlink" href="#_12" title="Permanent link">¶</a></h4>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>适用激活函数</th>
+<th>核心思想</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>小随机数</td>
+<td>通用</td>
+<td>从 <span class="arithmatex">\(\mathcal{N}(0,0.01)\)</span> 采样，但层深时失效</td>
+</tr>
+<tr>
+<td><mark>Xavier</mark></td>
+<td><mark>tanh / sigmoid</mark></td>
+<td>保持前向和反向方差一致</td>
+</tr>
+<tr>
+<td><mark>He</mark></td>
+<td><mark>ReLU</mark></td>
+<td>考虑 ReLU 半波整流特性</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="_13">四、训练与优化<a class="headerlink" href="#_13" title="Permanent link">¶</a></h2>
+<h3 id="41">4.1 优化器族谱<a class="headerlink" href="#41" title="Permanent link">¶</a></h3>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-1-1">1</a></span>
+<span class="normal"><a href="#__codelineno-1-2">2</a></span>
+<span class="normal"><a href="#__codelineno-1-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1"></a>SGD → Momentum → AdaGrad → RMSProp → Adam → AdamW
+<a id="__codelineno-1-2" name="__codelineno-1-2"></a>                                    ↓
+<a id="__codelineno-1-3" name="__codelineno-1-3"></a>                                 AMSGrad
+</code></pre></div></td></tr></table></div>
+<h3 id="42">4.2 各优化器详解<a class="headerlink" href="#42" title="Permanent link">¶</a></h3>
+<h4 id="1sgd">（1）SGD（随机梯度下降）<a class="headerlink" href="#1sgd" title="Permanent link">¶</a></h4>
+<div class="arithmatex">\[
+g_t = \frac{1}{m} \sum_{(x_i, y_i) \in \mathcal{D}_m} \nabla \ell(\theta, x_i, y_i), \quad \theta_{t+1} = \theta_t - \eta_t g_t
+\]</div>
+<p><strong>SGD 的两大问题</strong>：</p>
+<div class="admonition bug">
+<p class="admonition-title">问题 1 —— 所有参数共享同一学习率</p>
+<ul>
+<li>不同层梯度量级可能差几个数量级 → 统一学习率难以适配</li>
+<li>稀疏特征更新次数少 → 学习率太小更新慢，太大易过调</li>
+</ul>
+</div>
+<div class="admonition bug">
+<p class="admonition-title">问题 2 —— 随机梯度方差大</p>
+<ul>
+<li>mini-batch 梯度是真实梯度的<strong>有噪声估计</strong></li>
+<li>噪声大 → 更新方向不稳定 → 损失曲线震荡严重</li>
+<li>往往需用小学习率 → 又减慢收敛</li>
+</ul>
+</div>
+<p><strong>学习率选择</strong>：
+- <strong>非平滑函数</strong>：<span class="arithmatex">\(\eta_t = O(1/\sqrt{t})\)</span>，梯度剧变需衰减以避免震荡
+- <strong>平滑函数</strong>：<span class="arithmatex">\(\eta_t = a\)</span> 常数即可，梯度变化有界</p>
+<h4 id="2momentum">（2）Momentum（动量法）<a class="headerlink" href="#2momentum" title="Permanent link">¶</a></h4>
+<blockquote>
+<p>保留部分之前的更新方向，平滑梯度，加速收敛</p>
+</blockquote>
+<div class="arithmatex">\[
+m_t = \beta m_{t-1} + (1-\beta) g_t, \quad \theta_{t+1} = \theta_t - \eta_t m_t
+\]</div>
+<ul>
+<li><span class="arithmatex">\(\beta &gt; 0\)</span>：动量衰减系数</li>
+<li><span class="arithmatex">\(m_t \approx \mathbb{E}_t[g_t]\)</span>：对历史梯度加权平均，<strong>相对更稳定</strong></li>
+<li><strong>仍面临 SGD 的学习率问题</strong></li>
+</ul>
+<h4 id="3adagrad">（3）AdaGrad（自适应梯度）<a class="headerlink" href="#3adagrad" title="Permanent link">¶</a></h4>
+<blockquote>
+<p>针对<strong>不同参数</strong>分配<strong>自适应学习率</strong></p>
+</blockquote>
+<div class="arithmatex">\[
+g_t = \frac{1}{m} \sum \nabla \ell(\theta, x_i, y_i)
+\]</div>
+<div class="arithmatex">\[
+v_t = v_{t-1} + g_t \odot g_t \quad (累计梯度平方)
+\]</div>
+<div class="arithmatex">\[
+\theta_{t+1} = \theta_t - \frac{\eta}{\sqrt{v_t} + \delta} g_t
+\]</div>
+<p><strong>核心思想</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th style="text-align: center;">历史梯度大（频繁更新）</th>
+<th style="text-align: center;">历史梯度小（稀疏更新）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><span class="arithmatex">\(v_t\)</span></td>
+<td style="text-align: center;">大</td>
+<td style="text-align: center;">小</td>
+</tr>
+<tr>
+<td>学习率 <span class="arithmatex">\(\eta/\sqrt{v_t}\)</span></td>
+<td style="text-align: center;"><strong>小</strong>（自动降低）</td>
+<td style="text-align: center;"><strong>大</strong>（快速调整）</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition success">
+<p class="admonition-title">AdaGrad 优势</p>
+<p>无需手动调整每个参数的学习率，对<strong>稀疏数据</strong>（NLP、推荐系统）表现优异</p>
+</div>
+<div class="admonition failure">
+<p class="admonition-title">AdaGrad 局限</p>
+<p><mark>v_t 单调递增 → 学习率持续单调下降 → 可能过早变为 0，模型停止学习</mark></p>
+</div>
+<h4 id="4rmsprop">（4）RMSProp（均方根传递）<a class="headerlink" href="#4rmsprop" title="Permanent link">¶</a></h4>
+<blockquote>
+<p>用<strong>指数移动平均</strong>替代 AdaGrad 的累加，解决学习率单调递减问题</p>
+</blockquote>
+<div class="arithmatex">\[
+v_t = \beta v_{t-1} + (1-\beta) g_t \odot g_t, \quad \theta_{t+1} = \theta_t - \frac{\eta}{\sqrt{v_t} + \delta} g_t
+\]</div>
+<ul>
+<li><span class="arithmatex">\(\beta\)</span>：衰减系数（通常 0.9）</li>
+<li>近期梯度影响更大，历史梯度逐渐被遗忘</li>
+<li><mark>学习率不再单调递减！</mark></li>
+</ul>
+<h4 id="5adamadaptive-moment-estimation">（5）Adam（Adaptive Moment Estimation）—— 最常用优化器<a class="headerlink" href="#5adamadaptive-moment-estimation" title="Permanent link">¶</a></h4>
+<blockquote>
+<p><mark>结合 Momentum（一阶动量） + RMSProp（二阶动量） + 去偏修正</mark></p>
+</blockquote>
+<div class="arithmatex">\[
+m_t = \beta_{1,t} m_{t-1} + (1-\beta_{1,t}) g_t, \quad \hat{m}_t = m_t / (1-\beta_1^t)
+\]</div>
+<div class="arithmatex">\[
+v_t = \beta_2 v_{t-1} + (1-\beta_2) g_t \odot g_t, \quad \hat{v}_t = v_t / (1-\beta_2^t)
+\]</div>
+<div class="arithmatex">\[
+\theta_{t+1} = \theta_t - \frac{\eta_t}{\sqrt{\hat{v}_t} + \delta} \hat{m}_t
+\]</div>
+<div class="admonition info">
+<p class="admonition-title">Adam 推荐参数</p>
+<ul>
+<li><span class="arithmatex">\(\beta_1\)</span> = 0.9（一阶动量衰减）</li>
+<li><span class="arithmatex">\(\beta_2\)</span> = 0.999（二阶动量衰减）</li>
+<li><span class="arithmatex">\(\delta\)</span> = 10^{-8}（防除零）</li>
+</ul>
+</div>
+<p><strong>去偏修正</strong>原因：<span class="arithmatex">\(m_0=0, v_0=0\)</span> 导致 <span class="arithmatex">\(m_t, v_t\)</span> 在初始时刻偏向 <span class="arithmatex">\(0 →\)</span> 除以 <span class="arithmatex">\((1-\beta^t)v\)</span>修正</p>
+<h4 id="6amsgrad">（6）AMSGrad<a class="headerlink" href="#6amsgrad" title="Permanent link">¶</a></h4>
+<blockquote>
+<p>Adam 的改进——解决 \hat{v}_t 不一定单调递增的问题</p>
+</blockquote>
+<div class="arithmatex">\[
+v_t = \beta_2 v_{t-1} + (1-\beta_2) g_t \odot g_t
+\]</div>
+<div class="arithmatex">\[
+\hat{v}_t = \max(\hat{v}_{t-1}, v_t) \quad (历史最大二阶矩)
+\]</div>
+<div class="arithmatex">\[
+\theta_{t+1} = \theta_t - \frac{\eta_t}{\sqrt{\hat{v}_t} + \delta} m_t
+\]</div>
+<ul>
+<li>有效学习率 <span class="arithmatex">\(\eta_t / \sqrt{\hat{v}_t}\)</span> <strong>严格单调递减</strong> → 收敛理论正确</li>
+<li>Kingma &amp; Ba 的 Adam 原文理论分析存在错误（<span class="arithmatex">\(\hat{v}_t\)</span> 不保证单调）</li>
+</ul>
+<h4 id="7adamwadam">（7）AdamW（Adam + 权重衰减）<a class="headerlink" href="#7adamwadam" title="Permanent link">¶</a></h4>
+<p><strong>权重衰减（Weight Decay）</strong>：除执行优化器更新外，以 (1-\lambda) 比例调低权重：</p>
+<div class="arithmatex">\[
+\theta_{t+1} = (1-\lambda) \theta_t + \Delta_t
+\]</div>
+<ul>
+<li>与 SGD 结合（<span class="arithmatex">\(\Delta_t = -\eta_t g_t\)</span>）：<span class="arithmatex">\(\theta_{t+1} = (1-\lambda)\theta_t - \eta_t g_t\)</span></li>
+<li>当 <span class="arithmatex">\(\eta_t = \eta\)</span> 常数时，等价于 L2 正则化</li>
+</ul>
+<p><strong>AdamW</strong>：</p>
+<div class="arithmatex">\[
+\theta_{t+1} = (1-\lambda) \theta_t - \frac{\eta_t}{\sqrt{\hat{v}_t} + \delta} \hat{m}_t
+\]</div>
+<div class="admonition check">
+<p class="admonition-title">AdamW vs Adam + L2 正则</p>
+<ul>
+<li>Adam + L2 正则：权重衰减融入到梯度中，与自适应学习率耦合</li>
+<li><strong>AdamW</strong>：<mark>权重衰减与自适应学习率解耦</mark>，实践中更优</li>
+</ul>
+</div>
+<h4 id="_14">优化器总结<a class="headerlink" href="#_14" title="Permanent link">¶</a></h4>
+<table>
+<thead>
+<tr>
+<th>优化器</th>
+<th>核心思想</th>
+<th style="text-align: center;">去偏</th>
+<th>适用场景</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SGD</td>
+<td>朴素随机梯度下降</td>
+<td style="text-align: center;">-</td>
+<td>基础</td>
+</tr>
+<tr>
+<td>Momentum</td>
+<td>一阶动量（平滑梯度）</td>
+<td style="text-align: center;">-</td>
+<td>加速 SGD</td>
+</tr>
+<tr>
+<td>AdaGrad</td>
+<td>累计梯度平方 → 自适应 lr</td>
+<td style="text-align: center;">-</td>
+<td>稀疏数据</td>
+</tr>
+<tr>
+<td>RMSProp</td>
+<td>指数移动平均梯度平方</td>
+<td style="text-align: center;">-</td>
+<td>非平稳目标</td>
+</tr>
+<tr>
+<td><mark>Adam</mark></td>
+<td>Momentum + RMSProp + 去偏</td>
+<td style="text-align: center;">是</td>
+<td><strong>通用首选</strong></td>
+</tr>
+<tr>
+<td>AMSGrad</td>
+<td>Adam + 最大二阶矩</td>
+<td style="text-align: center;">是</td>
+<td>理论修正</td>
+</tr>
+<tr>
+<td>AdamW</td>
+<td>Adam + 解耦权重衰减</td>
+<td style="text-align: center;">是</td>
+<td>预训练大模型</td>
+</tr>
+</tbody>
+</table>
+<h3 id="43">4.3 学习率调度技巧<a class="headerlink" href="#43" title="Permanent link">¶</a></h3>
+<h4 id="_15">学习率衰减<a class="headerlink" href="#_15" title="Permanent link">¶</a></h4>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>公式</th>
+<th>特点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>分段衰减</td>
+<td>每 N 步减半</td>
+<td>简单直观</td>
+</tr>
+<tr>
+<td>逆时衰减</td>
+<td><span class="arithmatex">\(\eta_t = \eta_0 / (1 + \beta t)\)</span></td>
+<td>平滑递减</td>
+</tr>
+<tr>
+<td>指数衰减</td>
+<td><span class="arithmatex">\(\eta_t = \eta_0 \beta^t\)</span></td>
+<td>快速下降</td>
+</tr>
+<tr>
+<td>自然指数衰减</td>
+<td><span class="arithmatex">\(\eta_t = \eta_0 e^{-\beta t}\)</span></td>
+<td>连续平滑</td>
+</tr>
+<tr>
+<td><mark>余弦衰减</mark></td>
+<td><span class="arithmatex">\(\displaystyle \eta_t = \frac{1}{2}\eta_0 \left(1 + \cos\frac{t\pi}{T}\right)\)</span></td>
+<td><strong>大模型训练主流</strong></td>
+</tr>
+</tbody>
+</table>
+<h4 id="warmup">预热（Warmup）<a class="headerlink" href="#warmup" title="Permanent link">¶</a></h4>
+<blockquote>
+<p>训练初期使用逐渐增大的学习率，避免模型参数剧烈震荡</p>
+</blockquote>
+<p>设定预热步数 T，前 <span class="arithmatex">\(t \in [1, T]\)</span> 步：</p>
+<div class="arithmatex">\[
+\eta_t = \frac{t}{T} \eta_0
+\]</div>
+<p>预热结束后，再执行正常的学习率衰减策略。</p>
+<h4 id="cyclical-learning-rate-clr">周期性学习率（Cyclical Learning Rate, CLR）<a class="headerlink" href="#cyclical-learning-rate-clr" title="Permanent link">¶</a></h4>
+<blockquote>
+<p>周期性地在 <span class="arithmatex">\([\eta_{\min}, \eta_{\max}]\)</span> 之间变化，帮助逃离局部最优/鞍点</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>变体</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Triangular</td>
+<td>线性增减，振幅不变</td>
+</tr>
+<tr>
+<td>Triangular2</td>
+<td>线性增减，振幅逐周期减半</td>
+</tr>
+<tr>
+<td>Exp Range</td>
+<td>指数衰减的振幅</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition success">
+<p class="admonition-title">CLR 的优势</p>
+<ul>
+<li>普通学习率容易陷入局部极值</li>
+<li>CLR 通过周期性增大学习率，<strong>有助于逃离局部极值</strong></li>
+<li>结合 Snapshot Ensemble：一个训练过程可得到多个模型</li>
+</ul>
+</div>
+<h3 id="44-keras">4.4 Keras 训练实战<a class="headerlink" href="#44-keras" title="Permanent link">¶</a></h3>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-2-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-2-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-2-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-2-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-2-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-2-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-2-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-2-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-2-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-2-10">10</a></span>
+<span class="normal"><a href="#__codelineno-2-11">11</a></span>
+<span class="normal"><a href="#__codelineno-2-12">12</a></span>
+<span class="normal"><a href="#__codelineno-2-13">13</a></span>
+<span class="normal"><a href="#__codelineno-2-14">14</a></span>
+<span class="normal"><a href="#__codelineno-2-15">15</a></span>
+<span class="normal"><a href="#__codelineno-2-16">16</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1"></a><span class="n">model</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2"></a>    <span class="n">loss</span><span class="o">=</span><span class="s2">"categorical_crossentropy"</span><span class="p">,</span>   <span class="c1"># 损失函数（+正则化项）</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3"></a>    <span class="n">optimizer</span><span class="o">=</span><span class="s2">"adam"</span><span class="p">,</span>                   <span class="c1"># 优化器</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4"></a>    <span class="n">metrics</span><span class="o">=</span><span class="p">[</span><span class="s2">"accuracy"</span><span class="p">]</span>                <span class="c1"># 评估指标</span>
+<a id="__codelineno-2-5" name="__codelineno-2-5"></a><span class="p">)</span>
+<a id="__codelineno-2-6" name="__codelineno-2-6"></a>
+<a id="__codelineno-2-7" name="__codelineno-2-7"></a><span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span>
+<a id="__codelineno-2-8" name="__codelineno-2-8"></a>    <span class="n">x_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span>
+<a id="__codelineno-2-9" name="__codelineno-2-9"></a>    <span class="n">batch_size</span><span class="o">=</span><span class="mi">128</span><span class="p">,</span>
+<a id="__codelineno-2-10" name="__codelineno-2-10"></a>    <span class="n">epochs</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span>
+<a id="__codelineno-2-11" name="__codelineno-2-11"></a>    <span class="n">validation_split</span><span class="o">=</span><span class="mf">0.1</span>                <span class="c1"># 验证集比例</span>
+<a id="__codelineno-2-12" name="__codelineno-2-12"></a><span class="p">)</span>
+<a id="__codelineno-2-13" name="__codelineno-2-13"></a>
+<a id="__codelineno-2-14" name="__codelineno-2-14"></a><span class="n">score</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span><span class="n">x_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<a id="__codelineno-2-15" name="__codelineno-2-15"></a><span class="nb">print</span><span class="p">(</span><span class="s2">"Test loss:"</span><span class="p">,</span> <span class="n">score</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<a id="__codelineno-2-16" name="__codelineno-2-16"></a><span class="nb">print</span><span class="p">(</span><span class="s2">"Test accuracy:"</span><span class="p">,</span> <span class="n">score</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+</code></pre></div></td></tr></table></div>
+<hr>
+<h2 id="_16">五、关键公式速查<a class="headerlink" href="#_16" title="Permanent link">¶</a></h2>
+<table>
+<thead>
+<tr>
+<th>概念</th>
+<th>公式</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>标准化</td>
+<td><span class="arithmatex">\(\displaystyle z = \frac{x - \mu}{\sigma}\)</span></td>
+</tr>
+<tr>
+<td>Min-Max</td>
+<td><span class="arithmatex">\(\displaystyle z = \frac{x - \min}{\max - \min}\)</span></td>
+</tr>
+<tr>
+<td>Dropout 训练</td>
+<td><span class="arithmatex">\(\tilde{x} = r \odot x,\; r_j \sim \text{Bernoulli}(p)\)</span></td>
+</tr>
+<tr>
+<td>Dropout 测试</td>
+<td><span class="arithmatex">\(\tilde{x} = p \cdot x\)</span></td>
+</tr>
+<tr>
+<td>BN 归一化</td>
+<td><span class="arithmatex">\(\displaystyle \hat{x} = \frac{x - \mu_m}{\sqrt{\sigma_m^2 + \epsilon}}\)</span></td>
+</tr>
+<tr>
+<td>BN 线性变换</td>
+<td><span class="arithmatex">\(y = \gamma \hat{x} + \beta\)</span></td>
+</tr>
+<tr>
+<td>BN 测试</td>
+<td><span class="arithmatex">\(\displaystyle y = \frac{\gamma}{\sqrt{\text{Var}[x]+\epsilon}} \cdot x + \left(\beta - \frac{\gamma E[x]}{\sqrt{\text{Var}[x]+\epsilon}}\right)\)</span></td>
+</tr>
+<tr>
+<td>LN</td>
+<td><span class="arithmatex">\(\displaystyle \mu = \frac{1}{d}\sum x_i,\; \sigma^2 = \frac{1}{d}\sum (x_i-\mu)^2\)</span></td>
+</tr>
+<tr>
+<td>IN</td>
+<td><span class="arithmatex">\(\displaystyle \mu_{nc} = \frac{1}{HW}\sum_h\sum_w x_{nchw}\)</span></td>
+</tr>
+<tr>
+<td>SGD</td>
+<td><span class="arithmatex">\(\theta_{t+1} = \theta_t - \eta_t g_t\)</span></td>
+</tr>
+<tr>
+<td>Momentum</td>
+<td><span class="arithmatex">\(m_t = \beta m_{t-1} + (1-\beta)g_t,\; \theta_{t+1} = \theta_t - \eta_t m_t\)</span></td>
+</tr>
+<tr>
+<td>AdaGrad</td>
+<td><span class="arithmatex">\(v_t = v_{t-1} + g_t^2,\ ; \theta_{t+1} = \theta_t - \frac{\eta}{\sqrt{v_t}+\delta} g_t\)</span></td>
+</tr>
+<tr>
+<td>RMSProp</td>
+<td><span class="arithmatex">\(v_t = \beta v_{t-1} + (1-\beta)g_t^2,\; \theta_{t+1} = \theta_t - \frac{\eta}{\sqrt{v_t}+\delta} g_t\)</span></td>
+</tr>
+<tr>
+<td>Adam</td>
+<td><span class="arithmatex">\(\hat{m}_t = \frac{m_t}{1-\beta_1^t},\; \hat{v}_t = \frac{v_t}{1-\beta_2^t},\; \theta_{t+1} = \theta_t - \frac{\eta}{\sqrt{\hat{v}_t}+\delta} \hat{m}_t\)</span></td>
+</tr>
+<tr>
+<td>权重衰减</td>
+<td><span class="arithmatex">\(\theta_{t+1} = (1-\lambda) \theta_t + \Delta_t\)</span></td>
+</tr>
+<tr>
+<td>Warmup</td>
+<td><span class="arithmatex">\(\displaystyle \eta_t = \frac{t}{T} \eta_0\)</span></td>
+</tr>
+<tr>
+<td>余弦衰减</td>
+<td><span class="arithmatex">\(\displaystyle \eta_t = \frac{1}{2}\eta_0 \left(1 + \cos\frac{t\pi}{T}\right)\)</span></td>
+</tr>
+<tr>
+<td>Xavier</td>
+<td><span class="arithmatex">\(\displaystyle \sigma_W^2 = \frac{2}{n_\ell + n_{\ell-1}}\)</span></td>
+</tr>
+<tr>
+<td>He</td>
+<td><span class="arithmatex">\(\displaystyle \sigma_W^2 = \frac{2}{n_{\ell-1}}\)</span></td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="_17">六、总结<a class="headerlink" href="#_17" title="Permanent link">¶</a></h2>
+<h3 id="_18">知识体系总览<a class="headerlink" href="#_18" title="Permanent link">¶</a></h3>
+<pre class="mermaid"><code>graph TD
+    A[第5章 神经网络基础二] --&gt; B[数据准备]
+    A --&gt; C[模型构建]
+    A --&gt; D[训练与优化]
+
+    B --&gt; B1[归一化: Standardization / Min-Max]
+    B --&gt; B2[数据增强: 图像变换 / 混合 / 文本增强]
+    B --&gt; B3[类型转换: One-Hot / BoW / Embedding / BPE]
+
+    C --&gt; C1[Dropout: 防过拟合 / 共适应]
+    C --&gt; C2[Normalization: BN / LN / IN / GN]
+    C --&gt; C3[初始化: Xavier / He]
+
+    D --&gt; D1[优化器族谱]
+    D --&gt; D2[权重衰减 / AdamW]
+    D --&gt; D3[学习率技巧: 衰减 / Warmup / CLR]</code></pre>
+<h3 id="_19">核心要点<a class="headerlink" href="#_19" title="Permanent link">¶</a></h3>
+<ol>
+<li><strong>数据准备</strong>：归一化消除量纲差异，数据增强提升泛化，类型转换使数据符合 NN 要求</li>
+<li><strong>Dropout</strong>：通过随机丢弃神经元防止共适应，测试时缩放对齐</li>
+<li><strong>归一化四剑客</strong>：Batch Norm（大 batch）、Layer Norm（Transformer）、Instance Norm（风格迁移）、Group Norm（小 batch）</li>
+<li><strong>BN 的真正作用</strong>：不是缓解 ICS，而是使损失面 <strong>Lipschitz 平滑</strong></li>
+<li><strong>初始化</strong>：Xavier（tanh）和 He（ReLU）通过方差控制保证梯度正常传播</li>
+<li><strong>优化器</strong>：从 SGD 到 Adam 的演进，核心在于解决学习率问题和梯度噪声问题</li>
+<li><strong>AdamW</strong>：权重衰减与自适应学习率解耦，大模型预训练标配</li>
+<li><strong>学习率调度</strong>：余弦衰减 + Warmup 为大模型训练主流方案</li>
+</ol>
+<hr>
+<blockquote>
+<p>参考来源：深度学习课程第五章课件（王文冠主讲）、Keras MNIST 官方示例、Srivastava et al. Dropout (JMLR 2014)、Kingma &amp; Ba Adam (ICLR 2015)、Wu &amp; He Group Normalization (ECCV 2018)</p>
+</blockquote></div>
+
+
+
+
+
+
+
+  
+  
+
+
+
+  
+
+
+
+  <form class="md-feedback" name="feedback" hidden>
+    <fieldset>
+      <legend class="md-feedback__title">
+        此页面有帮助吗？
+      </legend>
+      <div class="md-feedback__inner">
+        <div class="md-feedback__list">
+          
+            <button class="md-feedback__icon md-icon" type="submit" title="This page was helpful" data-md-value="1">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M5 9v12H1V9zm4 12a2 2 0 0 1-2-2V9c0-.55.22-1.05.59-1.41L14.17 1l1.06 1.06c.27.27.44.64.44 1.05l-.03.32L14.69 8H21a2 2 0 0 1 2 2v2c0 .26-.05.5-.14.73l-3.02 7.05C19.54 20.5 18.83 21 18 21zm0-2h9.03L21 12v-2h-8.79l1.13-5.32L9 9.03z"/></svg>
+            </button>
+          
+            <button class="md-feedback__icon md-icon" type="submit" title="This page could be improved" data-md-value="0">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 15V3h4v12zM15 3a2 2 0 0 1 2 2v10c0 .55-.22 1.05-.59 1.41L9.83 23l-1.06-1.06c-.27-.27-.44-.64-.44-1.06l.03-.31.95-4.57H3a2 2 0 0 1-2-2v-2c0-.26.05-.5.14-.73l3.02-7.05C4.46 3.5 5.17 3 6 3zm0 2H5.97L3 12v2h8.78l-1.13 5.32L15 14.97z"/></svg>
+            </button>
+          
+        </div>
+        <div class="md-feedback__note">
+          
+            <div data-md-value="1" hidden>
+              
+              
+                
+              
+              
+              
+                
+                
+              
+              谢谢你的反馈！
+            </div>
+          
+            <div data-md-value="0" hidden>
+              
+              
+                
+              
+              
+              
+                
+                
+              
+              Thanks for your feedback! Help us improve this page by using our <a href="https://marketingplatform.google.com/about/analytics/" target="_blank" rel="noopener">feedback form</a>.
+            </div>
+          
+        </div>
+      </div>
+    </fieldset>
+  </form>
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  回到页面顶部
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2024~2025 Gaiake/All Rights Reserved.
+    </div>
+  
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+    <a href="image/wechat.jpg" target="_blank" rel="noopener" title="Wechat" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M385.2 167.6c6.4 0 12.6.3 18.8 1.1C387.4 90.3 303.3 32 207.7 32 100.5 32 13 104.8 13 197.4c0 53.4 29.3 97.5 77.9 131.6l-19.3 58.6 68-34.1c24.4 4.8 43.8 9.7 68.2 9.7 6.2 0 12.1-.3 18.3-.8-4-12.9-6.2-26.6-6.2-40.8-.1-84.9 72.9-154 165.3-154m-104.5-52.9c14.5 0 24.2 9.7 24.2 24.4 0 14.5-9.7 24.2-24.2 24.2-14.8 0-29.3-9.7-29.3-24.2.1-14.7 14.6-24.4 29.3-24.4m-136.4 48.6c-14.5 0-29.3-9.7-29.3-24.2 0-14.8 14.8-24.4 29.3-24.4 14.8 0 24.4 9.7 24.4 24.4 0 14.6-9.6 24.2-24.4 24.2M563 319.4c0-77.9-77.9-141.3-165.4-141.3-92.7 0-165.4 63.4-165.4 141.3S305 460.7 397.6 460.7c19.3 0 38.9-5.1 58.6-9.9l53.4 29.3-14.8-48.6C534 402.1 563 363.2 563 319.4m-219.1-24.5c-9.7 0-19.3-9.7-19.3-19.6 0-9.7 9.7-19.3 19.3-19.3 14.8 0 24.4 9.7 24.4 19.3 0 10-9.7 19.6-24.4 19.6m107.1 0c-9.7 0-19.3-9.7-19.3-19.6 0-9.7 9.7-19.3 19.3-19.3 14.5 0 24.4 9.7 24.4 19.3.1 10-9.9 19.6-24.4 19.6"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/Gaiake" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="mailto:<mayuxi660@gmail.com>" target="_blank" rel="noopener" title="" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M61.4 64C27.5 64 0 91.5 0 125.4c0 .9 0 1.7.1 2.6H0v256c0 35.3 28.7 64 64 64h384c35.3 0 64-28.7 64-64V128h-.1c0-.9.1-1.7.1-2.6 0-33.9-27.5-61.4-61.4-61.4zM464 192.3V384c0 8.8-7.2 16-16 16H64c-8.8 0-16-7.2-16-16V192.3l154.8 117.4c31.4 23.9 74.9 23.9 106.4 0zM48 125.4c0-7.4 6-13.4 13.4-13.4h389.2c7.4 0 13.4 6 13.4 13.4 0 4.2-2 8.2-5.3 10.7L280.2 271.5c-14.3 10.8-34.1 10.8-48.4 0L53.3 136.1c-3.3-2.5-5.3-6.5-5.3-10.7"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["announce.dismiss", "navigation.tracking", "navigation.tabs", "navigation.sections", "navigation.top", "navigation.footer", "search.suggest", "search.highlight", "search.share", "navigation.expand", "navigation.indexes", "content.tabs.link", "content.tooltips", "content.code.copy", "content.code.select", "content.code.annotate"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

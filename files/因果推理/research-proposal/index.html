@@ -1,0 +1,2561 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Documentation for Gaiake, a high-performance computing project.">
+      
+      
+        <meta name="author" content="Gaiake">
+      
+      
+        <link rel="canonical" href="https://gaiake.github.io/files/%E5%9B%A0%E6%9E%9C%E6%8E%A8%E7%90%86/research-proposal/">
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="https://s2.loli.net/2024/04/26/PmRdM9iGnvOJHgu.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Research proposal - Gaiake Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lxgw-wenkai-webfont@1.1.0/style.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+  
+
+
+  
+  
+
+<script id="__analytics">function __md_analytics(){function e(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],e("js",new Date),e("config",""),document.addEventListener("DOMContentLoaded",(function(){document.forms.search&&document.forms.search.query.addEventListener("blur",(function(){this.value&&e("event","search",{search_term:this.value})}));document$.subscribe((function(){var t=document.forms.feedback;if(void 0!==t)for(var a of t.querySelectorAll("[type=submit]"))a.addEventListener("click",(function(a){a.preventDefault();var n=document.location.pathname,d=this.getAttribute("data-md-value");e("event","feedback",{page:n,data:d}),t.firstElementChild.disabled=!0;var r=t.querySelector(".md-feedback__note [data-md-value='"+d+"']");r&&(r.hidden=!1)})),t.hidden=!1})),location$.subscribe((function(t){e("config","",{page_path:t.pathname})}))}));var t=document.createElement("script");t.async=!0,t.src="https://www.googletagmanager.com/gtag/js?id=",document.getElementById("__analytics").insertAdjacentElement("afterEnd",t)}</script>
+  
+    <script>"undefined"!=typeof __md_analytics&&__md_analytics()</script>
+  
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#cva-debate" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../../.." title="Gaiake Documentation" class="md-header__button md-logo" aria-label="Gaiake Documentation" data-md-component="logo">
+      
+  <img src="../../../about/image/top.jpg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Gaiake Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Research proposal
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="关闭自动模式"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="关闭自动模式" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1M8 13h8v-2H8zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4a5 5 0 0 0 5-5 5 5 0 0 0-5-5"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="blue-grey" data-md-color-accent="blue"  aria-label="切换至夜间模式"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="切换至夜间模式" for="__palette_2" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="indigo"  aria-label="切换至日间模式"  type="radio" name="__palette" id="__palette_2">
+    
+      <label class="md-header__button md-icon" title="切换至日间模式" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 6H7c-3.31 0-6 2.69-6 6s2.69 6 6 6h10c3.31 0 6-2.69 6-6s-2.69-6-6-6m0 10H7c-2.21 0-4-1.79-4-4s1.79-4 4-4h10c2.21 0 4 1.79 4 4s-1.79 4-4 4M7 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="分享" aria-label="分享" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/Gaiake" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Gaiake
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="标签" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../about/about/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  About
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../courses/MA101/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Academic Courses
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="Gaiake Documentation" class="md-nav__button md-logo" aria-label="Gaiake Documentation" data-md-component="logo">
+      
+  <img src="../../../about/image/top.jpg" alt="logo">
+
+    </a>
+    Gaiake Documentation
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/Gaiake" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Gaiake
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    About
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    About
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../about/about/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    What can I say?
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Academic Courses
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Academic Courses
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_1" id="__nav_3_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    基础课程
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    基础课程
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../courses/MA101/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Calculus
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../courses/MA102/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Linear Algebra
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../courses/MA103/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Probability Theory and Mathematical Statistics
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../courses/MA104/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ordinary Differential Equations
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../courses/CS103/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Discrete Mathematics and its Applications
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../courses/PHY/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Physics
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+          
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3_2" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../DL/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    专业课程
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_2" id="__nav_3_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    专业课程
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../courses/CS101/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Fundamentals of C Programming and Laboratory
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../courses/CS102/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Fundamentals of Data Structures
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../courses/CS105/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Computer System I
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../courses/CS104/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Computer System
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../courses/CS106/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Advanced Data Structures and Algorithm Analysis
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../courses/CS107/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Introduction to Artificial Intelligence
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../courses/CS108/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Object-Oriented Programming
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../courses/CS109/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Course Comprehensive Practice I
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../courses/CS110/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Causal Inference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../courses/CS111/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Social Networks and Security Privacy
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../courses/CS112/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Mathematical Software
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../courses/PE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    体育类课程
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../courses/Political/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    思政类课程
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../courses/General/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    通识类课程
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 研究题目
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 一句话概括
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 研究背景与问题
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. 核心研究假设
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. 创新点
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. 创新点">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.1 从自由辩论到因果变量审计
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#52" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.2 引入过度纠错率作为诊断指标
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#53" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.3 构建中文常识因果陷阱诊断集
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. 方法设计
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. 方法设计">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#61" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.1 总体框架
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#62-agent-a" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.2 Agent A：直觉回答者
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#63-agent-b" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.3 Agent B：因果变量审计员
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#64-agent-c" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.4 Agent C：一致性裁判
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. 数据集设计
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7. 数据集设计">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#71" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.1 数据来源
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#72" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.2 数据字段
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#73" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.3 陷阱类型
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. 实验设计
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8. 实验设计">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#81" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.1 对比方法
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#82" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.2 推荐模型设置
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#83" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.3 人工评估标准
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. 核心评估体系设计和数据分析
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="9. 核心评估体系设计和数据分析">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#91" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.1 状态转移定义
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#92" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.2 三大进阶诊断指标
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#93" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.3 总体量化数据分析
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="9.3 总体量化数据分析">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#h1h2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        量化结论与 H1/H2 假设验证：
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#94" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.4 定性案例与因果机制诊断
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="9.4 定性案例与因果机制诊断">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#941-cva-11-z" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.4.1 为什么 CVA 能“正确保持 (11)”？（强力拦截虚假相关 Z）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#942-cva-01-c" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.4.2 CVA 是如何“成功纠错 (01)”的？（语境反转变量 C 的捕捉）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#943-10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.4.3 为什么依然存在“过度纠错 (10)”？（深层关联的发散反噬）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#944-00system-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.4.4 为什么有些题目“顽固不化 (00)”？（System 1 词汇劫持）
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#95" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.5 最终研究结论探讨
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10. 论文结构
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="10. 论文结构">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#101-introduction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10.1 Introduction
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#102-related-work" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10.2 Related Work
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#103-method" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10.3 Method
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#104-experiments" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10.4 Experiments
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#105-results" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10.5 Results
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#106-discussion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10.6 Discussion
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#107-conclusion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10.7 Conclusion
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11. 参考文献
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        12. 最终定位
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<div><div class="admonition info">
+<p class="admonition-title">📖 阅读信息</p>
+<p>阅读时间：<strong>9</strong> 分钟 | 中文字符：<strong>3605</strong> | 有效代码行数：<strong>11</strong></p>
+</div>
+<h1 id="cva-debate">CVA-Debate：面向中文常识陷阱的多智能体因果变量审计研究方案<a class="headerlink" href="#cva-debate" title="Permanent link">¶</a></h1>
+<h2 id="1">1. 研究题目<a class="headerlink" href="#1" title="Permanent link">¶</a></h2>
+<p><strong>中文题目</strong>：多智能体因果变量审计：面向中文常识陷阱中虚假相关推理的边界分析</p>
+<p><strong>英文题目</strong>：CVA-Debate: Causal Variable Audit for Multi-Agent Reasoning on Chinese Commonsense Causal Traps</p>
+<h2 id="2">2. 一句话概括<a class="headerlink" href="#2" title="Permanent link">¶</a></h2>
+<p>本研究提出一种 <strong>Causal Variable Audit Debate, CVA-Debate</strong> 框架，将多智能体辩论从自由形式的“互相质疑”改造成结构化的“因果变量审计”，显式区分核心因果变量、虚假相关变量和语境反转变量，并用中文常识陷阱题分析该框架何时能纠错、何时会过度纠错。</p>
+<h2 id="3">3. 研究背景与问题<a class="headerlink" href="#3" title="Permanent link">¶</a></h2>
+<p>大语言模型在常识推理和因果判断中容易依赖表面共现关系。例如：</p>
+<ul>
+<li>“程序员 + 久坐”容易诱导模型回答颈椎病或腰椎病，但“剧烈胸痛、冷汗、濒死感”才是急性心肌梗死的关键线索。</li>
+<li>“负面词汇 + 产品评价”容易诱导模型判定差评，但“把地毯上的灰尘和猫毛清理干净”才是吸尘器评价的核心事实。</li>
+<li>“黑头套 + 现金袋 + 银行警报”容易诱导模型判定抢劫，但“咔！这条拍得太完美了，收工！”是语境反转线索，指向电影拍摄。</li>
+</ul>
+<p><strong>已有多智能体辩论方法表明，多个模型实例之间的讨论可以提升事实性和推理能力。但在当前项目实验中，普通因果辩论并未稳定提升准确率，甚至出现了明显的 over-correction：初始回答本来正确，经过因果审查后反而被推翻为错误答案。</strong></p>
+<p>因此，本研究不再把目标设定为“证明多智能体一定提升因果推理”，而是聚焦一个更具体、更可验证的问题：</p>
+<p><strong>多智能体反事实辩论在中文常识因果陷阱中为什么有时有效、有时反噬？其关键瓶颈是否来自因果变量识别错误？</strong></p>
+<h2 id="4">4. 核心研究假设<a class="headerlink" href="#4" title="Permanent link">¶</a></h2>
+<p>本研究提出以下假设：</p>
+<p><strong>H1：普通多智能体辩论的效果不稳定，主要原因是批判 Agent 无法可靠区分核心线索与干扰线索。</strong></p>
+<p><strong>H2：将批判过程改造为结构化因果变量审计，可以降低将关键语境线索误删为噪声的概率。</strong></p>
+<p><strong>H3：在中文常识陷阱题中，最终准确率并不是唯一重要指标；过度纠错率能够更好揭示多智能体因果推理的失败机制。</strong></p>
+<h2 id="5">5. 创新点<a class="headerlink" href="#5" title="Permanent link">¶</a></h2>
+<h3 id="51">5.1 从自由辩论到因果变量审计<a class="headerlink" href="#51" title="Permanent link">¶</a></h3>
+<p>传统多智能体辩论通常让多个 Agent 分别生成答案、互相批判、最终投票或裁决。这类方法关注“哪个回答更合理”，但没有强制模型说明答案应当对哪些变量敏感、对哪些变量不敏感。</p>
+<p>CVA-Debate 的核心创新是将 Agent B 改造成 <strong>Causal Variable Auditor</strong>，要求它显式标注：</p>
+<ul>
+<li><strong>Y, Target Outcome</strong>：题目要求判断的结果。</li>
+<li><strong>X, Core Causal Variable</strong>：改变后答案必须随之改变的核心变量。</li>
+<li><strong>Z, Spurious Variable</strong>：看似相关但不应决定答案的表面变量。</li>
+<li><strong>C, Contextual Reversal Variable</strong>：看似是补充背景，实际会反转表面情境的关键语境变量。</li>
+<li><strong>MSE, Minimal Sufficient Evidence</strong>：回答问题所需的最小充分证据集合。</li>
+</ul>
+<p>其中 <strong>语境反转变量 C</strong> 是本研究针对现有实验失败模式提出的关键补充。没有 C 这一类，模型很容易把“咔！收工”“然而其实”“蛋糕蜡烛”等真正决定答案的语境线索误判为噪声。</p>
+<h3 id="52">5.2 引入过度纠错率作为诊断指标<a class="headerlink" href="#52" title="Permanent link">¶</a></h3>
+<p>多数已有工作只报告最终准确率。但多智能体辩论存在一种特殊失败模式：</p>
+<blockquote>
+<p>初始答案正确，经过辩论或反思后反而变错。</p>
+</blockquote>
+<p>本研究将其定义为 <strong>Over-Correction</strong>，并引入过度纠错率：</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1"></a>Over-Correction Rate = 初始正确但最终错误的题目数 / 初始正确的题目数
+</code></pre></div></td></tr></table></div>
+<p>该指标用于衡量因果批判 Agent 是否过度怀疑正确线索、错误剥离关键证据。</p>
+<h3 id="53">5.3 构建中文常识因果陷阱诊断集<a class="headerlink" href="#53" title="Permanent link">¶</a></h3>
+<p>本研究基于现有 <code>final_20_traps.csv</code> 和相关生成脚本，构建一个小型中文诊断集 <strong>Chinese Causal Trap Set</strong>。每道题不仅有标准答案，还标注陷阱类型、核心变量、虚假相关变量和语境反转变量。</p>
+<p>该数据集面向自然语言常识因果判断，不追求大规模，而追求可解释、可分类、可用于错误机制分析。</p>
+<h2 id="6">6. 方法设计<a class="headerlink" href="#6" title="Permanent link">¶</a></h2>
+<h3 id="61">6.1 总体框架<a class="headerlink" href="#61" title="Permanent link">¶</a></h3>
+<p>CVA-Debate 包含三个 Agent：</p>
+<table>
+<thead>
+<tr>
+<th>Agent</th>
+<th>名称</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Agent A</td>
+<td>Intuitive Responder</td>
+<td>在不进行显式反思的情况下给出初始答案，模拟模型的直觉判断</td>
+</tr>
+<tr>
+<td>Agent B</td>
+<td>Causal Variable Auditor</td>
+<td>对题目和初始答案进行结构化变量审计</td>
+</tr>
+<tr>
+<td>Agent C</td>
+<td>Consistency Judge</td>
+<td>根据 Agent A 的答案和 Agent B 的变量审计结果给出最终答案</td>
+</tr>
+</tbody>
+</table>
+<p>流程如下：</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-1-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-1-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-1-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-1-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-1-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-1-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-1-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-1-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-1-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-1-10">10</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1"></a>Question
+<a id="__codelineno-1-2" name="__codelineno-1-2"></a>   |
+<a id="__codelineno-1-3" name="__codelineno-1-3"></a>   v
+<a id="__codelineno-1-4" name="__codelineno-1-4"></a>Agent A: 初始直觉回答
+<a id="__codelineno-1-5" name="__codelineno-1-5"></a>   |
+<a id="__codelineno-1-6" name="__codelineno-1-6"></a>   v
+<a id="__codelineno-1-7" name="__codelineno-1-7"></a>Agent B: 因果变量审计
+<a id="__codelineno-1-8" name="__codelineno-1-8"></a>   |
+<a id="__codelineno-1-9" name="__codelineno-1-9"></a>   v
+<a id="__codelineno-1-10" name="__codelineno-1-10"></a>Agent C: 一致性裁决与最终答案
+</code></pre></div></td></tr></table></div>
+<h3 id="62-agent-a">6.2 Agent A：直觉回答者<a class="headerlink" href="#62-agent-a" title="Permanent link">¶</a></h3>
+<p>Agent A 的目标是暴露模型的原始偏差。因此提示词应尽量短，避免提前加入因果审查指令。</p>
+<p>推荐 Prompt：</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-2-1">1</a></span>
+<span class="normal"><a href="#__codelineno-2-2">2</a></span>
+<span class="normal"><a href="#__codelineno-2-3">3</a></span>
+<span class="normal"><a href="#__codelineno-2-4">4</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1"></a>你需要快速回答下面的问题。请直接给出最可能的答案，并用一句话解释原因。
+<a id="__codelineno-2-2" name="__codelineno-2-2"></a>
+<a id="__codelineno-2-3" name="__codelineno-2-3"></a>问题：
+<a id="__codelineno-2-4" name="__codelineno-2-4"></a>{question}
+</code></pre></div></td></tr></table></div>
+<p>输出格式：</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-3-1">1</a></span>
+<span class="normal"><a href="#__codelineno-3-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1"></a>【答案】：
+<a id="__codelineno-3-2" name="__codelineno-3-2"></a>【解释】：
+</code></pre></div></td></tr></table></div>
+<h3 id="63-agent-b">6.3 Agent B：因果变量审计员<a class="headerlink" href="#63-agent-b" title="Permanent link">¶</a></h3>
+<p>Agent B 是方法核心。它不再自由批判，而是按固定结构完成变量标注。</p>
+<p>推荐 Prompt：</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-4-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-4-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-4-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-4-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-4-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-4-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-4-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-4-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-4-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-4-10">10</a></span>
+<span class="normal"><a href="#__codelineno-4-11">11</a></span>
+<span class="normal"><a href="#__codelineno-4-12">12</a></span>
+<span class="normal"><a href="#__codelineno-4-13">13</a></span>
+<span class="normal"><a href="#__codelineno-4-14">14</a></span>
+<span class="normal"><a href="#__codelineno-4-15">15</a></span>
+<span class="normal"><a href="#__codelineno-4-16">16</a></span>
+<span class="normal"><a href="#__codelineno-4-17">17</a></span>
+<span class="normal"><a href="#__codelineno-4-18">18</a></span>
+<span class="normal"><a href="#__codelineno-4-19">19</a></span>
+<span class="normal"><a href="#__codelineno-4-20">20</a></span>
+<span class="normal"><a href="#__codelineno-4-21">21</a></span>
+<span class="normal"><a href="#__codelineno-4-22">22</a></span>
+<span class="normal"><a href="#__codelineno-4-23">23</a></span>
+<span class="normal"><a href="#__codelineno-4-24">24</a></span>
+<span class="normal"><a href="#__codelineno-4-25">25</a></span>
+<span class="normal"><a href="#__codelineno-4-26">26</a></span>
+<span class="normal"><a href="#__codelineno-4-27">27</a></span>
+<span class="normal"><a href="#__codelineno-4-28">28</a></span>
+<span class="normal"><a href="#__codelineno-4-29">29</a></span>
+<span class="normal"><a href="#__codelineno-4-30">30</a></span>
+<span class="normal"><a href="#__codelineno-4-31">31</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1"></a>你是因果变量审计员。请不要急于否定 Agent A，而是先完成结构化变量审计。
+<a id="__codelineno-4-2" name="__codelineno-4-2"></a>
+<a id="__codelineno-4-3" name="__codelineno-4-3"></a>原始问题：
+<a id="__codelineno-4-4" name="__codelineno-4-4"></a>{question}
+<a id="__codelineno-4-5" name="__codelineno-4-5"></a>
+<a id="__codelineno-4-6" name="__codelineno-4-6"></a>Agent A 的初始回答：
+<a id="__codelineno-4-7" name="__codelineno-4-7"></a>{answer_A}
+<a id="__codelineno-4-8" name="__codelineno-4-8"></a>
+<a id="__codelineno-4-9" name="__codelineno-4-9"></a>请严格按照以下结构输出：
+<a id="__codelineno-4-10" name="__codelineno-4-10"></a>
+<a id="__codelineno-4-11" name="__codelineno-4-11"></a>1. 【目标结果 Y】
+<a id="__codelineno-4-12" name="__codelineno-4-12"></a>题目要求判断的结果是什么？
+<a id="__codelineno-4-13" name="__codelineno-4-13"></a>
+<a id="__codelineno-4-14" name="__codelineno-4-14"></a>2. 【候选核心因果变量 X】
+<a id="__codelineno-4-15" name="__codelineno-4-15"></a>列出题目中真正决定答案的变量。判断标准：如果该变量改变，答案必须改变。
+<a id="__codelineno-4-16" name="__codelineno-4-16"></a>
+<a id="__codelineno-4-17" name="__codelineno-4-17"></a>3. 【候选虚假相关变量 Z】
+<a id="__codelineno-4-18" name="__codelineno-4-18"></a>列出题目中看似相关、容易诱导模型、但原则上不应决定答案的变量。判断标准：如果只改变该变量而保持 X 不变，答案不应改变。
+<a id="__codelineno-4-19" name="__codelineno-4-19"></a>
+<a id="__codelineno-4-20" name="__codelineno-4-20"></a>4. 【语境反转变量 C】
+<a id="__codelineno-4-21" name="__codelineno-4-21"></a>检查题目中是否存在“然而”“其实”“突然”“咔”“收工”“真实情况是”等语境反转线索。
+<a id="__codelineno-4-22" name="__codelineno-4-22"></a>这些变量不能轻易当作噪声剥离。若存在，请说明它如何改变表面情境。
+<a id="__codelineno-4-23" name="__codelineno-4-23"></a>
+<a id="__codelineno-4-24" name="__codelineno-4-24"></a>5. 【最小充分证据集合 MSE】
+<a id="__codelineno-4-25" name="__codelineno-4-25"></a>只保留哪些信息就足以回答问题？
+<a id="__codelineno-4-26" name="__codelineno-4-26"></a>
+<a id="__codelineno-4-27" name="__codelineno-4-27"></a>6. 【对 Agent A 的诊断】
+<a id="__codelineno-4-28" name="__codelineno-4-28"></a>Agent A 主要依赖了 X、Z，还是忽略了 C？是否存在虚假相关、注意力劫持或语境反转误判？
+<a id="__codelineno-4-29" name="__codelineno-4-29"></a>
+<a id="__codelineno-4-30" name="__codelineno-4-30"></a>7. 【审计建议答案】
+<a id="__codelineno-4-31" name="__codelineno-4-31"></a>基于以上变量审计，给出建议答案。只输出一个明确结论。
+</code></pre></div></td></tr></table></div>
+<h3 id="64-agent-c">6.4 Agent C：一致性裁判<a class="headerlink" href="#64-agent-c" title="Permanent link">¶</a></h3>
+<p>Agent C 的任务是避免盲目接受 Agent B 的批判。它需要检查 Agent B 是否错误剥离了语境反转变量。</p>
+<p>推荐 Prompt：</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-5-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-5-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-5-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-5-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-5-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-5-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-5-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-5-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-5-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-5-10">10</a></span>
+<span class="normal"><a href="#__codelineno-5-11">11</a></span>
+<span class="normal"><a href="#__codelineno-5-12">12</a></span>
+<span class="normal"><a href="#__codelineno-5-13">13</a></span>
+<span class="normal"><a href="#__codelineno-5-14">14</a></span>
+<span class="normal"><a href="#__codelineno-5-15">15</a></span>
+<span class="normal"><a href="#__codelineno-5-16">16</a></span>
+<span class="normal"><a href="#__codelineno-5-17">17</a></span>
+<span class="normal"><a href="#__codelineno-5-18">18</a></span>
+<span class="normal"><a href="#__codelineno-5-19">19</a></span>
+<span class="normal"><a href="#__codelineno-5-20">20</a></span>
+<span class="normal"><a href="#__codelineno-5-21">21</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1"></a>你是一名一致性裁判，需要综合原始问题、Agent A 的初始回答和 Agent B 的因果变量审计。
+<a id="__codelineno-5-2" name="__codelineno-5-2"></a>
+<a id="__codelineno-5-3" name="__codelineno-5-3"></a>请遵循以下规则：
+<a id="__codelineno-5-4" name="__codelineno-5-4"></a>1. 如果 Agent B 将语境反转变量 C 错误当作虚假相关变量 Z，需要拒绝 Agent B 的建议。
+<a id="__codelineno-5-5" name="__codelineno-5-5"></a>2. 如果 Agent A 依赖的是虚假相关变量 Z，而忽略核心因果变量 X，需要修正 Agent A。
+<a id="__codelineno-5-6" name="__codelineno-5-6"></a>3. 最终答案必须与最小充分证据集合 MSE 一致。
+<a id="__codelineno-5-7" name="__codelineno-5-7"></a>4. 输出必须包含一个明确答案，不要出现答案与解释互相矛盾的情况。
+<a id="__codelineno-5-8" name="__codelineno-5-8"></a>
+<a id="__codelineno-5-9" name="__codelineno-5-9"></a>原始问题：
+<a id="__codelineno-5-10" name="__codelineno-5-10"></a>{question}
+<a id="__codelineno-5-11" name="__codelineno-5-11"></a>
+<a id="__codelineno-5-12" name="__codelineno-5-12"></a>Agent A 初始回答：
+<a id="__codelineno-5-13" name="__codelineno-5-13"></a>{answer_A}
+<a id="__codelineno-5-14" name="__codelineno-5-14"></a>
+<a id="__codelineno-5-15" name="__codelineno-5-15"></a>Agent B 因果变量审计：
+<a id="__codelineno-5-16" name="__codelineno-5-16"></a>{audit_B}
+<a id="__codelineno-5-17" name="__codelineno-5-17"></a>
+<a id="__codelineno-5-18" name="__codelineno-5-18"></a>请输出：
+<a id="__codelineno-5-19" name="__codelineno-5-19"></a>【最终答案】：
+<a id="__codelineno-5-20" name="__codelineno-5-20"></a>【裁决依据】：
+<a id="__codelineno-5-21" name="__codelineno-5-21"></a>【错误类型】：正确保持 / 成功纠错 / 过度纠错 / 未能纠错
+</code></pre></div></td></tr></table></div>
+<h2 id="7">7. 数据集设计<a class="headerlink" href="#7" title="Permanent link">¶</a></h2>
+<h3 id="71">7.1 数据来源<a class="headerlink" href="#71" title="Permanent link">¶</a></h3>
+<p>自创包含20条数据的中文陷阱题文件作为基础</p>
+<h3 id="72">7.2 数据字段<a class="headerlink" href="#72" title="Permanent link">¶</a></h3>
+<p>建议整理成 <code>cva_trap_dataset.csv</code>，字段如下：</p>
+<table>
+<thead>
+<tr>
+<th>字段</th>
+<th>含义</th>
+<th>示例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>id</td>
+<td>题目编号</td>
+<td>001</td>
+</tr>
+<tr>
+<td>question</td>
+<td>问题文本</td>
+<td>特警拿出插满蜡烛的蛋糕</td>
+</tr>
+<tr>
+<td>ground_truth</td>
+<td>标准答案</td>
+<td>庆祝生日</td>
+</tr>
+<tr>
+<td>trap_type</td>
+<td>陷阱类型</td>
+<td>语境反转</td>
+</tr>
+<tr>
+<td>core_variable_x</td>
+<td>核心因果变量</td>
+<td>蛋糕、蜡烛、小女孩、庆祝行为</td>
+</tr>
+<tr>
+<td>spurious_variable_z</td>
+<td>虚假相关变量</td>
+<td>防弹衣、战术盾牌、踹门</td>
+</tr>
+<tr>
+<td>reversal_variable_c</td>
+<td>语境反转变量</td>
+<td>从盾牌后拿出生日蛋糕</td>
+</tr>
+<tr>
+<td>expected_failure</td>
+<td>预期模型错误</td>
+<td>判定为执行任务</td>
+</tr>
+</tbody>
+</table>
+<h3 id="73">7.3 陷阱类型<a class="headerlink" href="#73" title="Permanent link">¶</a></h3>
+<p>本研究将题目分成四类：</p>
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th>定义</th>
+<th>例子</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>虚假相关陷阱</td>
+<td>表面身份或统计共现诱导错误</td>
+<td>程序员胸痛、纹身犯人</td>
+</tr>
+<tr>
+<td>情绪词误导</td>
+<td>情绪词与真实评价方向冲突</td>
+<td>吸尘器“暴力吞噬灰尘”</td>
+</tr>
+<tr>
+<td>语境反转陷阱</td>
+<td>后文语境反转前文表面事件</td>
+<td>“咔！收工”、特警拿蛋糕</td>
+</tr>
+<tr>
+<td>硬因果规则</td>
+<td>依赖物理、医学、生理等稳定规则</td>
+<td>月球真空不能传声、氰化钾</td>
+</tr>
+</tbody>
+</table>
+<h2 id="8">8. 实验设计<a class="headerlink" href="#8" title="Permanent link">¶</a></h2>
+<h3 id="81">8.1 对比方法<a class="headerlink" href="#81" title="Permanent link">¶</a></h3>
+<p>本研究比较三种方法：</p>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Vanilla</td>
+<td>直接让模型回答</td>
+</tr>
+<tr>
+<td>Free Debate</td>
+<td>普通因果辩论流程</td>
+</tr>
+<tr>
+<td>CVA-Debate</td>
+<td>本研究提出的结构化因果变量审计流程</td>
+</tr>
+</tbody>
+</table>
+<h3 id="82">8.2 推荐模型设置<a class="headerlink" href="#82" title="Permanent link">¶</a></h3>
+<p>优先延续当前项目配置，降低迁移成本：</p>
+<ul>
+<li>本地模型：<code>qwen2.5:1.5b</code></li>
+<li>接口：Ollama <code>/api/chat</code></li>
+</ul>
+<blockquote>
+<p>为控制计算成本，实验主要使用本地开源小模型，重点分析方法机制而非追求绝对性能。</p>
+</blockquote>
+<h3 id="83">8.3 人工评估标准<a class="headerlink" href="#83" title="Permanent link">¶</a></h3>
+<p>由于模型输出是自然语言，建议人工标注是否正确。每题记录：</p>
+<table>
+<thead>
+<tr>
+<th>字段</th>
+<th>取值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>vanilla_correct</td>
+<td>0/1</td>
+</tr>
+<tr>
+<td>self_correct</td>
+<td>0/1</td>
+</tr>
+<tr>
+<td>free_debate_correct</td>
+<td>0/1</td>
+</tr>
+<tr>
+<td>cva_debate_correct</td>
+<td>0/1</td>
+</tr>
+<tr>
+<td>correction_success</td>
+<td>0/1</td>
+</tr>
+<tr>
+<td>over_correction</td>
+<td>0/1</td>
+</tr>
+<tr>
+<td>failure_reason</td>
+<td>变量识别错误 / 语境反转误判 / 常识缺失 / 答案解释矛盾</td>
+</tr>
+</tbody>
+</table>
+<h2 id="9">9. 核心评估体系设计和数据分析<a class="headerlink" href="#9" title="Permanent link">¶</a></h2>
+<p>为了消除单次测试的随机性，我们在包含20道极具诱导性的中文常识陷阱子集上，对普通“自由辩论（FREE）”和“因果变量审计（CVA）”分别进行了 3 次独立运行，并定义了四种认知转换状态和三大进阶指标：</p>
+<h3 id="91">9.1 状态转移定义<a class="headerlink" href="#91" title="Permanent link">¶</a></h3>
+<ul>
+<li><strong>00（未纠错）</strong>：初始错误，辩论后依然错误。（顽固型认知偏差）</li>
+<li><strong>01（成功纠错）</strong>：初始错误，辩论后更正为对。（有效批判）</li>
+<li><strong>10（过度纠错）</strong>：初始正确，辩论后反而改错。（自由辩论带来的主要损伤）</li>
+<li><strong>11（正确保持）</strong>：初始正确，辩论后坚守正确。（辩论框架的抗干扰防御力）</li>
+</ul>
+<h3 id="92">9.2 三大进阶诊断指标<a class="headerlink" href="#92" title="Permanent link">¶</a></h3>
+<ul>
+<li><strong>成功纠错率 (SCR, Successful Correction Rate)</strong>：<code>01 / (00+01)</code>，衡量“把错改对”的治愈力。</li>
+<li><strong>过度纠错率 (OCR, Over-Correction Rate)</strong>：<code>10 / (10+11)</code>，衡量“把对改错”的误杀率（越低越好）。</li>
+<li><strong>辩论净收益 (NDB, Net Debate Benefit)</strong>：<code>01数量 - 10数量</code>，衡量引入多智能体到底是帮忙还是添乱。</li>
+</ul>
+<hr>
+<h2 id="93">9.3 总体量化数据分析<a class="headerlink" href="#93" title="Permanent link">¶</a></h2>
+<p>基于 <code>sum.csv</code> 的3次运行汇总，整体数据对比如下：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">评估维度</th>
+<th style="text-align: center;">Free Debate (自由辩论)</th>
+<th style="text-align: center;">CVA-Debate (因果审计，Ours)</th>
+<th style="text-align: left;">性能对比分析</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>初始正确总数</strong></td>
+<td style="text-align: center;">31 题</td>
+<td style="text-align: center;">36 题</td>
+<td style="text-align: left;">起点相近（采用相同底座模型产生初始直觉）</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>最终正确总数</strong></td>
+<td style="text-align: center;">24 题</td>
+<td style="text-align: center;">34 题</td>
+<td style="text-align: left;"><strong>CVA挽救了性能，FREE导致了断崖式下跌</strong></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>成功纠错率 (SCR)</strong></td>
+<td style="text-align: center;">20.7% (6 / 29)</td>
+<td style="text-align: center;"><strong>33.3% (8 / 24)</strong></td>
+<td style="text-align: left;">CVA 对初始错误的修复能力提升了约 12%</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>过度纠错率 (OCR)</strong></td>
+<td style="text-align: center;">41.9% (13 / 31)</td>
+<td style="text-align: center;"><strong>27.8% (10 / 36)</strong></td>
+<td style="text-align: left;"><strong>[关键突破] CVA的大幅拦截了过度反思导致的误杀</strong></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>辩论净收益 (NDB)</strong></td>
+<td style="text-align: center;">-7 (严重倒退)</td>
+<td style="text-align: center;"><strong>-2 (趋于稳定)</strong></td>
+<td style="text-align: left;">自由辩论在陷阱题上彻底破产，因果审计实现了强效止血</td>
+</tr>
+</tbody>
+</table>
+<h3 id="h1h2">量化结论与 H1/H2 假设验证：<a class="headerlink" href="#h1h2" title="Permanent link">¶</a></h3>
+<p>数据完美印证了研究方案中的 <strong>H1</strong> 和 <strong>H2</strong>。
+普通自由辩论的 OCR 高达惊人的 <strong>41.9%</strong>，这意味着只要模型一开始答对，有近一半的概率会被自由辩论的队友“忽悠”成错的。
+而 CVA 通过要求输出 <span class="arithmatex">\(X, Z, C, MSE\)</span> 变量，成功把过度纠错率压低了 14 个百分点（<strong>降至 27.8%</strong>）。虽然面对魔鬼陷阱集未能取得正数绝对收益，但其“防御墙”的提升是极其显著的。</p>
+<hr>
+<h2 id="94">9.4 定性案例与因果机制诊断<a class="headerlink" href="#94" title="Permanent link">¶</a></h2>
+<p>为什么 CVA 起作用？我们在明细数据中通过状态跟踪，得出以下行为机制拆解：</p>
+<h3 id="941-cva-11-z">9.4.1 为什么 CVA 能“正确保持 (11)”？（强力拦截虚假相关 Z）<a class="headerlink" href="#941-cva-11-z" title="Permanent link">¶</a></h3>
+<ul>
+<li><strong>表现与案例</strong>：在题11（太空失重舱内的重型铁砧）和题12（被掏空装入iPhone的古董电话）中，自由辩论由于过度关注“铁砧重达千斤”或“电话机布满生锈铜绿”这些外在文本（Z变量），容易在辩论后倒退修改答案。</li>
+<li><strong>CVA 机制</strong>：CVA 强制 Agent B 罗列<strong>最小充分证据集 (MSE)</strong>。当模型捕捉到真正的物理隔离事实 <span class="arithmatex">\(X\)</span>（如“处于失重舱”、“内部是联网的iPhone”）时，逻辑锚点形成。Agent C 的裁决拥有了不受表面形容词干扰的依据，从而成功触发了 <strong>11（正确防守）</strong> 状态。</li>
+</ul>
+<h3 id="942-cva-01-c">9.4.2 CVA 是如何“成功纠错 (01)”的？（语境反转变量 C 的捕捉）<a class="headerlink" href="#942-cva-01-c" title="Permanent link">¶</a></h3>
+<ul>
+<li><strong>表现与案例</strong>：题3（戴头套进银行）。</li>
+<li><strong>CVA 机制</strong>：初始 Agent A 看到“头套、现金、警车”会本能输出“抢劫”。而在 CVA 流水线中，Agent B 的核心任务之一是需单独检索<strong>语境反转变量 C</strong>。当它提取到“导演喊咔，收工”这条隐藏指令后，Agent C 会根据规则推翻原本构建的 <span class="arithmatex">\(Z \rightarrow Y\)</span> 关联，明确这实质是“拍电影”从而修正答案（00 转化为 01）。</li>
+</ul>
+<h3 id="943-10">9.4.3 为什么依然存在“过度纠错 (10)”？（深层关联的发散反噬）<a class="headerlink" href="#943-10" title="Permanent link">¶</a></h3>
+<ul>
+<li><strong>表现与案例</strong>：题2（播音员在沙滩配音）和 题8（发高烧的天才交白卷）。</li>
+<li><strong>CVA 机制</strong>：这暴露了大模型在处理 CVA 时的另一个极端。例如题2，直觉（在沙滩感觉热）其实是对的。但 CVA 强迫模型去寻找可能的反转变量 C，模型有时会“过度解读”，认为“她在念零下四十度的稿子”是颠覆感受的线索，从而推导成“代入角色所以感觉冷”。这是大模型语义表征过热导致的系统级过度联想。</li>
+</ul>
+<h3 id="944-00system-1">9.4.4 为什么有些题目“顽固不化 (00)”？（System 1 词汇劫持）<a class="headerlink" href="#944-00system-1" title="Permanent link">¶</a></h3>
+<ul>
+<li><strong>表现与案例</strong>：题5（形容吸尘器贪婪、暴力吞噬灰尘的好评）。</li>
+<li><strong>分析</strong>：这种题在 3 次实验的两条线上全军覆没（全部 00）。因为这不是经典物理/逻辑因果图能解决的。题目使用了强烈的“极性反转修辞手法”，大模型底层的 Attention 机制被高浓度的负面词汇（暴力、糟糕、贪婪）死死劫持。因果审计虽然有框架，但审计员提取出的 <span class="arithmatex">\(X\)</span> 由于语义偏见早就错了，导致整个审计报告失效。</li>
+</ul>
+<hr>
+<h2 id="95">9.5 最终研究结论探讨<a class="headerlink" href="#95" title="Permanent link">¶</a></h2>
+<ol>
+<li><strong>自由辩论不是银弹，而是陷阱放大器</strong>：在充斥虚假相关、语境诱导的中文常识测试中，自由的多智能体互相审阅不仅无益，反而会通过联想发散造成高达 41.9% 的“对改错（识别崩溃）”。</li>
+<li><strong>结构化因果审计（CVA）是必要的前置约束</strong>：通过 Pearl 式的因果变量隔离（尤其是明确 <span class="arithmatex">\(X\)</span> 与 <span class="arithmatex">\(C\)</span>），CVA 有效降低了辩论体系的“致噪率”，使正确保护率（保持结果一致性）显著提升。</li>
+<li><strong>面向反事实的数据集评估必须引入 OCR 指标</strong>：传统的 Accuracy 仅仅看黑盒最终结果。本报告通过引入状态转移概率（SCR vs OCR），证明了多智能体提升能力的第一步，首先是建立一个不受表面文本概率绑架的逻辑锚点。CVA 的价值正是在于其卓越的干扰防御能力。</li>
+</ol>
+<h2 id="10">10. 论文结构<a class="headerlink" href="#10" title="Permanent link">¶</a></h2>
+<h3 id="101-introduction">10.1 Introduction<a class="headerlink" href="#101-introduction" title="Permanent link">¶</a></h3>
+<p>写作要点：</p>
+<ul>
+<li>LLM 容易受虚假相关影响。</li>
+<li>多智能体辩论是低成本、training-free 的潜在解决方法。</li>
+<li>初步实验显示，自由形式因果辩论并不稳定，会产生过度纠错。</li>
+<li>本文提出 CVA-Debate，将辩论过程转化为结构化变量审计。</li>
+</ul>
+<p>建议贡献表述：</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-6-1">1</a></span>
+<span class="normal"><a href="#__codelineno-6-2">2</a></span>
+<span class="normal"><a href="#__codelineno-6-3">3</a></span>
+<span class="normal"><a href="#__codelineno-6-4">4</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1"></a>本文贡献如下：
+<a id="__codelineno-6-2" name="__codelineno-6-2"></a>1. 提出 CVA-Debate，一种面向自然语言常识陷阱的结构化因果变量审计框架。
+<a id="__codelineno-6-3" name="__codelineno-6-3"></a>2. 引入语境反转变量和过度纠错率，用于分析多智能体因果辩论的失败机制。
+<a id="__codelineno-6-4" name="__codelineno-6-4"></a>3. 构建中文常识因果陷阱诊断集，并进行分类实验，揭示该方法的有效边界。
+</code></pre></div></td></tr></table></div>
+<h3 id="102-related-work">10.2 Related Work<a class="headerlink" href="#102-related-work" title="Permanent link">¶</a></h3>
+<p>分三类写：</p>
+<ol>
+<li>LLM causal reasoning</li>
+<li>Multi-agent debate</li>
+<li>Self-correction and counterfactual debate</li>
+</ol>
+<h3 id="103-method">10.3 Method<a class="headerlink" href="#103-method" title="Permanent link">¶</a></h3>
+<p>介绍：</p>
+<ul>
+<li>Agent A/B/C</li>
+<li>X/Z/C/MSE 变量审计</li>
+<li>与普通辩论的区别</li>
+</ul>
+<h3 id="104-experiments">10.4 Experiments<a class="headerlink" href="#104-experiments" title="Permanent link">¶</a></h3>
+<p>介绍：</p>
+<ul>
+<li>数据集</li>
+<li>模型</li>
+<li>baselines</li>
+<li>指标</li>
+<li>人工评估流程</li>
+</ul>
+<h3 id="105-results">10.5 Results<a class="headerlink" href="#105-results" title="Permanent link">¶</a></h3>
+<p>必须包含：</p>
+<ul>
+<li>总准确率表</li>
+<li>分类准确率表</li>
+<li>correction/over-correction 表</li>
+<li>成功与失败案例</li>
+</ul>
+<h3 id="106-discussion">10.6 Discussion<a class="headerlink" href="#106-discussion" title="Permanent link">¶</a></h3>
+<p>重点讨论：</p>
+<ul>
+<li>方法何时有效</li>
+<li>方法何时反噬</li>
+<li>小模型的变量 grounding 局限</li>
+<li>因果 prompt 与严格因果推断之间的边界</li>
+</ul>
+<h3 id="107-conclusion">10.7 Conclusion<a class="headerlink" href="#107-conclusion" title="Permanent link">¶</a></h3>
+<p>结论口径：</p>
+<blockquote>
+<p>多智能体反事实辩论并不是天然可靠的因果推理增强器。其效果取决于是否能正确识别自然语言中的因果变量。CVA-Debate 通过显式区分核心变量、虚假相关变量和语境反转变量，为 training-free 的 LLM 因果鲁棒性改进提供了一个可解释的轻量框架。</p>
+</blockquote>
+<h2 id="11">11. 参考文献<a class="headerlink" href="#11" title="Permanent link">¶</a></h2>
+<ol>
+<li>Du, Y., Li, S., Torralba, A., Tenenbaum, J. B., &amp; Mordatch, I. (2023/2024). <strong>Improving Factuality and Reasoning in Language Models through Multiagent Debate</strong>. ICML 2024. arXiv:2305.14325.https://arxiv.org/abs/2305.14325项目页：https://composable-models.github.io/llm_debate/</li>
+<li>Vamosi, F. G., &amp; Forkert, N. D. (2025/2026). <strong>CRAwDAD: Causal Reasoning Augmentation with Dual-Agent Debate</strong>. AAMAS 2026. arXiv:2511.22854.https://openreview.net/forum?id=hz6qTQMe7Thttps://huggingface.co/papers/2511.22854</li>
+<li>Jin, Z., Chen, Y., Leeb, F., Gresele, L., Kamal, O., Lyu, Z., Blin, K., Adauto, F. G., Kleiman-Weiner, M., Sachan, M., &amp; Schölkopf, B. (2023). <strong>CLadder: Assessing Causal Reasoning in Language Models</strong>. NeurIPS 2023. arXiv:2312.04350.https://arxiv.org/abs/2312.04350https://huggingface.co/papers/2312.04350</li>
+<li>Kıcıman, E., Ness, R., Sharma, A., &amp; Tan, C. (2023/2024). <strong>Causal Reasoning and Large Language Models: Opening a New Frontier for Causality</strong>. Transactions on Machine Learning Research. arXiv:2305.00050.https://arxiv.org/abs/2305.00050https://www.microsoft.com/en-us/research/?p=938646</li>
+<li>Chan, C.-M., Chen, W., Su, Y., Yu, J., Xue, W., Zhang, S., Fu, J., &amp; Liu, Z. (2023/2024). <strong>ChatEval: Towards Better LLM-based Evaluators through Multi-Agent Debate</strong>. ICLR 2024. arXiv:2308.07201.https://arxiv.org/abs/2308.07201https://huggingface.co/papers/2308.07201</li>
+<li>Fang, Y., Li, M., Wang, W., Lin, H., &amp; Feng, F. (2024). <strong>Counterfactual Debating with Preset Stances for Hallucination Elimination of LLMs</strong>. arXiv:2406.11514.https://arxiv.org/abs/2406.11514</li>
+<li>Madaan, A., Tandon, N., Gupta, P., Hallinan, S., Gao, L., Wiegreffe, S., Alon, U., Dziri, N., Prabhumoye, S., Yang, Y., Gupta, S., Majumder, B. P., Hermann, K., Welleck, S., Yazdanbakhsh, A., &amp; Clark, P. (2023). <strong>Self-Refine: Iterative Refinement with Self-Feedback</strong>. arXiv:2303.17651.https://arxiv.org/abs/2303.17651</li>
+<li>Kojima, T., Gu, S. S., Reid, M., Matsuo, Y., &amp; Iwasawa, Y. (2022). <strong>Large Language Models are Zero-Shot Reasoners</strong>. arXiv:2205.11916.https://arxiv.org/abs/2205.11916</li>
+<li>Irving, G., Christiano, P., &amp; Amodei, D. (2018). <strong>AI Safety via Debate</strong>. arXiv:1805.00899.
+   https://arxiv.org/abs/1805.00899
+   https://openai.com/index/debate/</li>
+</ol>
+<h2 id="12">12. 最终定位<a class="headerlink" href="#12" title="Permanent link">¶</a></h2>
+<p>本研究的最终定位是：</p>
+<blockquote>
+<p>在现有多智能体辩论与 LLM 因果推理工作的交叉处，提出一种面向中文自然语言常识陷阱的结构化因果变量审计方法。该方法不声称解决严格因果推断问题，而是研究 LLM 在自然语言因果判断中如何受到虚假相关、语境反转和注意力劫持影响，并通过 correction 与 over-correction 两类指标揭示多智能体协同推理的有效边界。</p>
+</blockquote></div>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  <form class="md-feedback" name="feedback" hidden>
+    <fieldset>
+      <legend class="md-feedback__title">
+        此页面有帮助吗？
+      </legend>
+      <div class="md-feedback__inner">
+        <div class="md-feedback__list">
+          
+            <button class="md-feedback__icon md-icon" type="submit" title="This page was helpful" data-md-value="1">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M5 9v12H1V9zm4 12a2 2 0 0 1-2-2V9c0-.55.22-1.05.59-1.41L14.17 1l1.06 1.06c.27.27.44.64.44 1.05l-.03.32L14.69 8H21a2 2 0 0 1 2 2v2c0 .26-.05.5-.14.73l-3.02 7.05C19.54 20.5 18.83 21 18 21zm0-2h9.03L21 12v-2h-8.79l1.13-5.32L9 9.03z"/></svg>
+            </button>
+          
+            <button class="md-feedback__icon md-icon" type="submit" title="This page could be improved" data-md-value="0">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 15V3h4v12zM15 3a2 2 0 0 1 2 2v10c0 .55-.22 1.05-.59 1.41L9.83 23l-1.06-1.06c-.27-.27-.44-.64-.44-1.06l.03-.31.95-4.57H3a2 2 0 0 1-2-2v-2c0-.26.05-.5.14-.73l3.02-7.05C4.46 3.5 5.17 3 6 3zm0 2H5.97L3 12v2h8.78l-1.13 5.32L15 14.97z"/></svg>
+            </button>
+          
+        </div>
+        <div class="md-feedback__note">
+          
+            <div data-md-value="1" hidden>
+              
+              
+                
+              
+              
+              
+                
+                
+              
+              谢谢你的反馈！
+            </div>
+          
+            <div data-md-value="0" hidden>
+              
+              
+                
+              
+              
+              
+                
+                
+              
+              Thanks for your feedback! Help us improve this page by using our <a href="https://marketingplatform.google.com/about/analytics/" target="_blank" rel="noopener">feedback form</a>.
+            </div>
+          
+        </div>
+      </div>
+    </fieldset>
+  </form>
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  回到页面顶部
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2024~2025 Gaiake/All Rights Reserved.
+    </div>
+  
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+    <a href="image/wechat.jpg" target="_blank" rel="noopener" title="Wechat" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M385.2 167.6c6.4 0 12.6.3 18.8 1.1C387.4 90.3 303.3 32 207.7 32 100.5 32 13 104.8 13 197.4c0 53.4 29.3 97.5 77.9 131.6l-19.3 58.6 68-34.1c24.4 4.8 43.8 9.7 68.2 9.7 6.2 0 12.1-.3 18.3-.8-4-12.9-6.2-26.6-6.2-40.8-.1-84.9 72.9-154 165.3-154m-104.5-52.9c14.5 0 24.2 9.7 24.2 24.4 0 14.5-9.7 24.2-24.2 24.2-14.8 0-29.3-9.7-29.3-24.2.1-14.7 14.6-24.4 29.3-24.4m-136.4 48.6c-14.5 0-29.3-9.7-29.3-24.2 0-14.8 14.8-24.4 29.3-24.4 14.8 0 24.4 9.7 24.4 24.4 0 14.6-9.6 24.2-24.4 24.2M563 319.4c0-77.9-77.9-141.3-165.4-141.3-92.7 0-165.4 63.4-165.4 141.3S305 460.7 397.6 460.7c19.3 0 38.9-5.1 58.6-9.9l53.4 29.3-14.8-48.6C534 402.1 563 363.2 563 319.4m-219.1-24.5c-9.7 0-19.3-9.7-19.3-19.6 0-9.7 9.7-19.3 19.3-19.3 14.8 0 24.4 9.7 24.4 19.3 0 10-9.7 19.6-24.4 19.6m107.1 0c-9.7 0-19.3-9.7-19.3-19.6 0-9.7 9.7-19.3 19.3-19.3 14.5 0 24.4 9.7 24.4 19.3.1 10-9.9 19.6-24.4 19.6"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/Gaiake" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="mailto:<mayuxi660@gmail.com>" target="_blank" rel="noopener" title="" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M61.4 64C27.5 64 0 91.5 0 125.4c0 .9 0 1.7.1 2.6H0v256c0 35.3 28.7 64 64 64h384c35.3 0 64-28.7 64-64V128h-.1c0-.9.1-1.7.1-2.6 0-33.9-27.5-61.4-61.4-61.4zM464 192.3V384c0 8.8-7.2 16-16 16H64c-8.8 0-16-7.2-16-16V192.3l154.8 117.4c31.4 23.9 74.9 23.9 106.4 0zM48 125.4c0-7.4 6-13.4 13.4-13.4h389.2c7.4 0 13.4 6 13.4 13.4 0 4.2-2 8.2-5.3 10.7L280.2 271.5c-14.3 10.8-34.1 10.8-48.4 0L53.3 136.1c-3.3-2.5-5.3-6.5-5.3-10.7"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["announce.dismiss", "navigation.tracking", "navigation.tabs", "navigation.sections", "navigation.top", "navigation.footer", "search.suggest", "search.highlight", "search.share", "navigation.expand", "navigation.indexes", "content.tabs.link", "content.tooltips", "content.code.copy", "content.code.select", "content.code.annotate"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

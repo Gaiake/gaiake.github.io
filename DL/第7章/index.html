@@ -1,0 +1,4866 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Documentation for Gaiake, a high-performance computing project.">
+      
+      
+        <meta name="author" content="Gaiake">
+      
+      
+        <link rel="canonical" href="https://gaiake.github.io/DL/%E7%AC%AC7%E7%AB%A0/">
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="https://s2.loli.net/2024/04/26/PmRdM9iGnvOJHgu.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>深度视觉模型（二）—— 目标检测与图像分割 - Gaiake Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lxgw-wenkai-webfont@1.1.0/style.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+  
+
+
+  
+  
+
+<script id="__analytics">function __md_analytics(){function e(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],e("js",new Date),e("config",""),document.addEventListener("DOMContentLoaded",(function(){document.forms.search&&document.forms.search.query.addEventListener("blur",(function(){this.value&&e("event","search",{search_term:this.value})}));document$.subscribe((function(){var t=document.forms.feedback;if(void 0!==t)for(var a of t.querySelectorAll("[type=submit]"))a.addEventListener("click",(function(a){a.preventDefault();var n=document.location.pathname,d=this.getAttribute("data-md-value");e("event","feedback",{page:n,data:d}),t.firstElementChild.disabled=!0;var r=t.querySelector(".md-feedback__note [data-md-value='"+d+"']");r&&(r.hidden=!1)})),t.hidden=!1})),location$.subscribe((function(t){e("config","",{page_path:t.pathname})}))}));var t=document.createElement("script");t.async=!0,t.src="https://www.googletagmanager.com/gtag/js?id=",document.getElementById("__analytics").insertAdjacentElement("afterEnd",t)}</script>
+  
+    <script>"undefined"!=typeof __md_analytics&&__md_analytics()</script>
+  
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#_1" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../.." title="Gaiake Documentation" class="md-header__button md-logo" aria-label="Gaiake Documentation" data-md-component="logo">
+      
+  <img src="../../about/image/top.jpg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Gaiake Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              深度视觉模型（二）—— 目标检测与图像分割
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="关闭自动模式"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="关闭自动模式" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1M8 13h8v-2H8zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4a5 5 0 0 0 5-5 5 5 0 0 0-5-5"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="blue-grey" data-md-color-accent="blue"  aria-label="切换至夜间模式"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="切换至夜间模式" for="__palette_2" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="indigo"  aria-label="切换至日间模式"  type="radio" name="__palette" id="__palette_2">
+    
+      <label class="md-header__button md-icon" title="切换至日间模式" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 6H7c-3.31 0-6 2.69-6 6s2.69 6 6 6h10c3.31 0 6-2.69 6-6s-2.69-6-6-6m0 10H7c-2.21 0-4-1.79-4-4s1.79-4 4-4h10c2.21 0 4 1.79 4 4s-1.79 4-4 4M7 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="分享" aria-label="分享" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/Gaiake" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Gaiake
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="标签" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../about/about/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  About
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../courses/MA101/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Academic Courses
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Gaiake Documentation" class="md-nav__button md-logo" aria-label="Gaiake Documentation" data-md-component="logo">
+      
+  <img src="../../about/image/top.jpg" alt="logo">
+
+    </a>
+    Gaiake Documentation
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/Gaiake" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Gaiake
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    About
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    About
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../about/about/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    What can I say?
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Academic Courses
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Academic Courses
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_1" id="__nav_3_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    基础课程
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    基础课程
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../courses/MA101/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Calculus
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../courses/MA102/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Linear Algebra
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../courses/MA103/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Probability Theory and Mathematical Statistics
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../courses/MA104/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ordinary Differential Equations
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../courses/CS103/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Discrete Mathematics and its Applications
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../courses/PHY/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Physics
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+          
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3_2" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    专业课程
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_2" id="__nav_3_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    专业课程
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../courses/CS101/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Fundamentals of C Programming and Laboratory
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../courses/CS102/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Fundamentals of Data Structures
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../courses/CS105/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Computer System I
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../courses/CS104/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Computer System
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../courses/CS106/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Advanced Data Structures and Algorithm Analysis
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../courses/CS107/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Introduction to Artificial Intelligence
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../courses/CS108/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Object-Oriented Programming
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../courses/CS109/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Course Comprehensive Practice I
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../courses/CS110/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Causal Inference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../courses/CS111/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Social Networks and Security Privacy
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../courses/CS112/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Mathematical Software
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../courses/PE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    体育类课程
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../courses/Political/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    思政类课程
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../courses/General/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    通识类课程
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#object-detection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        一、目标检测（Object Detection）概述
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="一、目标检测（Object Detection）概述">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.1 任务演进：从分类到检测到分割
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2 目标检测的广阔应用
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#13" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.3 核心输出要素
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#single-object-detection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        二、单目标检测（Single Object Detection）
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="二、单目标检测（Single Object Detection）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1 问题定义
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2 网络架构：共享特征 + 双头结构
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.2 网络架构：共享特征 + 双头结构">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        各组件详解
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23-multi-task-loss" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3 多任务损失函数（Multi-Task Loss）
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.3 多任务损失函数（Multi-Task Loss）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        分类损失详解
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        定位损失详解
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        λ 超参数的取值
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#multi-object-detection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        三、多目标检测（Multi-Object Detection）—— 核心挑战
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="三、多目标检测（Multi-Object Detection）—— 核心挑战">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1 为什么多目标检测如此困难？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32-cnnsliding-window-cnn" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2 朴素方案：滑动窗口 + CNN（Sliding Window + CNN）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33-region-proposals" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.3 解决方案：区域提议（Region Proposals）
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3.3 解决方案：区域提议（Region Proposals）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        核心思想
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#34-selective-search" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.4 Selective Search（选择性搜索）
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3.4 Selective Search（选择性搜索）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        算法流程
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#r-cnnregion-based-cnn" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        四、R-CNN（Region-based CNN）
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="四、R-CNN（Region-based CNN）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41-r-cnn" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.1 R-CNN 的历史地位
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42-5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.2 完整流程（5 步走）
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4.2 完整流程（5 步走）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#step-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 1：区域提议生成
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-2roi" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 2：RoI 缩放到固定尺寸
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-3cnn" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 3：CNN 特征提取
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-4svm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 4：SVM 分类
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-5bounding-box-regression" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 5：边界框回归精调（Bounding Box Regression）
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#43" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.3 边界框回归详解
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4.3 边界框回归详解">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        修正量定义
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        修正公式
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        真实修正量的计算
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#44" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.4 训练流程（三阶段）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#45" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.5 推理流程（测试阶段）
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4.5 推理流程（测试阶段）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#nms-non-maximum-suppression" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        非极大值抑制（NMS, Non-Maximum Suppression）
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#46-r-cnn" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.6 R-CNN 的效率瓶颈总结
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        五、后续方法演进：两阶段检测家族
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="五、后续方法演进：两阶段检测家族">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51-fast-r-cnn2015" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.1 Fast R-CNN（2015）
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5.1 Fast R-CNN（2015）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        解决的核心问题
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_13" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        网络架构
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#roi-pooling" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        RoI Pooling 详解
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_14" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        性能提升
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#52-faster-r-cnn2015" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.2 Faster R-CNN（2015）
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5.2 Faster R-CNN（2015）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_15" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        解决的核心问题
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_16" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        网络架构
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#anchor-boxes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Anchor Boxes（锚点框 / 先验框）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rpn" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        RPN 的训练
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_17" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        性能提升
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#53" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.3 两阶段与单阶段方法对比
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5.3 两阶段与单阶段方法对比">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#two-stage" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        两阶段方法（Two-Stage）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#one-stage" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        单阶段方法（One-Stage）
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_18" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        六、单阶段方法详解
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="六、单阶段方法详解">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#61-yoloyou-only-look-once" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.1 YOLO（You Only Look Once）
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6.1 YOLO（You Only Look Once）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#yolo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        YOLO 的核心设计
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#yolo_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        YOLO 的损失函数
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#yolo_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        YOLO 版本的演进
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#62-ssdsingle-shot-multibox-detector" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.2 SSD（Single Shot MultiBox Detector）
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6.2 SSD（Single Shot MultiBox Detector）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ssd" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SSD 的核心设计
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ssd-vs-yolo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SSD vs YOLO 对比
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#63-retinanet-focal-loss" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.3 RetinaNet 与 Focal Loss
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6.3 RetinaNet 与 Focal Loss">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_19" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        问题背景
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#focal-loss" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Focal Loss 公式
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_20" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        七、目标检测核心技术专题
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="七、目标检测核心技术专题">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#71-iouintersection-over-union" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.1 IoU（Intersection over Union）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#72-mapmean-average-precision" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.2 mAP（mean Average Precision）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#73-nmsnon-maximum-suppression" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.3 NMS（Non-Maximum Suppression）
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#74-data-augmentation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.4 数据增强（Data Augmentation）在目标检测中的特殊处理
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#image-segmentation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        八、图像分割（Image Segmentation）
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="八、图像分割（Image Segmentation）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#81" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.1 分割任务概览
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#82-fcnfully-convolutional-network" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.2 FCN（Fully Convolutional Network）
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8.2 FCN（Fully Convolutional Network）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_21" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        核心思想
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fcn-" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FCN 编码器-解码器架构
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#transposed-convolution" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        转置卷积（Transposed Convolution）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#skip-connections" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        跳跃连接（Skip Connections）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fcn" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FCN 的局限性
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#83" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.3 语义分割的代表方法演进
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#84-u-net" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.4 U-Net：医学分割的经典架构
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#85-deeplab-aspp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.5 DeepLab 系列：膨胀卷积与 ASPP
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8.5 DeepLab 系列：膨胀卷积与 ASPP">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#dilated-atrous-convolution" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        膨胀卷积（Dilated / Atrous Convolution）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#asppatrous-spatial-pyramid-pooling" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ASPP（Atrous Spatial Pyramid Pooling）
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#86-mask-r-cnn" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.6 实例分割：Mask R-CNN
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8.6 实例分割：Mask R-CNN">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#roi-alignmask-r-cnn" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        RoI Align（Mask R-CNN 的关键改进）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mask-r-cnn" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mask R-CNN 的多任务损失
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_22" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        九、深度视觉模型总结
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#91" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.1 完整脉络图
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#92" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.2 关键技术对比表
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#93" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.3 关键公式速查表
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#94" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.4 学习路线建议
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  <nav class="md-tags" >
+    
+      
+      
+      
+      
+        <span class="md-tag">R-CNN</span>
+      
+    
+      
+      
+      
+      
+        <span class="md-tag">YOLO</span>
+      
+    
+      
+      
+      
+      
+        <span class="md-tag">图像分割</span>
+      
+    
+      
+      
+      
+      
+        <span class="md-tag">深度学习</span>
+      
+    
+      
+      
+      
+      
+        <span class="md-tag">目标检测</span>
+      
+    
+      
+      
+      
+      
+        <span class="md-tag">计算机视觉</span>
+      
+    
+      
+      
+      
+      
+        <span class="md-tag">课程笔记</span>
+      
+    
+  </nav>
+
+
+  
+  
+
+
+<div><div class="admonition info">
+<p class="admonition-title">📖 阅读信息</p>
+<p>阅读时间：<strong>14</strong> 分钟 | 中文字符：<strong>5445</strong> | 有效代码行数：<strong>165</strong></p>
+</div>
+<h1 id="_1">第七章 深度视觉模型（二）—— 目标检测与图像分割<a class="headerlink" href="#_1" title="Permanent link">¶</a></h1>
+<div class="admonition quote">
+<p class="admonition-title">核心跨越</p>
+</div>
+<hr>
+<blockquote>
+<p>从分类到检测——不仅能识别"<strong>什么</strong>"（分类），还能定位"<strong>在哪里</strong>"（位置），再到"<strong>每个像素属于什么</strong>"（分割）。</p>
+</blockquote>
+<hr>
+<h2 id="object-detection">一、目标检测（Object Detection）概述<a class="headerlink" href="#object-detection" title="Permanent link">¶</a></h2>
+<h3 id="11">1.1 任务演进：从分类到检测到分割<a class="headerlink" href="#11" title="Permanent link">¶</a></h3>
+<p>计算机视觉领域的任务演化是一个不断"<strong>细化粒度</strong>"的过程：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">任务等级</th>
+<th>名称</th>
+<th>输出粒度</th>
+<th>示例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">1</td>
+<td><mark>图像分类（Classification）</mark></td>
+<td>整张图像 → 1 个类别标签</td>
+<td><code>"CAT"</code></td>
+</tr>
+<tr>
+<td style="text-align: center;">2</td>
+<td><mark>分类 + 定位（Classification + Localization）</mark></td>
+<td>1 个类别 + 1 个边界框</td>
+<td><code>"CAT"</code> + (x, y, w, h)</td>
+</tr>
+<tr>
+<td style="text-align: center;">3</td>
+<td><mark>目标检测（Object Detection）</mark></td>
+<td>多个类别 + 多个边界框</td>
+<td><code>"DOG"</code>×3 + <code>"CAT"</code>×1 + 各自坐标</td>
+</tr>
+<tr>
+<td style="text-align: center;">4</td>
+<td><mark>语义分割（Semantic Segmentation）</mark></td>
+<td>每个像素 → 类别（不区分个体）</td>
+<td>所有"猫"像素标为一类</td>
+</tr>
+<tr>
+<td style="text-align: center;">5</td>
+<td><mark>实例分割（Instance Segmentation）</mark></td>
+<td>每个像素 → 类别 + 实例 ID</td>
+<td>猫 A vs 猫 B 的像素分开标记</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition info">
+<p class="admonition-title">任务难度递增</p>
+<p>从分类到实例分割，任务难度和信息量逐级递增。目标检测是<strong>计算机视觉中承上启下的核心任务</strong>——它既需要全局理解能力（知道图中有什么物体），又需要空间定位能力（知道物体在哪儿）。</p>
+</div>
+<h3 id="12">1.2 目标检测的广阔应用<a class="headerlink" href="#12" title="Permanent link">¶</a></h3>
+<div class="admonition tip">
+<p class="admonition-title">为什么目标检测如此重要？</p>
+<p>几乎任何需要"理解图像内容"的现实场景都离不开目标检测。</p>
+</div>
+<table>
+<thead>
+<tr>
+<th>应用领域</th>
+<th>具体场景</th>
+<th>检测对象</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><mark>自动驾驶</mark></td>
+<td>识别行人、车辆、交通标志、车道线</td>
+<td>行人类、车辆类、交通标志类</td>
+</tr>
+<tr>
+<td><mark>安防监控</mark></td>
+<td>异常行为检测、入侵检测、人流统计</td>
+<td>人物、车辆、可疑物品</td>
+</tr>
+<tr>
+<td><mark>医疗影像</mark></td>
+<td>CT/MRI/X 光中的病灶检测</td>
+<td>肿瘤、结节、骨折区域</td>
+</tr>
+<tr>
+<td><mark>工业质检</mark></td>
+<td>产品表面缺陷检测、装配完整性检查</td>
+<td>划痕、缺损、异物</td>
+</tr>
+<tr>
+<td><mark>遥感分析</mark></td>
+<td>卫星图目标检测</td>
+<td>建筑物、船只、农田、军事目标</td>
+</tr>
+<tr>
+<td><mark>零售管理</mark></td>
+<td>货架商品识别、自动结账</td>
+<td>各类商品 SKU</td>
+</tr>
+<tr>
+<td><mark>人脸检测</mark></td>
+<td>手机相机中的人脸框</td>
+<td>人脸（人脸检测是目标检测的特例）</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>人脸检测（Face Detection）是目标检测的一个重要子领域。现代手机相机中的人脸框实时显示，背后就是一个高效的目标检测模型在运行。</p>
+</div>
+<h3 id="13">1.3 核心输出要素<a class="headerlink" href="#13" title="Permanent link">¶</a></h3>
+<p>目标检测模型的输出可以分解为两个核心部分：</p>
+<ol>
+<li><strong>类别信息（Classification）</strong>：每个检测到的物体属于哪个类别（如猫、狗、车...）</li>
+<li><strong>位置信息（Localization）</strong>：用一个<strong>边界框（Bounding Box）</strong> 来精确描述物体的空间位置</li>
+</ol>
+<p><strong>边界框的表示方式：</strong></p>
+<p>Bounding Box = (x, y, w, h)</p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>含义</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>x</td>
+<td>边界框中心点的横坐标</td>
+<td>或左上角横坐标（取决于约定）</td>
+</tr>
+<tr>
+<td>y</td>
+<td>边界框中心点的纵坐标</td>
+<td>或左上角纵坐标（取决于约定）</td>
+</tr>
+<tr>
+<td>w</td>
+<td>边界框的宽度</td>
+<td>像素值</td>
+</tr>
+<tr>
+<td>h</td>
+<td>边界框的高度</td>
+<td>像素值</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="admonition-title">坐标约定</p>
+<p>常见的有两种坐标体系：
+- <strong>中心点法</strong>：<span class="arithmatex">\((x_\text{center}, y_\text{center}, w, h)\)</span> —— YOLO 系列使用
+- <strong>角点法</strong>：<span class="arithmatex">\((x_\text{tl}, y_\text{tl}, x_\text{br}, y_\text{br})\)</span> —— 即 (左上 x, 左上 y, 右下 x, 右下 y)，Fast R-CNN 使用</p>
+</div>
+<hr>
+<h2 id="single-object-detection">二、单目标检测（Single Object Detection）<a class="headerlink" href="#single-object-detection" title="Permanent link">¶</a></h2>
+<h3 id="21">2.1 问题定义<a class="headerlink" href="#21" title="Permanent link">¶</a></h3>
+<p>图像中<strong>只存在一个目标对象</strong>时，我们需要同时输出它的类别和位置。</p>
+<div class="admonition example">
+<p class="admonition-title">Example</p>
+<p>假设一张图里只有一只猫，我们需要输出：<code>"CAT"</code> + <code>(x, y, w, h)</code>
+这里没有"有多少个物体"的歧义——因为只有<strong>一个</strong>。</p>
+</div>
+<h3 id="22">2.2 网络架构：共享特征 + 双头结构<a class="headerlink" href="#22" title="Permanent link">¶</a></h3>
+<p>单目标检测的核心思路是<strong>在共享特征之上，分出两个并行分支</strong>：</p>
+<pre class="mermaid"><code>flowchart TD
+    A[输入图像] --&gt; B[共享卷积特征提取器&lt;br/&gt;Backbone: AlexNet / VGG / ResNet]
+    B --&gt; C[Feature Vector]
+    C --&gt; D[分类头 Cls&lt;br/&gt;Softmax / Cross-Entropy]
+    C --&gt; E[回归头 Reg&lt;br/&gt;输出边界框坐标 x,y,w,h]</code></pre>
+<h4 id="_2">各组件详解<a class="headerlink" href="#_2" title="Permanent link">¶</a></h4>
+<table>
+<thead>
+<tr>
+<th>组件</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>共享卷积特征提取器（Backbone）</strong></td>
+<td>通常使用在 ImageNet 上预训练的分类网络（如 AlexNet、VGG16）。去掉最后的全连接分类层，保留卷积部分作为特征提取器。输出是一个固定长度的特征向量。</td>
+</tr>
+<tr>
+<td><strong>分类头（Classification Head）</strong></td>
+<td>将特征向量映射到 (K+1) 个类别得分（K 个物体类别 + 1 个背景类）。使用 <strong>Softmax</strong> 输出概率分布，损失函数为 <strong>Cross-Entropy Loss</strong>。</td>
+</tr>
+<tr>
+<td><strong>回归头（Regression Head）</strong></td>
+<td>将特征向量映射到 4 个数值：(x, y, w, h)。这 4 个值直接表示边界框坐标。损失函数使用 <strong>L2 Loss</strong>（均方误差）。</td>
+</tr>
+</tbody>
+</table>
+<h3 id="23-multi-task-loss">2.3 多任务损失函数（Multi-Task Loss）<a class="headerlink" href="#23-multi-task-loss" title="Permanent link">¶</a></h3>
+<div class="admonition tip">
+<p class="admonition-title">核心公式</p>
+<div class="arithmatex">\[
+\mathcal{L} = \mathcal{L}_{cls} + \lambda \cdot \mathcal{L}_{reg}
+\]</div>
+<p>其中 <span class="arithmatex">\(\lambda\)</span> 是<strong>平衡超参数</strong>，控制分类和定位任务的相对重要性。</p>
+</div>
+<h4 id="_3">分类损失详解<a class="headerlink" href="#_3" title="Permanent link">¶</a></h4>
+<p>对于分类任务，使用 <strong>Softmax Cross-Entropy Loss</strong>：</p>
+<div class="arithmatex">\[
+\mathcal{L}_{cls} = -\sum_{i=1}^{K+1} y_i \log(\hat{y}_i)
+\]</div>
+<p>其中：
+- <span class="arithmatex">\(y_i\)</span> ：真实标签的 one-hot 编码（<span class="arithmatex">\(y_i\)</span> = 1 当 i 为正确类别，否则为 0）
+- <span class="arithmatex">\(\hat{y}_i\)</span> ：模型预测的第 i 类概率（经过 Softmax）
+- <span class="arithmatex">\(K+1\)</span> ：类别数（含背景类）</p>
+<h4 id="_4">定位损失详解<a class="headerlink" href="#_4" title="Permanent link">¶</a></h4>
+<p>对于回归任务，使用 <strong>L2 Loss</strong>（均方误差）：
+$$
+\mathcal{L}<em _123_x_y_w_h_125_="{x,y,w,h}" _in="\in" j="j">{reg} = \sum</em>_j)^2
+$$} (t_j - \hat{t</p>
+<p>其中：
+- <span class="arithmatex">\(t_j\)</span> ：真实的边界框坐标
+- <span class="arithmatex">\(\hat{t}_j\)</span> ：模型预测的边界框坐标</p>
+<div class="admonition warning">
+<p class="admonition-title">L2 Loss 的问题</p>
+<p>L2 Loss 对大误差非常敏感（平方放大），导致对异常值（outlier）很脆弱。后来的方法（如 Fast R-CNN）改用了 <strong>Smooth L1 Loss</strong>：
+$$
+Smooth_{L1}(x) = \begin{cases}
+0.5x^2 &amp; if  |x| &lt; 1 \
+|x| - 0.5 &amp; otherwise
+\end{cases}
+$$
+Smooth L1 在误差大时梯度饱和，训练更稳定。</p>
+</div>
+<h4 id="_5">λ 超参数的取值<a class="headerlink" href="#_5" title="Permanent link">¶</a></h4>
+<table>
+<thead>
+<tr>
+<th>λ 值</th>
+<th>效果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>λ 太小（如 0.1）</td>
+<td>模型更关注分类精度，边界框可能不准</td>
+</tr>
+<tr>
+<td>λ 太大（如 10）</td>
+<td>模型更关注定位精度，类别可能分错</td>
+</tr>
+<tr>
+<td>λ = 1</td>
+<td>同等权重，简单但通常不是最优</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>实践中，<span class="arithmatex">\(\lambda\)</span> 通常通过交叉验证或网格搜索确定。Fast R-CNN 论文中使用的 <span class="arithmatex">\(\lambda\)</span> = 1。</p>
+</div>
+<hr>
+<h2 id="multi-object-detection">三、多目标检测（Multi-Object Detection）—— 核心挑战<a class="headerlink" href="#multi-object-detection" title="Permanent link">¶</a></h2>
+<h3 id="31">3.1 为什么多目标检测如此困难？<a class="headerlink" href="#31" title="Permanent link">¶</a></h3>
+<div class="admonition danger">
+<p class="admonition-title">根本矛盾</p>
+<p><strong>深度学习模型期望固定维度的输入输出，而不同图像中的目标数量是可变的。</strong></p>
+</div>
+<p>来看具体的数据例子：</p>
+<table>
+<thead>
+<tr>
+<th>图像内容</th>
+<th style="text-align: center;">需要的输出数量</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1 只猫</td>
+<td style="text-align: center;">4 个输出</td>
+<td>1 个框 × 4 坐标</td>
+</tr>
+<tr>
+<td>3 只狗 + 1 只猫</td>
+<td style="text-align: center;">16 个输出</td>
+<td>4 个框 × 4 坐标</td>
+</tr>
+<tr>
+<td>繁忙街景（数十人、车）</td>
+<td style="text-align: center;">上百个输出</td>
+<td>数量无法提前确定</td>
+</tr>
+</tbody>
+</table>
+<p><strong>为什么不能简单用全连接层输出可变数量？</strong>
+- 全连接层的权重矩阵维度是<strong>固定的</strong>——一旦训练完成，输入和输出的神经元数量就锁死了
+- 一个输出 4 维的网络只能检测 1 个目标；如果要检测最多 10 个目标，输出层就得有 40 个神经元——但这意味着<strong>必须提前知道最大目标数量</strong></p>
+<h3 id="32-cnnsliding-window-cnn">3.2 朴素方案：滑动窗口 + CNN（Sliding Window + CNN）<a class="headerlink" href="#32-cnnsliding-window-cnn" title="Permanent link">¶</a></h3>
+<p>这是人们想到的最直观方案——既然我们不知道目标在哪儿，那就<strong>遍历所有可能的位置和尺寸</strong>。</p>
+<pre class="mermaid"><code>flowchart TD
+    A[原始图像] --&gt; B[滑动窗口: 多位置 / 多尺度 / 多宽高比]
+    B --&gt; C1[窗口 1]
+    B --&gt; C2[窗口 2]
+    B --&gt; C3[窗口 3]
+    C1 --&gt; D1[CNN 分类 + 回归]
+    C2 --&gt; D2[CNN 分类 + 回归]
+    C3 --&gt; D3[CNN 分类 + 回归]
+    D1 --&gt; E[合并所有窗口结果]
+    D2 --&gt; E
+    D3 --&gt; E
+    E --&gt; F[问题: 窗口数量巨大, 计算爆炸]</code></pre>
+<p><strong>滑动窗口策略的三大维度：</strong></p>
+<table>
+<thead>
+<tr>
+<th>维度</th>
+<th>描述</th>
+<th>典型取值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>位置</strong></td>
+<td>窗口在图像上的偏移步长</td>
+<td>stride = 32 像素</td>
+</tr>
+<tr>
+<td><strong>尺度</strong></td>
+<td>窗口的大小</td>
+<td>从 32×32 到整张图像</td>
+</tr>
+<tr>
+<td><strong>宽高比</strong></td>
+<td>窗口的形状</td>
+<td>1:1, 1:2, 2:1, 3:4, 4:3 等</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition failure">
+<p class="admonition-title">致命问题：计算爆炸</p>
+<p>对一张 <span class="arithmatex">\(224 \times 224\)</span> 的图像，即使只考虑少量尺度和宽高比，产生的窗口数量也在 <strong>数十万到数百万</strong>级别。对每个窗口都运行一次完整的 CNN，计算成本是天文数字！</p>
+<p>例如：
+- 步长 32，尺度 4 种，宽高比 3 种
+- 窗口数量 ≈ <span class="arithmatex">\((224/32)^2 \times 4 \times 3 \approx 588\)</span> 个
+- 如果窗口更密集（步长 16），窗口数量上升到约 2352 个
+- 每个窗口前向传播 ~1ms → 一张图需要 2.3 秒
+- VOC 数据集有 ~20K 张图 → 13 小时的纯前向时间
+- 而且这还没考虑训练！</p>
+</div>
+<div class="admonition quote">
+<p class="admonition-title">一句话总结</p>
+<p>滑动窗口本质上是<strong>暴力搜索</strong>，在位置和尺度的组合空间中指数级爆炸，完全不可行。</p>
+</div>
+<h3 id="33-region-proposals">3.3 解决方案：区域提议（Region Proposals）<a class="headerlink" href="#33-region-proposals" title="Permanent link">¶</a></h3>
+<h4 id="_6">核心思想<a class="headerlink" href="#_6" title="Permanent link">¶</a></h4>
+<p>与其用"所有窗口"暴力穷举，不如用更聪明的方法先找出<strong>可能包含物体的候选区域</strong>，然后再对这些少量候选区域做精细分类和定位。</p>
+<pre class="mermaid"><code>flowchart LR
+    A[暴力滑窗&lt;br/&gt;所有窗口全量分类] --&gt; B[计算爆炸]
+    C[区域提议法&lt;br/&gt;先找约 2000 个候选区域] --&gt; D[再精细分类与回归]
+    D --&gt; E[可行]</code></pre>
+<div class="admonition check">
+<p class="admonition-title">区域提议的关键洞察</p>
+<p>虽然我们不知道物体究竟是什么，但我们可以快速判断"这片区域<strong>可能</strong>有物体"——基于颜色连续性、纹理一致性等低级视觉线索。这些线索的计算比 CNN 分类要快得多。</p>
+</div>
+<h3 id="34-selective-search">3.4 Selective Search（选择性搜索）<a class="headerlink" href="#34-selective-search" title="Permanent link">¶</a></h3>
+<div class="admonition info">
+<p class="admonition-title">Selective Search 是 R-CNN 论文中使用的经典区域提议算法。</p>
+<p>发布时间：2012 年（IJCV）
+核心论文：<em>"Selective Search for Object Recognition"</em> by Uijlings et al.</p>
+</div>
+<h4 id="_7">算法流程<a class="headerlink" href="#_7" title="Permanent link">¶</a></h4>
+<pre class="mermaid"><code>flowchart TD
+    A[Step 1: 超像素分割&lt;br/&gt;生成约 1000-2000 个小区域] --&gt; B[Step 2: 计算相邻区域相似度]
+    B --&gt; B1[颜色相似度]
+    B --&gt; B2[纹理相似度]
+    B --&gt; B3[大小相似度]
+    B --&gt; B4[形状相似度]
+    B1 --&gt; C[Step 3: 贪心合并]
+    B2 --&gt; C
+    B3 --&gt; C
+    B4 --&gt; C
+    C --&gt; D[重复合并并更新相似度]
+    D --&gt; E[Step 4: 输出约 2000 个候选区域 RoI]</code></pre>
+<p><strong>四种相似度度量：</strong></p>
+<table>
+<thead>
+<tr>
+<th>相似度类型</th>
+<th>计算方式</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><mark>颜色相似度</mark></td>
+<td>计算区域的颜色直方图（HSV 空间），用直方图交并比度量</td>
+<td>确保颜色接近的区域合并</td>
+</tr>
+<tr>
+<td><mark>纹理相似度</mark></td>
+<td>使用 SIFT 或 Gaussian 滤波器提取局部纹理特征，比较直方图</td>
+<td>确保纹理相似的区域合并</td>
+</tr>
+<tr>
+<td><mark>大小相似度</mark></td>
+<td>小区域优先合并，避免大区域吞并所有小区域</td>
+<td>使提议在不同尺度上均匀分布</td>
+</tr>
+<tr>
+<td><mark>形状相似度</mark></td>
+<td>衡量两个区域是否形状互补（如填满凹陷）</td>
+<td>使得提议能完整覆盖物体</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition tip">
+<p class="admonition-title">Selective Search 的亮点</p>
+<ul>
+<li><strong>类无关（Class-agnostic）</strong>：不需要知道物体是什么类别，所以可以作为任何检测任务的前置模块</li>
+<li><strong>速度快</strong>：每张图仅需约 0.2-0.5 秒（远快于滑动窗口的分钟级）</li>
+<li><strong>高召回</strong>：在标准数据集上，2000 个提议可以达到 ~98% 的召回率（物体被某个提议覆盖）</li>
+</ul>
+</div>
+<hr>
+<h2 id="r-cnnregion-based-cnn">四、R-CNN（Region-based CNN）<a class="headerlink" href="#r-cnnregion-based-cnn" title="Permanent link">¶</a></h2>
+<blockquote>
+<p>R-CNN = Regions with CNN features
+发布时间：2014 年（CVPR）
+论文：<em>"Rich feature hierarchies for accurate object detection and semantic segmentation"</em></p>
+</blockquote>
+<h3 id="41-r-cnn">4.1 R-CNN 的历史地位<a class="headerlink" href="#41-r-cnn" title="Permanent link">¶</a></h3>
+<div class="admonition quote">
+<p class="admonition-title">R-CNN 是深度学习目标检测的<strong>开山之作</strong></p>
+<p>它首次证明：<strong>CNN 不仅可以做图像分类，在经过适当的改造后，也可以做精确的目标检测。</strong></p>
+<p>尽管在今天看来 R-CNN 已经非常缓慢和复杂，但它的<strong>架构范式</strong>——区域提议 → 特征提取 → 分类 + 回归——奠定了整个两阶段检测家族的基础。</p>
+</div>
+<h3 id="42-5">4.2 完整流程（5 步走）<a class="headerlink" href="#42-5" title="Permanent link">¶</a></h3>
+<pre class="mermaid"><code>flowchart TD
+    A[输入图像] --&gt; B[Selective Search&lt;br/&gt;生成约 2000 个 RoI]
+    B --&gt; C[每个 RoI 缩放到 224×224]
+    C --&gt; D[CNN 特征提取&lt;br/&gt;每个 RoI 单独前向]
+    D --&gt; E[4096 维特征向量]
+    E --&gt; F[SVM 分类]
+    E --&gt; G[边界框回归器]
+    F --&gt; H[类别得分]
+    G --&gt; I[边界框精调]
+    H --&gt; J[NMS 后处理]
+    I --&gt; J
+    J --&gt; K[最终检测结果]</code></pre>
+<p><strong>详细分步解释：</strong></p>
+<h4 id="step-1">Step 1：区域提议生成<a class="headerlink" href="#step-1" title="Permanent link">¶</a></h4>
+<p>对输入图像运行 <strong>Selective Search</strong>，生成约 <strong>2000 个候选区域（RoI, Region of Interest）</strong>。</p>
+<ul>
+<li>这些 RoI 形状不规则、大小各异</li>
+<li>它们"覆盖"了图像中所有可能包含物体的区域</li>
+<li>虽然存在大量冗余（同一个物体会被多个 RoI 覆盖），但保证了极高的召回率</li>
+</ul>
+<h4 id="step-2roi">Step 2：RoI 缩放到固定尺寸<a class="headerlink" href="#step-2roi" title="Permanent link">¶</a></h4>
+<p>每个 RoI 被<strong>缩放到 224×224 像素</strong>的固定尺寸。</p>
+<div class="admonition question">
+<p class="admonition-title">为什么需要缩放？</p>
+<p>CNN 的全连接层要求输入特征向量具有<strong>固定长度</strong>。因此，所有 RoI 必须统一尺寸。</p>
+</div>
+<h4 id="step-3cnn">Step 3：CNN 特征提取<a class="headerlink" href="#step-3cnn" title="Permanent link">¶</a></h4>
+<p>每个缩放后的 RoI 独立通过一个<strong>预训练的 CNN</strong>（如 AlexNet），提取出一个 <strong>4096 维的特征向量</strong>。</p>
+<div class="admonition warning">
+<p class="admonition-title">效率瓶颈</p>
+<p>2000 个 RoI → 2000 次 CNN 前向传播！
+且这些 RoI 之间存在大量重叠，但 CNN 完全不知道——它反复计算了相同的图像区域。这是 R-CNN 最大的效率瓶颈。</p>
+</div>
+<h4 id="step-4svm">Step 4：SVM 分类<a class="headerlink" href="#step-4svm" title="Permanent link">¶</a></h4>
+<p>对每个 RoI 的特征向量，使用一个<strong>二分类线性 SVM</strong> 来判定它是否属于某个类别。</p>
+<ul>
+<li>每个类别训练一个独立的 SVM 分类器（即"猫"SVM、"狗"SVM、"车"SVM...）</li>
+<li>SVM 输出一个得分，表示该 RoI 包含该类物体的可能性</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">为什么用 SVM 而不是 Softmax？</p>
+<p>R-CNN 论文中实验发现，对每个类别单独训练 SVM 比直接在网络末尾加 Softmax 效果更好。原因可能是：
+- SVM 的铰链损失（Hinge Loss）对"难分样本"（hard negatives）更鲁棒
+- 预训练 CNN + SVM 的"解耦训练"方式，让 SVM 可以在更专业的特征空间中学习决策边界</p>
+<p>但后续方法（Fast R-CNN 开始）证明了端到端的 Softmax 同样优秀，且更简洁。</p>
+</div>
+<h4 id="step-5bounding-box-regression">Step 5：边界框回归精调（Bounding Box Regression）<a class="headerlink" href="#step-5bounding-box-regression" title="Permanent link">¶</a></h4>
+<p>对每个分类为"包含物体"的 RoI，额外训练一个<strong>线性回归器</strong>，预测从当前 RoI 到真实边界框的<strong>修正量</strong>。</p>
+<div class="admonition tip">
+<p class="admonition-title">核心思想</p>
+<p>Selective Search 给出的 RoI 虽然覆盖了物体，但<strong>通常不够精确</strong>——可能框偏了、框大了或框小了。边界框回归器的任务就是<strong>微调这些边界框</strong>，使其更贴近真实物体。</p>
+</div>
+<h3 id="43">4.3 边界框回归详解<a class="headerlink" href="#43" title="Permanent link">¶</a></h3>
+<h4 id="_8">修正量定义<a class="headerlink" href="#_8" title="Permanent link">¶</a></h4>
+<p>不直接预测绝对坐标，而是预测 <strong>4 个修正参数</strong>：</p>
+<p>(dx, dy, dw, dh)</p>
+<p>其中：
+- dx：中心点 x 的<strong>偏移量</strong>（归一化）
+- dy：中心点 y 的<strong>偏移量</strong>（归一化）
+- dw：宽度的<strong>缩放因子</strong>（对数空间）
+- dh：高度的<strong>缩放因子</strong>（对数空间）</p>
+<h4 id="_9">修正公式<a class="headerlink" href="#_9" title="Permanent link">¶</a></h4>
+<p>给定 RoI 的提议框 P = (P_x, P_y, P_w, P_h) 和预测的修正量 (dx, dy, dw, dh)，修正后的边界框 G' 为：</p>
+<div class="arithmatex">\[
+\begin{aligned}
+G'_x &amp;= P_w \cdot dx + P_x \\
+G'_y &amp;= P_h \cdot dy + P_y \\
+G'_w &amp;= P_w \cdot \exp(dw) \\
+G'_h &amp;= P_h \cdot \exp(dh)
+\end{aligned}
+\]</div>
+<p><strong>为什么用 <span class="arithmatex">\(\exp\)</span> 来处理宽高？</strong>
+- 宽度和高度必须为正数
+- <span class="arithmatex">\(\exp\)</span> 确保输出始终大于 0，且允许在 log 空间进行线性回归（更符合数据的分布特性）</p>
+<h4 id="_10">真实修正量的计算<a class="headerlink" href="#_10" title="Permanent link">¶</a></h4>
+<p>训练时，我们需要知道"真实"的修正量是多少（从提议框 P 到真实框 G 的映射）：</p>
+<div class="arithmatex">\[
+\begin{aligned}
+dx^* &amp;= (G_x - P_x) / P_w \\
+dy^* &amp;= (G_y - P_y) / P_h \\
+dw^* &amp;= \log(G_w / P_w) \\
+dh^* &amp;= \log(G_h / P_h)
+\end{aligned}
+\]</div>
+<p>回归器的训练目标就是让 (dx, dy, dw, dh) 尽可能接近 (<span class="arithmatex">\(dx^*, dy^*, dw^*, dh^*\)</span>)，使用 L2 Loss。</p>
+<h3 id="44">4.4 训练流程（三阶段）<a class="headerlink" href="#44" title="Permanent link">¶</a></h3>
+<p>R-CNN 的训练过程异常复杂，分为三个独立阶段：</p>
+<pre class="mermaid"><code>flowchart TD
+    A[阶段一: CNN 预训练&lt;br/&gt;ImageNet 分类任务] --&gt; B[阶段二: SVM 分类器训练&lt;br/&gt;每个类别一个线性 SVM]
+    B --&gt; C[阶段三: 边界框回归器训练&lt;br/&gt;预测 dx*,dy*,dw*,dh*]
+    C --&gt; D[推理时组合: RoI 特征 + SVM + 回归 + NMS]</code></pre>
+<h3 id="45">4.5 推理流程（测试阶段）<a class="headerlink" href="#45" title="Permanent link">¶</a></h3>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1">1</a></span>
+<span class="normal"><a href="#__codelineno-0-2">2</a></span>
+<span class="normal"><a href="#__codelineno-0-3">3</a></span>
+<span class="normal"><a href="#__codelineno-0-4">4</a></span>
+<span class="normal"><a href="#__codelineno-0-5">5</a></span>
+<span class="normal"><a href="#__codelineno-0-6">6</a></span>
+<span class="normal"><a href="#__codelineno-0-7">7</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1"></a>R-CNN 推理流程：
+<a id="__codelineno-0-2" name="__codelineno-0-2"></a>1. 输入图像 → Selective Search → 约 2000 个 RoI
+<a id="__codelineno-0-3" name="__codelineno-0-3"></a>2. 每个 RoI → warp 到 224×224 → CNN 前向 → 4096 维特征
+<a id="__codelineno-0-4" name="__codelineno-0-4"></a>3. 每个 RoI 特征 → 所有类别的 SVM 分类器 → 得分向量
+<a id="__codelineno-0-5" name="__codelineno-0-5"></a>4. 对每个类别，对高分 RoI 应用边界框回归修正
+<a id="__codelineno-0-6" name="__codelineno-0-6"></a>5. 应用 NMS（非极大值抑制）消除冗余检测框
+<a id="__codelineno-0-7" name="__codelineno-0-7"></a>6. 输出最终检测结果：类别 + 边界框坐标
+</code></pre></div></td></tr></table></div>
+<h4 id="nms-non-maximum-suppression">非极大值抑制（NMS, Non-Maximum Suppression）<a class="headerlink" href="#nms-non-maximum-suppression" title="Permanent link">¶</a></h4>
+<div class="admonition tip">
+<p class="admonition-title">NMS 的核心作用</p>
+<p>多个 RoI 可能同时检测到同一个物体（且经过回归后边界框高度重叠）。NMS 的作用是<strong>只保留最可能的一个</strong>，抑制多余的检测框。</p>
+</div>
+<p><strong>NMS 算法流程：</strong></p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-1-1">1</a></span>
+<span class="normal"><a href="#__codelineno-1-2">2</a></span>
+<span class="normal"><a href="#__codelineno-1-3">3</a></span>
+<span class="normal"><a href="#__codelineno-1-4">4</a></span>
+<span class="normal"><a href="#__codelineno-1-5">5</a></span>
+<span class="normal"><a href="#__codelineno-1-6">6</a></span>
+<span class="normal"><a href="#__codelineno-1-7">7</a></span>
+<span class="normal"><a href="#__codelineno-1-8">8</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1"></a>NMS 输入：所有检测框（类别得分 + 坐标）
+<a id="__codelineno-1-2" name="__codelineno-1-2"></a>NMS 输出：去冗余后的检测框列表
+<a id="__codelineno-1-3" name="__codelineno-1-3"></a>
+<a id="__codelineno-1-4" name="__codelineno-1-4"></a>1. 按类别得分从高到低排序
+<a id="__codelineno-1-5" name="__codelineno-1-5"></a>2. 选择当前最高分框并保留
+<a id="__codelineno-1-6" name="__codelineno-1-6"></a>3. 删除与该框 IoU 大于阈值的低分框
+<a id="__codelineno-1-7" name="__codelineno-1-7"></a>4. 在剩余框中重复 2-3 步
+<a id="__codelineno-1-8" name="__codelineno-1-8"></a>5. 输出保留下来的检测框
+</code></pre></div></td></tr></table></div>
+<h3 id="46-r-cnn">4.6 R-CNN 的效率瓶颈总结<a class="headerlink" href="#46-r-cnn" title="Permanent link">¶</a></h3>
+<table>
+<thead>
+<tr>
+<th>问题</th>
+<th>具体表现</th>
+<th style="text-align: center;">严重程度</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><mark>重复前向</mark></td>
+<td>2000 个 RoI 独立通过 CNN，大量重叠区域被重复计算</td>
+<td style="text-align: center;">🔴🔴🔴🔴🔴</td>
+</tr>
+<tr>
+<td><mark>多阶段训练</mark></td>
+<td>CNN 预训练 → SVM 训练 → 回归器训练，流程割裂、调参复杂</td>
+<td style="text-align: center;">🔴🔴🔴🔴</td>
+</tr>
+<tr>
+<td><mark>磁盘存储</mark></td>
+<td>每个 RoI 的 4096 维特征需要存储到磁盘，占用巨大空间</td>
+<td style="text-align: center;">🔴🔴🔴</td>
+</tr>
+<tr>
+<td><mark>速度慢</mark></td>
+<td>每张图测试时间 ~47 秒（AlexNet 在 GPU 上），完全无法实时</td>
+<td style="text-align: center;">🔴🔴🔴🔴🔴</td>
+</tr>
+<tr>
+<td><mark>选择性搜索固定</mark></td>
+<td>Selective Search 作为一个固定模块，无法参与网络训练（不能端到端优化）</td>
+<td style="text-align: center;">🔴🔴🔴</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition danger">
+<p class="admonition-title">R-CNN 无法实时的根本原因</p>
+<p>一张图 ~47 秒意味着：
+- 处理 1 分钟的视频（~1800 帧）需要 <strong>~23.5 小时</strong>
+- 自动驾车场景：汽车每 0.1 秒移动几米，47 秒的处理延迟根本无法接受！</p>
+<p>这也直接推动了后续方法（Fast R-CNN、Faster R-CNN）的发展。</p>
+</div>
+<hr>
+<h2 id="_11">五、后续方法演进：两阶段检测家族<a class="headerlink" href="#_11" title="Permanent link">¶</a></h2>
+<h3 id="51-fast-r-cnn2015">5.1 Fast R-CNN（2015）<a class="headerlink" href="#51-fast-r-cnn2015" title="Permanent link">¶</a></h3>
+<blockquote>
+<p>论文：<em>"Fast R-CNN"</em> by Ross Girshick
+核心创新：<strong>RoI Pooling</strong> + <strong>共享卷积特征</strong></p>
+</blockquote>
+<h4 id="_12">解决的核心问题<a class="headerlink" href="#_12" title="Permanent link">¶</a></h4>
+<p>R-CNN 的 2000 次 CNN 前向完全可以合并为<strong>一次</strong>——因为 RoI 之间大量重叠，所有 RoI 都来自同一张图！</p>
+<h4 id="_13">网络架构<a class="headerlink" href="#_13" title="Permanent link">¶</a></h4>
+<pre class="mermaid"><code>flowchart TD
+    A[输入图像] --&gt; B[CNN 整图一次前向&lt;br/&gt;输出卷积特征图]
+    B --&gt; C[RoI 坐标映射到特征图]
+    C --&gt; D[RoI Pooling&lt;br/&gt;每个 RoI 输出固定大小特征图]
+    D --&gt; E[全连接层&lt;br/&gt;4096 维特征]
+    E --&gt; F[Softmax 分类头&lt;br/&gt;K+1 类]
+    E --&gt; G[边界框回归头&lt;br/&gt;4K 个修正量]</code></pre>
+<h4 id="roi-pooling">RoI Pooling 详解<a class="headerlink" href="#roi-pooling" title="Permanent link">¶</a></h4>
+<div class="admonition info">
+<p class="admonition-title">RoI Pooling 是 Fast R-CNN 最核心的创新</p>
+</div>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-2-1">1</a></span>
+<span class="normal"><a href="#__codelineno-2-2">2</a></span>
+<span class="normal"><a href="#__codelineno-2-3">3</a></span>
+<span class="normal"><a href="#__codelineno-2-4">4</a></span>
+<span class="normal"><a href="#__codelineno-2-5">5</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1"></a>RoI Pooling 步骤：
+<a id="__codelineno-2-2" name="__codelineno-2-2"></a>1. 将 RoI 从图像坐标系映射到特征图坐标系
+<a id="__codelineno-2-3" name="__codelineno-2-3"></a>2. 将任意大小 RoI 划分为固定网格（如 7×7）
+<a id="__codelineno-2-4" name="__codelineno-2-4"></a>3. 对每个网格 bin 做 max pooling
+<a id="__codelineno-2-5" name="__codelineno-2-5"></a>4. 得到固定大小的 RoI 特征图，供全连接检测头使用
+</code></pre></div></td></tr></table></div>
+<p><strong>RoI Pooling 的关键特性：</strong></p>
+<table>
+<thead>
+<tr>
+<th>特性</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><mark>任意输入尺寸→固定输出</mark></td>
+<td>不管 RoI 大小如何，RoI Pooling 总能输出固定大小的特征图</td>
+</tr>
+<tr>
+<td><mark>特征共享</mark></td>
+<td>整张图只做一次 CNN 前向，所有 RoI 共享同一个特征图</td>
+</tr>
+<tr>
+<td><mark>可微分</mark></td>
+<td>梯度可以回传到 CNN 部分，实现<strong>端到端训练</strong></td>
+</tr>
+</tbody>
+</table>
+<h4 id="_14">性能提升<a class="headerlink" href="#_14" title="Permanent link">¶</a></h4>
+<table>
+<thead>
+<tr>
+<th>指标</th>
+<th style="text-align: center;">R-CNN</th>
+<th style="text-align: center;">Fast R-CNN</th>
+<th style="text-align: center;">速度提升</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>测试时间/图</td>
+<td style="text-align: center;">~47s</td>
+<td style="text-align: center;">~3s</td>
+<td style="text-align: center;"><strong>~15 倍</strong></td>
+</tr>
+<tr>
+<td>训练时间</td>
+<td style="text-align: center;">多阶段，极慢</td>
+<td style="text-align: center;">端到端单阶段</td>
+<td style="text-align: center;"><strong>~9 倍</strong></td>
+</tr>
+<tr>
+<td>mAP (VOC 2007)</td>
+<td style="text-align: center;">66.0%</td>
+<td style="text-align: center;">70.0%</td>
+<td style="text-align: center;">+4%</td>
+</tr>
+</tbody>
+</table>
+<h3 id="52-faster-r-cnn2015">5.2 Faster R-CNN（2015）<a class="headerlink" href="#52-faster-r-cnn2015" title="Permanent link">¶</a></h3>
+<blockquote>
+<p>论文：<em>"Faster R-CNN: Towards Real-Time Object Detection with Region Proposal Networks"</em>
+核心创新：<strong>RPN（Region Proposal Network）</strong>——用网络学习区域提议！</p>
+</blockquote>
+<h4 id="_15">解决的核心问题<a class="headerlink" href="#_15" title="Permanent link">¶</a></h4>
+<p>Fast R-CNN 仍然依赖 <strong>Selective Search</strong>（CPU 上的非深度学习算法）来生成 RoI。Selective Search 成为新的瓶颈——它无法利用 GPU，也无法参与端到端优化。</p>
+<h4 id="_16">网络架构<a class="headerlink" href="#_16" title="Permanent link">¶</a></h4>
+<pre class="mermaid"><code>flowchart TD
+    A[输入图像] --&gt; B[共享卷积 Backbone]
+    B --&gt; C[特征图 Feature Map]
+    C --&gt; D[RPN: 3×3 Conv + 双分支]
+    D --&gt; E[分类分支&lt;br/&gt;2k: 物体 / 背景]
+    D --&gt; F[回归分支&lt;br/&gt;4k: Anchor 修正]
+    E --&gt; G[约 300 个高质量 Region Proposals]
+    F --&gt; G
+    C --&gt; H[RoI Pooling]
+    G --&gt; H
+    H --&gt; I[Fast R-CNN 检测头]
+    I --&gt; J[分类 K+1 类]
+    I --&gt; K[边界框回归 4K]</code></pre>
+<h4 id="anchor-boxes">Anchor Boxes（锚点框 / 先验框）<a class="headerlink" href="#anchor-boxes" title="Permanent link">¶</a></h4>
+<div class="admonition tip">
+<p class="admonition-title">Anchor 是 RPN 的基石</p>
+</div>
+<p>RPN 在特征图上的<strong>每个位置</strong>预定义一组<strong>不同尺度和宽高比的边界框</strong>，这些预定义的框称为 <strong>Anchor Boxes</strong>（锚点框/先验框）。</p>
+<p><strong>Anchor 的设计：</strong></p>
+<table>
+<thead>
+<tr>
+<th>Anchor 设计维度</th>
+<th>常见设置</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>尺度</td>
+<td>128、256、512</td>
+<td>对应小、中、大目标</td>
+</tr>
+<tr>
+<td>宽高比</td>
+<td>1:1、1:2、2:1</td>
+<td>覆盖不同形状目标</td>
+</tr>
+<tr>
+<td>每个特征图位置</td>
+<td>3 尺度 × 3 宽高比 = 9 个 Anchor</td>
+<td>RPN 对每个 Anchor 做物体/背景分类与框回归</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Anchor 相关数据：</strong></p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">特征图尺寸</th>
+<th style="text-align: center;">特征图位置数</th>
+<th style="text-align: center;">每个位置 Anchor 数</th>
+<th style="text-align: center;">Anchor 总数</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">39×39 (VGG16 对 600×600 图)</td>
+<td style="text-align: center;">1521</td>
+<td style="text-align: center;">9</td>
+<td style="text-align: center;"><strong>~13,689</strong></td>
+</tr>
+<tr>
+<td style="text-align: center;">25×25</td>
+<td style="text-align: center;">625</td>
+<td style="text-align: center;">9</td>
+<td style="text-align: center;"><strong>~5,625</strong></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="admonition-title">并非所有 Anchor 都用于训练</p>
+<p>13,000+ 个 Anchor 中，只有约 256 个（正样本 128 + 负样本 128）被选入一个 mini-batch 进行训练。其余 Anchor 不参与损失计算。</p>
+</div>
+<h4 id="rpn">RPN 的训练<a class="headerlink" href="#rpn" title="Permanent link">¶</a></h4>
+<p><strong>正样本 Anchor 的定义：</strong>
+- 与某个 Ground Truth 框的 IoU &gt; <strong>0.7</strong>
+- 或与某个 GT 框的 IoU 最大（确保每个 GT 至少对应一个正 Anchor）</p>
+<p><strong>负样本 Anchor 的定义：</strong>
+- 与所有 GT 的 IoU &lt; <strong>0.3</strong></p>
+<p><strong>忽略的 Anchor：</strong>
+- 0.3 ≤ IoU ≤ 0.7（模棱两可的区域，不参与训练）</p>
+<p><strong>RPN 的损失函数（同样是多任务损失）：</strong></p>
+<div class="arithmatex">\[
+$\mathcal{L} _{RPN} = \frac{1}{N_{cls}} \sum_i$ $\mathcal{L} _{cls}(p_i, p_i^*) + \lambda \frac{1}{N_{reg}} \sum_i p_i^* \cdot$ $\mathcal{L}$_{reg}(t_i, t_i^*)
+\]</div>
+<p>其中：
+- <span class="arithmatex">\(p_i\)</span> ：Anchor i 包含物体的概率预测
+- <span class="arithmatex">\(p_i^*\)</span> ：真实标签（1=物体，0=背景）
+- <span class="arithmatex">\(t_i\)</span> ：预测的边界框修正量
+- <span class="arithmatex">\(t_i^*\)</span> ：真实的边界框修正量
+- <span class="arithmatex">\(p_i^* \cdot \mathcal{L}_{\text{reg}}\)</span> ：只有正样本参与回归损失的计算</p>
+<h4 id="_17">性能提升<a class="headerlink" href="#_17" title="Permanent link">¶</a></h4>
+<table>
+<thead>
+<tr>
+<th>指标</th>
+<th style="text-align: center;">Fast R-CNN</th>
+<th style="text-align: center;">Faster R-CNN</th>
+<th style="text-align: center;">速度提升</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>测试时间/图</td>
+<td style="text-align: center;">~3s (Selective Search + CNN)</td>
+<td style="text-align: center;">~0.2s (RPN + CNN)</td>
+<td style="text-align: center;"><strong>~15 倍</strong></td>
+</tr>
+<tr>
+<td>区域提议</td>
+<td style="text-align: center;">Selective Search (CPU, 非可学习)</td>
+<td style="text-align: center;">RPN (GPU, 可学习)</td>
+<td style="text-align: center;">端到端</td>
+</tr>
+<tr>
+<td>mAP (VOC 2007)</td>
+<td style="text-align: center;">70.0%</td>
+<td style="text-align: center;">73.2%</td>
+<td style="text-align: center;">+3.2%</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition check">
+<p class="admonition-title">Faster R-CNN 的里程碑意义</p>
+<ol>
+<li><strong>实现了真正的端到端检测</strong>：区域提议、特征提取、分类、回归全部在一个网络中完成</li>
+<li><strong>RPN 几乎是零成本</strong>：RPN 非常轻量（仅几个卷积层），几乎不增加计算开销</li>
+<li><strong>达到了接近实时的速度</strong>：0.2s/图 ≈ 5 FPS，已接近实时应用的边界</li>
+</ol>
+</div>
+<h3 id="53">5.3 两阶段与单阶段方法对比<a class="headerlink" href="#53" title="Permanent link">¶</a></h3>
+<p>在 Faster R-CNN 之后，目标检测领域分化出两大流派：</p>
+<h4 id="two-stage">两阶段方法（Two-Stage）<a class="headerlink" href="#two-stage" title="Permanent link">¶</a></h4>
+<pre class="mermaid"><code>flowchart LR
+    A[阶段一&lt;br/&gt;生成候选区域&lt;br/&gt;RPN 或 Selective Search] --&gt; B[阶段二&lt;br/&gt;对候选区域分类&lt;br/&gt;并精调边界框]</code></pre>
+<p><strong>代表方法：</strong> R-CNN → Fast R-CNN → Faster R-CNN → Mask R-CNN</p>
+<table>
+<thead>
+<tr>
+<th>优点</th>
+<th>缺点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>精度高（尤其对小物体）</td>
+<td>速度较慢</td>
+</tr>
+<tr>
+<td>两个阶段可以分别优化</td>
+<td>结构复杂</td>
+</tr>
+<tr>
+<td>容易扩展到实例分割</td>
+<td>训练/推理步骤多</td>
+</tr>
+</tbody>
+</table>
+<h4 id="one-stage">单阶段方法（One-Stage）<a class="headerlink" href="#one-stage" title="Permanent link">¶</a></h4>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>单阶段检测器直接在一组预定义的 Anchor 或网格上同时预测类别与边界框，省去了显式的候选区域提取阶段。</p>
+</div>
+<p><strong>代表方法：</strong> YOLO 系列、SSD、RetinaNet</p>
+<table>
+<thead>
+<tr>
+<th>优点</th>
+<th>缺点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>速度极快（实时 ~30-100+ FPS）</td>
+<td>对小物体检测精度较低</td>
+</tr>
+<tr>
+<td>结构简洁，端到端</td>
+<td>正负样本极度不平衡</td>
+</tr>
+<tr>
+<td>适合移动端/嵌入式部署</td>
+<td>密集 Anchor 设计需要调参</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition tip">
+<p class="admonition-title">如何选择？</p>
+<ul>
+<li><strong>追求精度优先</strong>（如医疗影像、安防取证）→ 两阶段（Faster R-CNN 系列）</li>
+<li><strong>追求速度优先</strong>（如自动驾驶、手机相机）→ 单阶段（YOLO、SSD）</li>
+</ul>
+</div>
+<hr>
+<h2 id="_18">六、单阶段方法详解<a class="headerlink" href="#_18" title="Permanent link">¶</a></h2>
+<h3 id="61-yoloyou-only-look-once">6.1 YOLO（You Only Look Once）<a class="headerlink" href="#61-yoloyou-only-look-once" title="Permanent link">¶</a></h3>
+<blockquote>
+<p>论文：<em>"You Only Look Once: Unified, Real-Time Object Detection"</em> (2016, CVPR)
+核心思想：<strong>将检测视为回归问题，一次前向直接输出所有检测结果</strong></p>
+</blockquote>
+<h4 id="yolo">YOLO 的核心设计<a class="headerlink" href="#yolo" title="Permanent link">¶</a></h4>
+<p>YOLO 将输入图像划分为 <strong>S × S 的网格</strong>，每个网格负责检测<strong>中心落在该网格内的物体</strong>。</p>
+<pre class="mermaid"><code>flowchart TD
+    A[输入图像 448×448] --&gt; B[划分为 S×S 网格&lt;br/&gt;如 7×7]
+    B --&gt; C[每个网格负责中心落入该网格的物体]
+    C --&gt; D[每格预测 B 个边界框&lt;br/&gt;x,y,w,h,confidence]
+    C --&gt; E[每格预测 C 个类别概率]
+    D --&gt; F[输出张量 S×S×(B×5+C)]
+    E --&gt; F
+    F --&gt; G[NMS 后处理]
+    G --&gt; H[最终检测结果]</code></pre>
+<p><strong>YOLO 输出的张量结构：</strong></p>
+<table>
+<thead>
+<tr>
+<th>YOLO 输出组成</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><span class="arithmatex">\(S\times S\)</span></td>
+<td>网格数量</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(B\times 5\)</span></td>
+<td>每个网格预测 <span class="arithmatex">\(B\)</span> 个框，每个框含 <span class="arithmatex">\(x,y,w,h,confidence\)</span></td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(C\)</span></td>
+<td>类别概率</td>
+</tr>
+<tr>
+<td>总输出</td>
+<td><span class="arithmatex">\(S\times S\times(B\times 5+C)\)</span></td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>B</td>
+<td>每个网格预测的边界框数量（YOLOv1 中 B=2）</td>
+</tr>
+<tr>
+<td>C</td>
+<td>类别总数</td>
+</tr>
+<tr>
+<td>(x, y)</td>
+<td>边界框中心坐标（相对网格归一化到 [0,1]）</td>
+</tr>
+<tr>
+<td>(w, h)</td>
+<td>边界框宽高（相对整图归一化到 [0,1]）</td>
+</tr>
+<tr>
+<td>confidence</td>
+<td>该框包含物体的置信度 × IoU 预测</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(P(\text{cat})\)</span></td>
+<td>该网格包含猫的概率</td>
+</tr>
+</tbody>
+</table>
+<h4 id="yolo_1">YOLO 的损失函数<a class="headerlink" href="#yolo_1" title="Permanent link">¶</a></h4>
+<p>YOLO 的损失函数精心设计了不同部分的权重：</p>
+<div class="arithmatex">\[
+\begin{aligned}
+\mathcal{L} = &amp;\lambda_{coord} \sum_{i=0}^{S^2} \sum_{j=0}^B \mathbb{1}_{ij}^{obj} \left[ (x_i - \hat{x}_i)^2 + (y_i - \hat{y}_i)^2 \right] \\
+&amp;+ \lambda_{coord} \sum_{i=0}^{S^2} \sum_{j=0}^B \mathbb{1}_{ij}^{obj} \left[ (\sqrt{w_i} - \sqrt{\hat{w}_i})^2 + (\sqrt{h_i} - \sqrt{\hat{h}_i})^2 \right] \\
+&amp;+ \sum_{i=0}^{S^2} \sum_{j=0}^B \mathbb{1}_{ij}^{obj} (C_i - \hat{C}_i)^2 \\
+&amp;+ \lambda_{noobj} \sum_{i=0}^{S^2} \sum_{j=0}^B \mathbb{1}_{ij}^{noobj} (C_i - \hat{C}_i)^2 \\
+&amp;+ \sum_{i=0}^{S^2} \mathbb{1}_{i}^{obj} \sum_{c \in classes} (p_i(c) - \hat{p}_i(c))^2
+\end{aligned}
+\]</div>
+<p><strong>损失分解：</strong></p>
+<table>
+<thead>
+<tr>
+<th>项</th>
+<th>含义</th>
+<th style="text-align: center;">权重 (<span class="arithmatex">\(\lambda\)</span>)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>定位损失（坐标）</td>
+<td>正样本框的中心点误差</td>
+<td style="text-align: center;"><span class="arithmatex">\(\lambda_{\text{coord}} = 5\)</span></td>
+</tr>
+<tr>
+<td>定位损失（宽高）</td>
+<td>正样本框的宽高误差（用平方根缩小大框的影响）</td>
+<td style="text-align: center;"><span class="arithmatex">\(\lambda_{\text{coord}} = 5\)</span></td>
+</tr>
+<tr>
+<td>置信度损失（正样本）</td>
+<td>正样本框的置信度误差</td>
+<td style="text-align: center;"><span class="arithmatex">\(1\)</span></td>
+</tr>
+<tr>
+<td>置信度损失（负样本）</td>
+<td>负样本框的置信度误差</td>
+<td style="text-align: center;"><span class="arithmatex">\(\lambda_{\text{noobj}} = 0.5\)</span></td>
+</tr>
+<tr>
+<td>分类损失</td>
+<td>正样本网格的类别预测误差</td>
+<td style="text-align: center;"><span class="arithmatex">\(1\)</span></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition tip">
+<p class="admonition-title">设计洞察</p>
+<ul>
+<li><span class="arithmatex">\(\lambda_{\text{coord}} = 5\)</span>：定位的重要性高于分类——框不准比类别分错"后果更严重"</li>
+<li><span class="arithmatex">\(\lambda_{\text{noobj}} = 0.5\)</span>：多数网格不包含物体，降低它们的权重以防止"压倒性多数"的负样本主导训练</li>
+<li>宽高用平方根：对大框和小框的误差做尺度归一化——同样 10 像素的误差对小框影响更大</li>
+</ul>
+</div>
+<h4 id="yolo_2">YOLO 版本的演进<a class="headerlink" href="#yolo_2" title="Permanent link">¶</a></h4>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">版本</th>
+<th style="text-align: center;">年份</th>
+<th>核心改进</th>
+<th style="text-align: center;">速度 / 精度</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><strong>YOLOv1</strong></td>
+<td style="text-align: center;">2016</td>
+<td>开山之作，网格回归</td>
+<td style="text-align: center;">45 FPS, mAP 63.4</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>YOLOv2</strong></td>
+<td style="text-align: center;">2017</td>
+<td>Batch Norm, Anchor, Darknet-19</td>
+<td style="text-align: center;">67 FPS, mAP 76.8</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>YOLOv3</strong></td>
+<td style="text-align: center;">2018</td>
+<td>多尺度预测, Darknet-53, 更丰富特征</td>
+<td style="text-align: center;">51 FPS, mAP 79.3</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>YOLOv4</strong></td>
+<td style="text-align: center;">2020</td>
+<td>CSPNet, PANet, Mosaic Augmentation</td>
+<td style="text-align: center;">65 FPS, mAP 83.0</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>YOLOv5</strong></td>
+<td style="text-align: center;">2020</td>
+<td>改进架构, Ultralytics 实现</td>
+<td style="text-align: center;">更快更优</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>YOLOv8</strong></td>
+<td style="text-align: center;">2023</td>
+<td>Anchor-Free, 集成实例分割</td>
+<td style="text-align: center;">最先进</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition info">
+<p class="admonition-title">YOLO 的影响</p>
+<p>YOLO 开创了"单次检测"的范式，将目标检测的速度推向了 <strong>实时</strong> 级别。在 YOLOv3 之后，YOLO 系列成为工业界最广泛使用的目标检测框架。</p>
+</div>
+<h3 id="62-ssdsingle-shot-multibox-detector">6.2 SSD（Single Shot MultiBox Detector）<a class="headerlink" href="#62-ssdsingle-shot-multibox-detector" title="Permanent link">¶</a></h3>
+<blockquote>
+<p>论文：<em>"SSD: Single Shot MultiBox Detector"</em> (2016, ECCV)
+核心创新：<strong>多尺度特征图预测</strong></p>
+</blockquote>
+<h4 id="ssd">SSD 的核心设计<a class="headerlink" href="#ssd" title="Permanent link">¶</a></h4>
+<p>SSD 在不同层级（不同分辨率）的特征图上分别进行检测：</p>
+<pre class="mermaid"><code>flowchart TD
+    A[输入图像 300×300] --&gt; B[VGG-16 Base]
+    B --&gt; C[Conv4_3: 38×38&lt;br/&gt;小物体]
+    C --&gt; D[Conv7: 19×19]
+    D --&gt; E[Conv8_2: 10×10]
+    E --&gt; F[Conv9_2: 5×5&lt;br/&gt;大物体]
+    F --&gt; G[Conv10_2: 3×3]
+    G --&gt; H[Conv11_2: 1×1]
+    C --&gt; I[多尺度检测结果融合]
+    D --&gt; I
+    E --&gt; I
+    F --&gt; I
+    G --&gt; I
+    H --&gt; I
+    I --&gt; J[NMS]
+    J --&gt; K[最终输出]</code></pre>
+<div class="admonition tip">
+<p class="admonition-title">SSD 的核心洞察</p>
+<p>不同层的特征图具有不同的<strong>感受野（Receptive Field）</strong>：
+- <strong>浅层特征图</strong>（如 38×38）：感受野小，<strong>擅长检测小物体</strong>
+- <strong>深层特征图</strong>（如 5×5）：感受野大，<strong>擅长检测大物体</strong></p>
+<p>利用多尺度特征图，SSD 能更好地检测不同尺寸的物体。</p>
+</div>
+<h4 id="ssd-vs-yolo">SSD vs YOLO 对比<a class="headerlink" href="#ssd-vs-yolo" title="Permanent link">¶</a></h4>
+<table>
+<thead>
+<tr>
+<th>特性</th>
+<th style="text-align: center;">YOLOv1</th>
+<th style="text-align: center;">SSD</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>网格/Anchor</td>
+<td style="text-align: center;">S×S 网格, B 个框</td>
+<td style="text-align: center;">多尺度特征图, 每个位置多种 Anchor</td>
+</tr>
+<tr>
+<td>多尺度预测</td>
+<td style="text-align: center;">❌ 仅单尺度</td>
+<td style="text-align: center;">✅ 6 个特征层</td>
+</tr>
+<tr>
+<td>小物体性能</td>
+<td style="text-align: center;">差</td>
+<td style="text-align: center;">较好</td>
+</tr>
+<tr>
+<td>速度</td>
+<td style="text-align: center;">45 FPS</td>
+<td style="text-align: center;">46 FPS (SSD300)</td>
+</tr>
+<tr>
+<td>mAP (VOC 2007)</td>
+<td style="text-align: center;">63.4%</td>
+<td style="text-align: center;">77.2% (SSD300)</td>
+</tr>
+</tbody>
+</table>
+<h3 id="63-retinanet-focal-loss">6.3 RetinaNet 与 Focal Loss<a class="headerlink" href="#63-retinanet-focal-loss" title="Permanent link">¶</a></h3>
+<blockquote>
+<p>论文：<em>"Focal Loss for Dense Object Detection"</em> (2017, ICCV)
+核心创新：<strong>Focal Loss</strong>——解决单阶段检测的<strong>正负样本极端不平衡</strong></p>
+</blockquote>
+<h4 id="_19">问题背景<a class="headerlink" href="#_19" title="Permanent link">¶</a></h4>
+<p>单阶段检测器（YOLO、SSD）生成大量密集的 Anchor（~100K 个），其中只有极少数包含物体（正样本），绝大多数是背景（负样本）。<strong>极度不平衡</strong>导致训练不稳定、模型偏向预测背景。</p>
+<h4 id="focal-loss">Focal Loss 公式<a class="headerlink" href="#focal-loss" title="Permanent link">¶</a></h4>
+<p>标准交叉熵损失：
+$$
+CE(p_t) = -\log(p_t)
+$$</p>
+<p>Focal Loss：
+$$
+FL(p_t) = -\alpha_t (1-p_t)^\gamma \log(p_t)
+$$</p>
+<p>其中：
+- <span class="arithmatex">\(p_t\)</span> ：模型对正确类别的预测概率
+- <span class="arithmatex">\(\alpha_t\)</span> ：类别权重（平衡正负样本）
+- <span class="arithmatex">\(\gamma\)</span> ：聚焦参数（调节"难分样本"的权重）</p>
+<p><strong>Focal Loss 的效果：</strong></p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;"><span class="arithmatex">\(p_t\)</span>（预测置信度）</th>
+<th style="text-align: center;"><span class="arithmatex">\((1-p_t)^\gamma（\gamma=2）\)</span></th>
+<th>效果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">0.9（易分类的正样本）</td>
+<td style="text-align: center;">0.01</td>
+<td>损失大幅降低（≈忽略）</td>
+</tr>
+<tr>
+<td style="text-align: center;">0.5（模棱两可）</td>
+<td style="text-align: center;">0.25</td>
+<td>损失适度降低</td>
+</tr>
+<tr>
+<td style="text-align: center;">0.1（难分的正样本/误分类）</td>
+<td style="text-align: center;">0.81</td>
+<td>损失几乎不变（专注学习）</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition tip">
+<p class="admonition-title">Focal Loss 的贡献</p>
+<p>Focal Loss 让单阶段检测器首次在精度上<strong>匹敌两阶段检测器</strong>，同时保持实时速度。RetinaNet（Focal Loss + FPN）达到了 COCO mAP 39.1，超过了当时的两阶段方法。</p>
+</div>
+<hr>
+<h2 id="_20">七、目标检测核心技术专题<a class="headerlink" href="#_20" title="Permanent link">¶</a></h2>
+<h3 id="71-iouintersection-over-union">7.1 IoU（Intersection over Union）<a class="headerlink" href="#71-iouintersection-over-union" title="Permanent link">¶</a></h3>
+<blockquote>
+<p>IoU 是评价检测框与真实框重叠程度的核心指标。</p>
+</blockquote>
+<p><strong>计算公式：</strong></p>
+<div class="arithmatex">\[
+$IoU = \frac{Area of Overlap}{Area of Union} = \frac{$预测框 ∩ 真实框}{预测框 ∪ 真实框}
+\]</div>
+<pre class="mermaid"><code>flowchart TD
+    A[预测框] --&gt; C[计算 IoU]
+    B[真实框 GT] --&gt; C
+    C --&gt; D{IoU 是否高于阈值?}
+    D --&gt;|是| E[视为 True Positive]
+    D --&gt;|否| F[视为 False Positive]</code></pre>
+<p><strong>IoU 值的含义：</strong></p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">IoU 值</th>
+<th style="text-align: center;">评价</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">1.0</td>
+<td style="text-align: center;">完美</td>
+<td>预测框与真实框完全重合</td>
+</tr>
+<tr>
+<td style="text-align: center;">0.7 - 0.9</td>
+<td style="text-align: center;">优秀</td>
+<td>检测框精准贴合物体</td>
+</tr>
+<tr>
+<td style="text-align: center;">0.5 - 0.7</td>
+<td style="text-align: center;">可接受</td>
+<td>检测框覆盖了物体（常用阈值）</td>
+</tr>
+<tr>
+<td style="text-align: center;">0.3 - 0.5</td>
+<td style="text-align: center;">较差</td>
+<td>覆盖不完全</td>
+</tr>
+<tr>
+<td style="text-align: center;">&lt; 0.3</td>
+<td style="text-align: center;">失败</td>
+<td>基本没有覆盖目标</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="admonition-title">IoU 的用途</p>
+<ol>
+<li><strong>训练阶段</strong>：决定哪些 Anchor 是正样本/负样本（如 IoU &gt; 0.7 为正样本）</li>
+<li><strong>评估阶段</strong>：判断检测是否正确（如 mAP 中，IoU &gt; 0.5 算正确检测）</li>
+<li><strong>NMS 阶段</strong>：根据 IoU 去除重叠框</li>
+<li><strong>衡量指标</strong>：mAP@0.5, mAP@0.75 等</li>
+</ol>
+</div>
+<h3 id="72-mapmean-average-precision">7.2 mAP（mean Average Precision）<a class="headerlink" href="#72-mapmean-average-precision" title="Permanent link">¶</a></h3>
+<blockquote>
+<p>mAP 是目标检测领域<strong>最核心的评价指标</strong>。</p>
+</blockquote>
+<p><strong>计算流程：</strong></p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-3-1">1</a></span>
+<span class="normal"><a href="#__codelineno-3-2">2</a></span>
+<span class="normal"><a href="#__codelineno-3-3">3</a></span>
+<span class="normal"><a href="#__codelineno-3-4">4</a></span>
+<span class="normal"><a href="#__codelineno-3-5">5</a></span>
+<span class="normal"><a href="#__codelineno-3-6">6</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1"></a>AP / mAP 计算流程：
+<a id="__codelineno-3-2" name="__codelineno-3-2"></a>1. 按置信度对所有检测框降序排序
+<a id="__codelineno-3-3" name="__codelineno-3-3"></a>2. 逐个判断 TP / FP，并累计 Precision 与 Recall
+<a id="__codelineno-3-4" name="__codelineno-3-4"></a>3. 绘制 PR 曲线（Precision-Recall Curve）
+<a id="__codelineno-3-5" name="__codelineno-3-5"></a>4. 计算 PR 曲线下的面积，得到 AP
+<a id="__codelineno-3-6" name="__codelineno-3-6"></a>5. 对所有类别的 AP 求平均，得到 mAP
+</code></pre></div></td></tr></table></div>
+<p><strong>关键概念：</strong></p>
+<table>
+<thead>
+<tr>
+<th>指标</th>
+<th>公式</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Precision</td>
+<td>TP / (TP + FP)</td>
+<td>检测结果中有多少是正确的</td>
+</tr>
+<tr>
+<td>Recall</td>
+<td>TP / (TP + FN)</td>
+<td>所有真实物体中有多少被检测到了</td>
+</tr>
+<tr>
+<td>TP</td>
+<td>IoU &gt; 阈值的检测框</td>
+<td>正确检测</td>
+</tr>
+<tr>
+<td>FP</td>
+<td>IoU ≤ 阈值的检测框 / 多余重复框</td>
+<td>误检</td>
+</tr>
+<tr>
+<td>FN</td>
+<td>未被检测到的真实物体</td>
+<td>漏检</td>
+</tr>
+</tbody>
+</table>
+<p><strong>不同 mAP 变体：</strong></p>
+<table>
+<thead>
+<tr>
+<th>指标</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>mAP@0.5</td>
+<td>IoU 阈值为 0.5 时的 mAP（PASCAL VOC 标准）</td>
+</tr>
+<tr>
+<td>mAP@0.75</td>
+<td>IoU 阈值为 0.75（更严格的精度要求）</td>
+</tr>
+<tr>
+<td>mAP@[0.5:0.95]</td>
+<td>IoU 从 0.5 到 0.95，步长 0.05，取平均（COCO 标准）</td>
+</tr>
+<tr>
+<td>mAP_small</td>
+<td>仅计算小物体的 mAP（面积 &lt; 32²）</td>
+</tr>
+<tr>
+<td>mAP_medium</td>
+<td>仅计算中等物体的 mAP（32² &lt; 面积 &lt; 96²）</td>
+</tr>
+<tr>
+<td>mAP_large</td>
+<td>仅计算大物体的 mAP（面积 &gt; 96²）</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition tip">
+<p class="admonition-title">COCO mAP（mAP@[0.5:0.95]）是目前最权威的目标检测评价指标</p>
+<p>它对边界框精度要求更高（要求在 IoU=0.75 时也能保持高精度），并且能反映模型在不同物体尺寸上的表现。</p>
+</div>
+<h3 id="73-nmsnon-maximum-suppression">7.3 NMS（Non-Maximum Suppression）<a class="headerlink" href="#73-nmsnon-maximum-suppression" title="Permanent link">¶</a></h3>
+<blockquote>
+<p>已在上文 4.5 节详细解释，此处补充 NMS 的变体。</p>
+</blockquote>
+<p><strong>NMS 变体对比：</strong></p>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>策略</th>
+<th>特点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>贪婪 NMS（Greedy NMS）</strong></td>
+<td>删除所有与最高分框 IoU &gt; 阈值的框</td>
+<td>简单，但可能误删相邻物体</td>
+</tr>
+<tr>
+<td><strong>Soft NMS</strong></td>
+<td>将 IoU 大的框的得分乘以衰减函数，而非直接删除</td>
+<td>保留更多候选，缓解相邻物体的误删</td>
+</tr>
+<tr>
+<td><strong>Adaptive NMS</strong></td>
+<td>根据目标密度自适应调整 NMS 阈值</td>
+<td>对密集场景（如人群）更友好</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Soft NMS 衰减函数的两种形式：</strong></p>
+<p>线性衰减：
+$$
+s_i = s_i \cdot (1 - \operatorname{IoU}(M, b_i))
+$$</p>
+<p>高斯衰减：
+$$
+s_i = s_i \cdot \exp\left(-\frac{\operatorname{IoU}(M, b_i)^2}{\sigma}\right)
+$$</p>
+<h2 id="74-data-augmentation">7.4 数据增强（Data Augmentation）在目标检测中的特殊处理<a class="headerlink" href="#74-data-augmentation" title="Permanent link">¶</a></h2>
+<div class="admonition warning">
+<p class="admonition-title">检测任务的数据增强需要同时变换图像和边界框坐标！</p>
+</div>
+<p><strong>常见数据增强方法：</strong></p>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>对图像的操作</th>
+<th>对边界框的操作</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>水平翻转</strong></td>
+<td>左右翻转</td>
+<td><span class="arithmatex">\(x \to W - x\)</span></td>
+</tr>
+<tr>
+<td><strong>随机裁剪</strong></td>
+<td>裁剪子图</td>
+<td>裁剪掉超出子图的框部分；过滤面积过小的框</td>
+</tr>
+<tr>
+<td><strong>颜色抖动</strong></td>
+<td>调整亮度/对比度/饱和度</td>
+<td>不变</td>
+</tr>
+<tr>
+<td><strong>Mosaic（YOLOv4）</strong></td>
+<td>拼接 4 张图</td>
+<td>框坐标按拼接位置移动</td>
+</tr>
+<tr>
+<td><strong>MixUp</strong></td>
+<td>两张图加权叠加</td>
+<td>合并两图的边界框</td>
+</tr>
+<tr>
+<td><strong>随机缩放</strong></td>
+<td>缩放图像</td>
+<td>框坐标按缩放比例调整</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition tip">
+<p class="admonition-title">Mosaic Augmentation（YOLOv4 提出的重要增强）</p>
+<p>将 4 张训练图像随机裁剪后拼接成一张新图。这种增强方式可以：
+- 丰富小物体的训练样本（每张子图中物体的相对尺寸变小）
+- 强制模型学习不同上下文中的物体
+- 大幅提升小物体检测性能</p>
+</div>
+<hr>
+<h2 id="image-segmentation">八、图像分割（Image Segmentation）<a class="headerlink" href="#image-segmentation" title="Permanent link">¶</a></h2>
+<h3 id="81">8.1 分割任务概览<a class="headerlink" href="#81" title="Permanent link">¶</a></h3>
+<p>目标检测回答了"<strong>什么在哪儿</strong>"，而图像分割进一步回答了"<strong>每个像素是什么</strong>"。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">任务</th>
+<th style="text-align: center;">粒度</th>
+<th>输出形式</th>
+<th>示例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><strong>图像分类</strong></td>
+<td style="text-align: center;">图像级</td>
+<td>1 个标签</td>
+<td><code>"有一辆车"</code></td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>目标检测</strong></td>
+<td style="text-align: center;">物体级</td>
+<td>多个边界框+类别</td>
+<td><code>"车在 (x,y,w,h)"</code></td>
+</tr>
+<tr>
+<td style="text-align: center;"><mark>语义分割</mark></td>
+<td style="text-align: center;">像素级</td>
+<td>每个像素一个类别</td>
+<td><code>"这些像素是车，那些是路"</code></td>
+</tr>
+<tr>
+<td style="text-align: center;"><mark>实例分割</mark></td>
+<td style="text-align: center;">像素+实例级</td>
+<td>每个像素一个类别+实例ID</td>
+<td><code>"车 A 的像素，车 B 的像素"</code></td>
+</tr>
+<tr>
+<td style="text-align: center;"><mark>全景分割</mark></td>
+<td style="text-align: center;">像素+实例+背景</td>
+<td>语义+实例</td>
+<td><code>"这堆像素是车A，那堆是天空"</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>三类分割对比：</strong></p>
+<table>
+<thead>
+<tr>
+<th>分割任务</th>
+<th style="text-align: right;">是否区分类别</th>
+<th style="text-align: right;">是否区分个体</th>
+<th>输出示例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>语义分割</td>
+<td style="text-align: right;">✅</td>
+<td style="text-align: right;">❌</td>
+<td>所有“人”像素同属一类，所有“车”像素同属一类</td>
+</tr>
+<tr>
+<td>实例分割</td>
+<td style="text-align: right;">✅</td>
+<td style="text-align: right;">✅</td>
+<td>人1 / 人2 / 车1 / 车2 分别有独立 mask</td>
+</tr>
+<tr>
+<td>全景分割</td>
+<td style="text-align: right;">✅</td>
+<td style="text-align: right;">✅（物体类）</td>
+<td>同时分割背景类（天空、道路）与物体实例（车1、人2）</td>
+</tr>
+</tbody>
+</table>
+<h3 id="82-fcnfully-convolutional-network">8.2 FCN（Fully Convolutional Network）<a class="headerlink" href="#82-fcnfully-convolutional-network" title="Permanent link">¶</a></h3>
+<blockquote>
+<p>论文：<em>"Fully Convolutional Networks for Semantic Segmentation"</em> (2015, CVPR)
+核心创新：<strong>将分类 CNN 改造为像素级预测的分割网络</strong></p>
+</blockquote>
+<h4 id="_21">核心思想<a class="headerlink" href="#_21" title="Permanent link">¶</a></h4>
+<p>FCN 的核心洞察是：分类网络最后的<strong>全连接层</strong>可以被替换为<strong>卷积层</strong>，从而输出空间维度（而非 1D 类别得分）。这使得网络能接受任意尺寸的输入，并输出同样尺寸的像素级预测。</p>
+<pre class="mermaid"><code>flowchart LR
+    A[传统分类 CNN] --&gt; B[卷积层]
+    B --&gt; C[全连接层]
+    C --&gt; D[类别得分&lt;br/&gt;1×1×1000]
+    E[FCN] --&gt; F[卷积层]
+    F --&gt; G[卷积化分类头]
+    G --&gt; H[像素级得分图&lt;br/&gt;H×W×C]</code></pre>
+<h4 id="fcn-">FCN 编码器-解码器架构<a class="headerlink" href="#fcn-" title="Permanent link">¶</a></h4>
+<pre class="mermaid"><code>flowchart LR
+    A[输入图像&lt;br/&gt;224×224×3] --&gt; B[Encoder&lt;br/&gt;Conv + Pool ×5&lt;br/&gt;下采样提取语义]
+    B --&gt; C[低分辨率特征图&lt;br/&gt;7×7×512]
+    C --&gt; D[Decoder&lt;br/&gt;转置卷积 / 上采样 ×5]
+    D --&gt; E[像素级预测&lt;br/&gt;224×224×C]
+    B -. skip connection&lt;br/&gt;融合浅层细节 .-&gt; D</code></pre>
+<h4 id="transposed-convolution">转置卷积（Transposed Convolution）<a class="headerlink" href="#transposed-convolution" title="Permanent link">¶</a></h4>
+<blockquote>
+<p>也叫反卷积（Deconvolution），但严格说是转置卷积（Transposed Convolution）</p>
+</blockquote>
+<p><strong>转置卷积的工作原理：</strong></p>
+<table>
+<thead>
+<tr>
+<th>操作</th>
+<th>输入输出关系</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>标准卷积</td>
+<td>多个输入元素 → 1 个输出元素</td>
+<td>下采样 / 提取局部特征</td>
+</tr>
+<tr>
+<td>转置卷积</td>
+<td>1 个输入元素 → 多个输出元素</td>
+<td>可学习上采样 / 恢复分辨率</td>
+</tr>
+<tr>
+<td>双线性插值</td>
+<td>固定规则上采样</td>
+<td>简单、无参数、较平滑</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>上采样方法</th>
+<th>说明</th>
+<th>特点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>转置卷积</strong></td>
+<td>可学习的上采样（有参数）</td>
+<td>效果好，但可能产生"棋盘伪影"</td>
+</tr>
+<tr>
+<td><strong>双线性插值</strong></td>
+<td>固定公式上采样（无参数）</td>
+<td>简单快速，不产生伪影</td>
+</tr>
+<tr>
+<td><strong>上池化（Unpooling）</strong></td>
+<td>记录最大池化的位置，反向映射</td>
+<td>保留空间结构</td>
+</tr>
+</tbody>
+</table>
+<h4 id="skip-connections">跳跃连接（Skip Connections）<a class="headerlink" href="#skip-connections" title="Permanent link">¶</a></h4>
+<div class="admonition tip">
+<p class="admonition-title">跳跃连接是 FCN 的关键设计</p>
+</div>
+<pre class="mermaid"><code>flowchart TD
+    A[FCN-32s&lt;br/&gt;直接 32 倍上采样] --&gt; B[预测粗糙]
+    C[FCN-16s&lt;br/&gt;融合 pool4 特征] --&gt; D[细节更好]
+    E[FCN-8s&lt;br/&gt;融合 pool4 + pool3 特征] --&gt; F[定位最精细]
+    A --&gt; C --&gt; E</code></pre>
+<p><strong>为什么需要跳跃连接？</strong></p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">特征层级</th>
+<th style="text-align: center;">分辨率</th>
+<th style="text-align: center;">语义信息</th>
+<th style="text-align: center;">空间细节</th>
+<th style="text-align: center;">需要跳跃连接?</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">浅层 (pool3)</td>
+<td style="text-align: center;">高 (28×28)</td>
+<td style="text-align: center;">弱（边缘、纹理）</td>
+<td style="text-align: center;">丰富</td>
+<td style="text-align: center;">✅ 提供精确边界</td>
+</tr>
+<tr>
+<td style="text-align: center;">中层 (pool4)</td>
+<td style="text-align: center;">中 (14×14)</td>
+<td style="text-align: center;">中（部件、形状）</td>
+<td style="text-align: center;">中</td>
+<td style="text-align: center;">✅ 提供物体结构</td>
+</tr>
+<tr>
+<td style="text-align: center;">深层 (pool5)</td>
+<td style="text-align: center;">低 (7×7)</td>
+<td style="text-align: center;">强（语义类别）</td>
+<td style="text-align: center;">少</td>
+<td style="text-align: center;">——</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition quote">
+<p class="admonition-title">跳跃连接的哲学</p>
+<p>浅层特征知道"精细的边界在哪里"，深层特征知道"那是什么物体"——跳跃连接让两者各取所长。</p>
+</div>
+<h4 id="fcn">FCN 的局限性<a class="headerlink" href="#fcn" title="Permanent link">¶</a></h4>
+<table>
+<thead>
+<tr>
+<th>局限</th>
+<th>原因</th>
+<th>后续改进</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>分割结果较粗糙</td>
+<td>32 倍下采样丢失太多细节</td>
+<td>跳跃连接（FCN-8s）、膨胀卷积（DeepLab）</td>
+</tr>
+<tr>
+<td>缺乏空间一致性</td>
+<td>逐像素独立预测，不考虑像素间关系</td>
+<td>CRF 后处理（DeepLab v1/v2）</td>
+</tr>
+<tr>
+<td>对大物体分割好、小物体差</td>
+<td>下采样导致小物体特征消失</td>
+<td>多尺度特征（FPN、DeepLab ASPP）</td>
+</tr>
+<tr>
+<td>全局上下文不足</td>
+<td>感受野有限</td>
+<td>自注意力（Non-local, Transformer）</td>
+</tr>
+</tbody>
+</table>
+<h3 id="83">8.3 语义分割的代表方法演进<a class="headerlink" href="#83" title="Permanent link">¶</a></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">方法</th>
+<th style="text-align: center;">年份</th>
+<th>核心创新</th>
+<th>主要贡献</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><strong>FCN</strong></td>
+<td style="text-align: center;">2015</td>
+<td>全卷积化、跳跃连接</td>
+<td>开山之作，奠定编码-解码范式</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>U-Net</strong></td>
+<td style="text-align: center;">2015</td>
+<td>对称编码-解码、大量跳跃连接</td>
+<td>医学分割经典，小样本有效</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>DeepLab v1</strong></td>
+<td style="text-align: center;">2015</td>
+<td>膨胀卷积（Dilated Conv）+ CRF</td>
+<td>扩大感受野不损失分辨率</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>DeepLab v2</strong></td>
+<td style="text-align: center;">2017</td>
+<td>ASPP（Atrous Spatial Pyramid Pooling）</td>
+<td>多尺度上下文融合</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>PSPNet</strong></td>
+<td style="text-align: center;">2017</td>
+<td>金字塔池化模块（PPM）</td>
+<td>全局上下文信息</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>DeepLab v3+</strong></td>
+<td style="text-align: center;">2018</td>
+<td>DeepLab v3 + 解码器</td>
+<td>性能与速度平衡</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>Mask R-CNN</strong></td>
+<td style="text-align: center;">2017</td>
+<td>在 Faster R-CNN 上加分割分支</td>
+<td>实例分割开山之作</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>YOLACT</strong></td>
+<td style="text-align: center;">2019</td>
+<td>轻量级实例分割</td>
+<td>实时实例分割</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>SAM</strong></td>
+<td style="text-align: center;">2023</td>
+<td>基础分割模型，提示驱动</td>
+<td>通用分割能力</td>
+</tr>
+</tbody>
+</table>
+<h3 id="84-u-net">8.4 U-Net：医学分割的经典架构<a class="headerlink" href="#84-u-net" title="Permanent link">¶</a></h3>
+<blockquote>
+<p>论文：<em>"U-Net: Convolutional Networks for Biomedical Image Segmentation"</em> (2015)</p>
+</blockquote>
+<pre class="mermaid"><code>flowchart TD
+    A[输入图像] --&gt; B1[Encoder 1&lt;br/&gt;Conv + Pool]
+    B1 --&gt; B2[Encoder 2&lt;br/&gt;Conv + Pool]
+    B2 --&gt; B3[Encoder 3&lt;br/&gt;Conv + Pool]
+    B3 --&gt; C[Bottleneck&lt;br/&gt;最深语义特征]
+    C --&gt; D3[Decoder 3&lt;br/&gt;Up + Conv]
+    D3 --&gt; D2[Decoder 2&lt;br/&gt;Up + Conv]
+    D2 --&gt; D1[Decoder 1&lt;br/&gt;Up + Conv]
+    D1 --&gt; E[输出分割图]
+    B3 -. Copy &amp; Crop / Concatenate .-&gt; D3
+    B2 -. Copy &amp; Crop / Concatenate .-&gt; D2
+    B1 -. Copy &amp; Crop / Concatenate .-&gt; D1</code></pre>
+<p><strong>U-Net 的设计特色：</strong></p>
+<table>
+<thead>
+<tr>
+<th>特色</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>对称结构</strong></td>
+<td>编码器和解码器完全对称，形似"U"形</td>
+</tr>
+<tr>
+<td><strong>大量跳跃连接</strong></td>
+<td>浅层特征直接拼接到对应深度的解码器层（而非相加）</td>
+</tr>
+<tr>
+<td><strong>拼接（Concatenate）</strong></td>
+<td>FCN 用加法，U-Net 用通道拼接——保留更多空间信息</td>
+</tr>
+<tr>
+<td><strong>小样本高效</strong></td>
+<td>医学图像标注困难，U-Net 能用少量样本达到优秀效果</td>
+</tr>
+</tbody>
+</table>
+<h3 id="85-deeplab-aspp">8.5 DeepLab 系列：膨胀卷积与 ASPP<a class="headerlink" href="#85-deeplab-aspp" title="Permanent link">¶</a></h3>
+<h4 id="dilated-atrous-convolution">膨胀卷积（Dilated / Atrous Convolution）<a class="headerlink" href="#dilated-atrous-convolution" title="Permanent link">¶</a></h4>
+<blockquote>
+<p>核心思想：在不增加参数量的情况下，<strong>指数级扩大感受野</strong></p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>卷积类型</th>
+<th style="text-align: right;">膨胀率</th>
+<th style="text-align: right;">有效感受野</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>标准 3×3 卷积</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">3×3</td>
+<td>连续采样 9 个位置</td>
+</tr>
+<tr>
+<td>膨胀卷积 3×3</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">5×5</td>
+<td>采样点之间插入空洞，参数量仍为 9</td>
+</tr>
+<tr>
+<td>膨胀卷积 3×3</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">7×7</td>
+<td>更大上下文，不降低分辨率</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">膨胀率（Dilation Rate）</th>
+<th style="text-align: center;">感受野</th>
+<th style="text-align: center;">参数量</th>
+<th style="text-align: center;">输出分辨率</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">1（标准卷积）</td>
+<td style="text-align: center;">3×3</td>
+<td style="text-align: center;">9</td>
+<td style="text-align: center;">不变</td>
+</tr>
+<tr>
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">5×5</td>
+<td style="text-align: center;">9</td>
+<td style="text-align: center;">不变</td>
+</tr>
+<tr>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">7×7</td>
+<td style="text-align: center;">9</td>
+<td style="text-align: center;">不变</td>
+</tr>
+<tr>
+<td style="text-align: center;">6</td>
+<td style="text-align: center;">13×13</td>
+<td style="text-align: center;">9</td>
+<td style="text-align: center;">不变</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition check">
+<p class="admonition-title">膨胀卷积的优势</p>
+<p>标准 CNN 通过池化/步长卷积扩大感受野，但会降低特征图分辨率。膨胀卷积可以在<strong>不降分辨率的前提下</strong>指数级扩大感受野。这对密集预测任务（分割）至关重要。</p>
+</div>
+<h4 id="asppatrous-spatial-pyramid-pooling">ASPP（Atrous Spatial Pyramid Pooling）<a class="headerlink" href="#asppatrous-spatial-pyramid-pooling" title="Permanent link">¶</a></h4>
+<blockquote>
+<p>多尺度并行膨胀卷积，融合不同感受野的上下文信息</p>
+</blockquote>
+<pre class="mermaid"><code>flowchart TD
+    A[输入特征图] --&gt; B1[1×1 Conv]
+    A --&gt; B2[3×3 Conv&lt;br/&gt;dilation=6]
+    A --&gt; B3[3×3 Conv&lt;br/&gt;dilation=12]
+    A --&gt; B4[3×3 Conv&lt;br/&gt;dilation=18]
+    A --&gt; B5[Image Pooling&lt;br/&gt;全局上下文]
+    B1 --&gt; C[Concatenate]
+    B2 --&gt; C
+    B3 --&gt; C
+    B4 --&gt; C
+    B5 --&gt; C
+    C --&gt; D[1×1 Conv 融合]
+    D --&gt; E[多尺度上下文特征]</code></pre>
+<table>
+<thead>
+<tr>
+<th>ASPP 分支</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>1×1 Conv</strong></td>
+<td>捕获局部细节</td>
+</tr>
+<tr>
+<td><strong>3×3, dilation=6</strong></td>
+<td>捕获近邻上下文</td>
+</tr>
+<tr>
+<td><strong>3×3, dilation=12</strong></td>
+<td>捕获中等范围上下文</td>
+</tr>
+<tr>
+<td><strong>3×3, dilation=18</strong></td>
+<td>捕获大范围上下文</td>
+</tr>
+<tr>
+<td><strong>全局平均池化</strong></td>
+<td>捕获整图级全局上下文</td>
+</tr>
+</tbody>
+</table>
+<h3 id="86-mask-r-cnn">8.6 实例分割：Mask R-CNN<a class="headerlink" href="#86-mask-r-cnn" title="Permanent link">¶</a></h3>
+<blockquote>
+<p>论文：<em>"Mask R-CNN"</em> (2017, ICCV best paper)
+核心创新：<strong>在 Faster R-CNN 上添加分割分支</strong></p>
+</blockquote>
+<h4 id="roi-alignmask-r-cnn">RoI Align（Mask R-CNN 的关键改进）<a class="headerlink" href="#roi-alignmask-r-cnn" title="Permanent link">¶</a></h4>
+<div class="admonition tip">
+<p class="admonition-title">RoI Align 解决了 RoI Pooling 的量化误差问题</p>
+</div>
+<p><strong>RoI Pooling 的问题（两次量化误差）：</strong></p>
+<table>
+<thead>
+<tr>
+<th>RoI Pooling 的量化位置</th>
+<th>问题</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>图像坐标 → 特征图坐标</td>
+<td>例如 <span class="arithmatex">\(293.3/16=18.33\)</span> 被取整为 18，产生空间误差</td>
+</tr>
+<tr>
+<td>RoI 区域 → 固定网格</td>
+<td>例如 <span class="arithmatex">\(18/7=2.57\)</span> 再次取整，误差继续累积</td>
+</tr>
+<tr>
+<td>对分割任务的影响</td>
+<td>mask 是像素级预测，对空间对齐非常敏感</td>
+</tr>
+</tbody>
+</table>
+<p><strong>RoI Align 的解决方案——双线性插值：</strong></p>
+<table>
+<thead>
+<tr>
+<th>RoI Align 思路</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>不做量化取整</td>
+<td>保留浮点坐标，例如 <span class="arithmatex">\((18.33,10.67)\)</span></td>
+</tr>
+<tr>
+<td>双线性插值</td>
+<td>用四个邻近像素 <span class="arithmatex">\(a,b,c,d\)</span> 的加权平均得到该位置特征</td>
+</tr>
+<tr>
+<td>结果</td>
+<td>显著减少空间错位，提高 Mask R-CNN 的分割质量</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition check">
+<p class="admonition-title">RoI Align 的影响</p>
+<p>这个"小"改进对分割任务至关重要——像素级预测对空间精度极为敏感。RoI Align 使得 Mask R-CNN 能生成高质量的逐像素掩膜。</p>
+</div>
+<h4 id="mask-r-cnn">Mask R-CNN 的多任务损失<a class="headerlink" href="#mask-r-cnn" title="Permanent link">¶</a></h4>
+<div class="arithmatex">\[
+\mathcal{L} = \mathcal{L}_{\text{RPN}} + \mathcal{L}_{\text{Fast R-CNN}} + \mathcal{L}_{\text{mask}}
+\]</div>
+<p>其中 <span class="arithmatex">\(\mathcal{L}_{\text{mask}}\)</span> 是分割掩膜的损失，使用 <strong>逐像素 Sigmoid 二值交叉熵</strong>：</p>
+<ul>
+<li>每个 RoI 经过 RoI Align 后，通过一个卷积分支</li>
+<li>输出 K 个 <span class="arithmatex">\(m \times m\)</span> 的二值掩膜（每个类别一个）</li>
+<li>对每个类别独立使用 Sigmoid + Binary Cross-Entropy</li>
+<li>最终只使用<strong>真实类别对应</strong>的掩膜损失（避免类间竞争）</li>
+</ul>
+<hr>
+<h2 id="_22">九、深度视觉模型总结<a class="headerlink" href="#_22" title="Permanent link">¶</a></h2>
+<h2 id="91">9.1 完整脉络图<a class="headerlink" href="#91" title="Permanent link">¶</a></h2>
+<pre class="mermaid"><code>flowchart TD
+    subgraph D[目标检测演进]
+        A1[R-CNN&lt;br/&gt;2014&lt;br/&gt;Selective Search + CNN] --&gt; A2[Fast R-CNN&lt;br/&gt;2015&lt;br/&gt;共享卷积特征 + RoI Pooling]
+        A2 --&gt; A3[Faster R-CNN&lt;br/&gt;2015&lt;br/&gt;RPN + 端到端检测]
+        A3 --&gt; A4[Mask R-CNN&lt;br/&gt;2017&lt;br/&gt;增加 mask 分支]
+        B1[YOLO&lt;br/&gt;2016&lt;br/&gt;网格回归 / 实时] --&gt; B2[SSD&lt;br/&gt;2016&lt;br/&gt;多尺度特征图]
+        B2 --&gt; B3[RetinaNet&lt;br/&gt;2017&lt;br/&gt;Focal Loss]
+        C1[DETR&lt;br/&gt;2020&lt;br/&gt;Transformer + 匈牙利匹配] --&gt; C2[Deformable DETR&lt;br/&gt;2021&lt;br/&gt;可变形注意力]
+        C2 --&gt; C3[DINO&lt;br/&gt;2022&lt;br/&gt;改进查询与去噪训练]
+    end
+
+    subgraph S[图像分割演进]
+        S1[FCN&lt;br/&gt;2015&lt;br/&gt;全卷积语义分割] --&gt; S2[U-Net&lt;br/&gt;2015&lt;br/&gt;编码器-解码器 + 跳跃连接]
+        S2 --&gt; S3[DeepLab 系列&lt;br/&gt;2015-2018&lt;br/&gt;空洞卷积 + ASPP]
+        S3 --&gt; S4[PSPNet&lt;br/&gt;2017&lt;br/&gt;金字塔池化]
+    end
+
+    subgraph I[实例分割与基础模型]
+        I1[Mask R-CNN&lt;br/&gt;2017&lt;br/&gt;Faster R-CNN + mask 分支] --&gt; I2[YOLACT&lt;br/&gt;2019&lt;br/&gt;实时实例分割]
+        I2 --&gt; I3[SAM&lt;br/&gt;2023&lt;br/&gt;提示驱动通用分割]
+    end
+
+    A3 -. 实例分割扩展 .-&gt; I1</code></pre>
+<h2 id="92">9.2 关键技术对比表<a class="headerlink" href="#92" title="Permanent link">¶</a></h2>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">技术</th>
+<th style="text-align: center;">提出时间</th>
+<th>核心贡献</th>
+<th style="text-align: center;">是否端到端</th>
+<th style="text-align: center;">速度</th>
+<th>适用场景</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><strong>Selective Search</strong></td>
+<td style="text-align: center;">2012</td>
+<td>基于图像分割的快速区域提议</td>
+<td style="text-align: center;">❌</td>
+<td style="text-align: center;">0.2s/图</td>
+<td>区域提议</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>R-CNN</strong></td>
+<td style="text-align: center;">2014</td>
+<td>区域提议 + CNN 做检测</td>
+<td style="text-align: center;">❌</td>
+<td style="text-align: center;">~47s/图</td>
+<td>精度优先</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>Fast R-CNN</strong></td>
+<td style="text-align: center;">2015</td>
+<td>RoI Pooling，共享特征</td>
+<td style="text-align: center;">部分</td>
+<td style="text-align: center;">~3s/图</td>
+<td>精度优先</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>Faster R-CNN</strong></td>
+<td style="text-align: center;">2015</td>
+<td>RPN，端到端</td>
+<td style="text-align: center;">✅</td>
+<td style="text-align: center;">~0.2s/图</td>
+<td>精度优先</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>YOLO</strong></td>
+<td style="text-align: center;">2016</td>
+<td>网格回归，实时检测</td>
+<td style="text-align: center;">✅</td>
+<td style="text-align: center;">~45 FPS</td>
+<td>实时应用</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>SSD</strong></td>
+<td style="text-align: center;">2016</td>
+<td>多尺度特征图检测</td>
+<td style="text-align: center;">✅</td>
+<td style="text-align: center;">~46 FPS</td>
+<td>实时应用</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>RetinaNet</strong></td>
+<td style="text-align: center;">2017</td>
+<td>Focal Loss</td>
+<td style="text-align: center;">✅</td>
+<td style="text-align: center;">~5 FPS</td>
+<td>精度+平衡</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>FCN</strong></td>
+<td style="text-align: center;">2015</td>
+<td>全卷积化分割</td>
+<td style="text-align: center;">✅</td>
+<td style="text-align: center;">—</td>
+<td>语义分割</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>Mask R-CNN</strong></td>
+<td style="text-align: center;">2017</td>
+<td>检测+分割统一</td>
+<td style="text-align: center;">✅</td>
+<td style="text-align: center;">~5 FPS</td>
+<td>实例分割</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>DETR</strong></td>
+<td style="text-align: center;">2020</td>
+<td>Transformer + 匈牙利匹配</td>
+<td style="text-align: center;">✅</td>
+<td style="text-align: center;">~10 FPS</td>
+<td>无 Anchor 范式</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>SAM</strong></td>
+<td style="text-align: center;">2023</td>
+<td>提示驱动通用分割</td>
+<td style="text-align: center;">✅</td>
+<td style="text-align: center;">变</td>
+<td>通用分割</td>
+</tr>
+</tbody>
+</table>
+<h2 id="93">9.3 关键公式速查表<a class="headerlink" href="#93" title="Permanent link">¶</a></h2>
+<table>
+<thead>
+<tr>
+<th>概念</th>
+<th>公式</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>检测总损失</strong></td>
+<td><span class="arithmatex">\(\mathcal{L} = \mathcal{L}_{\text{cls}} + \lambda \mathcal{L}_{\text{reg}}\)</span></td>
+<td>多任务联合训练</td>
+</tr>
+<tr>
+<td><strong>分类损失（Softmax）</strong></td>
+<td><span class="arithmatex">\(\mathcal{L}_{\text{cls}} = -\sum y_i \log(\hat{y}_i)\)</span></td>
+<td>交叉熵</td>
+</tr>
+<tr>
+<td><strong>定位损失（L2）</strong></td>
+<td><span class="arithmatex">\(\mathcal{L}_{\text{reg}} = \sum (t_j - \hat{t}_j)^2\)</span></td>
+<td>均方误差</td>
+</tr>
+<tr>
+<td><strong>Smooth L1 Loss</strong></td>
+<td><span class="arithmatex">\(\operatorname{SL1}(x)=\begin{cases}0.5x^2,&amp; \lvert x\rvert&lt;1\\ \lvert x\rvert-0.5,&amp; \text{otherwise}\end{cases}\)</span></td>
+<td>鲁棒的回归损失</td>
+</tr>
+<tr>
+<td><strong>IoU</strong></td>
+<td>预测框∩真实框 / 预测框∪真实框</td>
+<td>重叠度指标</td>
+</tr>
+<tr>
+<td><strong>mAP</strong></td>
+<td><span class="arithmatex">\(\frac{1}{C}\sum_{c=1}^C \text{AP}_c\)</span></td>
+<td>平均检测精度</td>
+</tr>
+<tr>
+<td><strong>Focal Loss</strong></td>
+<td><span class="arithmatex">\(\operatorname{FL}(p_t) = -\alpha_t (1-p_t)^\gamma \log(p_t)\)</span></td>
+<td>解决类别不平衡</td>
+</tr>
+<tr>
+<td><strong>边界框修正</strong></td>
+<td><span class="arithmatex">\(G' = P + \text{regression}(dx, dy, dw, dh)\)</span></td>
+<td>利用 exp 保证正数</td>
+</tr>
+</tbody>
+</table>
+<h2 id="94">9.4 学习路线建议<a class="headerlink" href="#94" title="Permanent link">¶</a></h2>
+<div class="admonition tip">
+<p class="admonition-title">从入门到精通的目标检测学习路线</p>
+</div>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">阶段</th>
+<th>学习内容</th>
+<th>目标</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">🟢 <strong>基础</strong></td>
+<td>R-CNN → Fast R-CNN → Faster R-CNN</td>
+<td>理解两阶段检测的范式演进</td>
+</tr>
+<tr>
+<td style="text-align: center;">🟡 <strong>进阶</strong></td>
+<td>YOLO → SSD → RetinaNet</td>
+<td>理解单阶段检测与 Focal Loss</td>
+</tr>
+<tr>
+<td style="text-align: center;">🔵 <strong>现代</strong></td>
+<td>DETR → Deformable DETR → DINO</td>
+<td>理解 Transformer 在检测中的应用</td>
+</tr>
+<tr>
+<td style="text-align: center;">🟣 <strong>分割</strong></td>
+<td>FCN → U-Net → DeepLab → Mask R-CNN</td>
+<td>理解像素级预测</td>
+</tr>
+<tr>
+<td style="text-align: center;">🔴 <strong>实践</strong></td>
+<td>MMDetection / Detectron2 / Ultralytics</td>
+<td>掌握主流检测框架的使用</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<div class="admonition info">
+<p class="admonition-title">相关章节</p>
+<ul>
+<li>第 5-6 章：深度视觉模型（一）—— CNN 基础与经典架构</li>
+<li>第 8 章：序列模型（RNN / LSTM / Transformer）</li>
+<li>第 9 章：生成模型（GAN / VAE / Diffusion）</li>
+</ul>
+</div></div>
+
+
+
+
+
+
+
+  
+  
+
+
+
+  
+
+
+
+  <form class="md-feedback" name="feedback" hidden>
+    <fieldset>
+      <legend class="md-feedback__title">
+        此页面有帮助吗？
+      </legend>
+      <div class="md-feedback__inner">
+        <div class="md-feedback__list">
+          
+            <button class="md-feedback__icon md-icon" type="submit" title="This page was helpful" data-md-value="1">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M5 9v12H1V9zm4 12a2 2 0 0 1-2-2V9c0-.55.22-1.05.59-1.41L14.17 1l1.06 1.06c.27.27.44.64.44 1.05l-.03.32L14.69 8H21a2 2 0 0 1 2 2v2c0 .26-.05.5-.14.73l-3.02 7.05C19.54 20.5 18.83 21 18 21zm0-2h9.03L21 12v-2h-8.79l1.13-5.32L9 9.03z"/></svg>
+            </button>
+          
+            <button class="md-feedback__icon md-icon" type="submit" title="This page could be improved" data-md-value="0">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 15V3h4v12zM15 3a2 2 0 0 1 2 2v10c0 .55-.22 1.05-.59 1.41L9.83 23l-1.06-1.06c-.27-.27-.44-.64-.44-1.06l.03-.31.95-4.57H3a2 2 0 0 1-2-2v-2c0-.26.05-.5.14-.73l3.02-7.05C4.46 3.5 5.17 3 6 3zm0 2H5.97L3 12v2h8.78l-1.13 5.32L15 14.97z"/></svg>
+            </button>
+          
+        </div>
+        <div class="md-feedback__note">
+          
+            <div data-md-value="1" hidden>
+              
+              
+                
+              
+              
+              
+                
+                
+              
+              谢谢你的反馈！
+            </div>
+          
+            <div data-md-value="0" hidden>
+              
+              
+                
+              
+              
+              
+                
+                
+              
+              Thanks for your feedback! Help us improve this page by using our <a href="https://marketingplatform.google.com/about/analytics/" target="_blank" rel="noopener">feedback form</a>.
+            </div>
+          
+        </div>
+      </div>
+    </fieldset>
+  </form>
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  回到页面顶部
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2024~2025 Gaiake/All Rights Reserved.
+    </div>
+  
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+    <a href="image/wechat.jpg" target="_blank" rel="noopener" title="Wechat" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M385.2 167.6c6.4 0 12.6.3 18.8 1.1C387.4 90.3 303.3 32 207.7 32 100.5 32 13 104.8 13 197.4c0 53.4 29.3 97.5 77.9 131.6l-19.3 58.6 68-34.1c24.4 4.8 43.8 9.7 68.2 9.7 6.2 0 12.1-.3 18.3-.8-4-12.9-6.2-26.6-6.2-40.8-.1-84.9 72.9-154 165.3-154m-104.5-52.9c14.5 0 24.2 9.7 24.2 24.4 0 14.5-9.7 24.2-24.2 24.2-14.8 0-29.3-9.7-29.3-24.2.1-14.7 14.6-24.4 29.3-24.4m-136.4 48.6c-14.5 0-29.3-9.7-29.3-24.2 0-14.8 14.8-24.4 29.3-24.4 14.8 0 24.4 9.7 24.4 24.4 0 14.6-9.6 24.2-24.4 24.2M563 319.4c0-77.9-77.9-141.3-165.4-141.3-92.7 0-165.4 63.4-165.4 141.3S305 460.7 397.6 460.7c19.3 0 38.9-5.1 58.6-9.9l53.4 29.3-14.8-48.6C534 402.1 563 363.2 563 319.4m-219.1-24.5c-9.7 0-19.3-9.7-19.3-19.6 0-9.7 9.7-19.3 19.3-19.3 14.8 0 24.4 9.7 24.4 19.3 0 10-9.7 19.6-24.4 19.6m107.1 0c-9.7 0-19.3-9.7-19.3-19.6 0-9.7 9.7-19.3 19.3-19.3 14.5 0 24.4 9.7 24.4 19.3.1 10-9.9 19.6-24.4 19.6"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/Gaiake" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="mailto:<mayuxi660@gmail.com>" target="_blank" rel="noopener" title="" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M61.4 64C27.5 64 0 91.5 0 125.4c0 .9 0 1.7.1 2.6H0v256c0 35.3 28.7 64 64 64h384c35.3 0 64-28.7 64-64V128h-.1c0-.9.1-1.7.1-2.6 0-33.9-27.5-61.4-61.4-61.4zM464 192.3V384c0 8.8-7.2 16-16 16H64c-8.8 0-16-7.2-16-16V192.3l154.8 117.4c31.4 23.9 74.9 23.9 106.4 0zM48 125.4c0-7.4 6-13.4 13.4-13.4h389.2c7.4 0 13.4 6 13.4 13.4 0 4.2-2 8.2-5.3 10.7L280.2 271.5c-14.3 10.8-34.1 10.8-48.4 0L53.3 136.1c-3.3-2.5-5.3-6.5-5.3-10.7"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["announce.dismiss", "navigation.tracking", "navigation.tabs", "navigation.sections", "navigation.top", "navigation.footer", "search.suggest", "search.highlight", "search.share", "navigation.expand", "navigation.indexes", "content.tabs.link", "content.tooltips", "content.code.copy", "content.code.select", "content.code.annotate"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

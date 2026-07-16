@@ -1,0 +1,3772 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Documentation for Gaiake, a high-performance computing project.">
+      
+      
+        <meta name="author" content="Gaiake">
+      
+      
+        <link rel="canonical" href="https://gaiake.github.io/DL/%E7%AC%AC8%E7%AB%A0/">
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="https://s2.loli.net/2024/04/26/PmRdM9iGnvOJHgu.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>表征学习 - Gaiake Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lxgw-wenkai-webfont@1.1.0/style.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+  
+
+
+  
+  
+
+<script id="__analytics">function __md_analytics(){function e(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],e("js",new Date),e("config",""),document.addEventListener("DOMContentLoaded",(function(){document.forms.search&&document.forms.search.query.addEventListener("blur",(function(){this.value&&e("event","search",{search_term:this.value})}));document$.subscribe((function(){var t=document.forms.feedback;if(void 0!==t)for(var a of t.querySelectorAll("[type=submit]"))a.addEventListener("click",(function(a){a.preventDefault();var n=document.location.pathname,d=this.getAttribute("data-md-value");e("event","feedback",{page:n,data:d}),t.firstElementChild.disabled=!0;var r=t.querySelector(".md-feedback__note [data-md-value='"+d+"']");r&&(r.hidden=!1)})),t.hidden=!1})),location$.subscribe((function(t){e("config","",{page_path:t.pathname})}))}));var t=document.createElement("script");t.async=!0,t.src="https://www.googletagmanager.com/gtag/js?id=",document.getElementById("__analytics").insertAdjacentElement("afterEnd",t)}</script>
+  
+    <script>"undefined"!=typeof __md_analytics&&__md_analytics()</script>
+  
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#_1" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../.." title="Gaiake Documentation" class="md-header__button md-logo" aria-label="Gaiake Documentation" data-md-component="logo">
+      
+  <img src="../../about/image/top.jpg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Gaiake Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              表征学习
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="关闭自动模式"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="关闭自动模式" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1M8 13h8v-2H8zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4a5 5 0 0 0 5-5 5 5 0 0 0-5-5"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="blue-grey" data-md-color-accent="blue"  aria-label="切换至夜间模式"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="切换至夜间模式" for="__palette_2" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="indigo"  aria-label="切换至日间模式"  type="radio" name="__palette" id="__palette_2">
+    
+      <label class="md-header__button md-icon" title="切换至日间模式" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 6H7c-3.31 0-6 2.69-6 6s2.69 6 6 6h10c3.31 0 6-2.69 6-6s-2.69-6-6-6m0 10H7c-2.21 0-4-1.79-4-4s1.79-4 4-4h10c2.21 0 4 1.79 4 4s-1.79 4-4 4M7 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="分享" aria-label="分享" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/Gaiake" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Gaiake
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="标签" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../about/about/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  About
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../courses/MA101/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Academic Courses
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Gaiake Documentation" class="md-nav__button md-logo" aria-label="Gaiake Documentation" data-md-component="logo">
+      
+  <img src="../../about/image/top.jpg" alt="logo">
+
+    </a>
+    Gaiake Documentation
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/Gaiake" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Gaiake
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    About
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    About
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../about/about/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    What can I say?
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Academic Courses
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Academic Courses
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_1" id="__nav_3_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    基础课程
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    基础课程
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../courses/MA101/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Calculus
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../courses/MA102/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Linear Algebra
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../courses/MA103/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Probability Theory and Mathematical Statistics
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../courses/MA104/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ordinary Differential Equations
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../courses/CS103/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Discrete Mathematics and its Applications
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../courses/PHY/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Physics
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+          
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3_2" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    专业课程
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_2" id="__nav_3_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    专业课程
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../courses/CS101/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Fundamentals of C Programming and Laboratory
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../courses/CS102/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Fundamentals of Data Structures
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../courses/CS105/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Computer System I
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../courses/CS104/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Computer System
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../courses/CS106/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Advanced Data Structures and Algorithm Analysis
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../courses/CS107/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Introduction to Artificial Intelligence
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../courses/CS108/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Object-Oriented Programming
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../courses/CS109/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Course Comprehensive Practice I
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../courses/CS110/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Causal Inference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../courses/CS111/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Social Networks and Security Privacy
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../courses/CS112/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Mathematical Software
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../courses/PE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    体育类课程
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../courses/Political/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    思政类课程
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../courses/General/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    通识类课程
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#representation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        一、什么是表征 (Representation)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="一、什么是表征 (Representation)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.1 表征的定义
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2 为什需要表征学习？
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#feature-engineering" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        二、传统表征提取模式：特征工程 (Feature Engineering)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#21" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1 文本数据特征
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#22" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2 图像数据特征
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#23" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3 特征工程的三大缺陷
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#representation-learning" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        三、现代范式：表征学习 (Representation Learning)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="三、现代范式：表征学习 (Representation Learning)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1 核心思想
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32-vs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2 有监督 vs 自监督表征学习
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        四、如何评估表征的好坏？
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#41-linear-probing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.1 Linear Probing（线性探测）
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#42" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.2 可视化观察聚类效果
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pretext" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        五、Pretext 任务（代理任务）
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="五、Pretext 任务（代理任务）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51-pretext" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.1 什么是 Pretext 任务？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#52-rotation-prediction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.2 旋转预测 (Rotation Prediction)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5.2 旋转预测 (Rotation Prediction)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        训练流程
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#53-pretext" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.3 其他 Pretext 任务
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#54-pretext" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.4 不同 Pretext 任务的性能比较
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#55-pretext" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.5 Pretext 任务的局限性
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        六、对比学习：从依赖标签到实例判别
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#61" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.1 核心思想
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#62-vs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.2 监督对比学习 vs 自监督对比学习
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#63-simclr" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.3 SimCLR 框架
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6.3 SimCLR 框架">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#61-data-augmentation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.1 数据增强 (Data Augmentation)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#62-base-encoder" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.2 基础编码器 (Base Encoder)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#63-projector" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.3 投影头 (Projector)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#64-nt-xent-loss" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.4 对比损失 (NT-Xent Loss)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#65-simclr" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.5 SimCLR 性能
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#64-moco" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.4 MoCo——动量更新编码器
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#65" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.5 对比学习家族概览
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        七、单词的表征学习
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="七、单词的表征学习">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#71-one-hot" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.1 One-hot 编码的局限
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#72-word2vec" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.2 Word2Vec 算法
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7.2 Word2Vec 算法">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        核心思想
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        统计语言模型
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        算法五步
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        两种变体
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#skip-gram" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Skip-gram 目标函数
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        条件概率计算
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#negative-sampling" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        优化：负采样 (Negative Sampling)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#softmax-hierarchical-softmax" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        优化：层次 Softmax (Hierarchical Softmax)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#73-glove" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.3 GloVe 算法
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7.3 GloVe 算法">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        从局部上下文到全局统计
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        目标函数
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_13" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        表征的线性结构
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_14" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        八、文本数据的自监督学习
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#81-rnnlstm-transformer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.1 背景：RNN/LSTM 与 Transformer
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#82-elmo-embeddings-from-language-models" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.2 ELMo (Embeddings from Language Models)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#83-bert-bidirectional-encoder-representations-from-transformers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.3 BERT (Bidirectional Encoder Representations from Transformers)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#84-roberta-robustly-optimized-bert-approach" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.4 RoBERTa (Robustly Optimized BERT Approach)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#85-ntp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.5 NTP 回归——从理解到生成
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#86-gpt" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.6 GPT 系列
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#87-chinchilla" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.7 Chinchilla
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#88-masked-image-modeling-mim" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.8 图像掩码重建 (Masked Image Modeling, MIM)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_15" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        九、自监督表征学习总结
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="九、自监督表征学习总结">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#91" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.1 核心思想
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#92" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.2 演进路线
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#93-vs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.3 图像 vs 文本自监督学习的区别
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#94" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.4 自监督学习的广泛应用
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  <nav class="md-tags" >
+    
+      
+      
+      
+      
+        <span class="md-tag">BERT</span>
+      
+    
+      
+      
+      
+      
+        <span class="md-tag">SimCLR</span>
+      
+    
+      
+      
+      
+      
+        <span class="md-tag">Word2Vec</span>
+      
+    
+      
+      
+      
+      
+        <span class="md-tag">对比学习</span>
+      
+    
+      
+      
+      
+      
+        <span class="md-tag">深度学习</span>
+      
+    
+      
+      
+      
+      
+        <span class="md-tag">自监督学习</span>
+      
+    
+      
+      
+      
+      
+        <span class="md-tag">表征学习</span>
+      
+    
+      
+      
+      
+      
+        <span class="md-tag">课程笔记</span>
+      
+    
+  </nav>
+
+
+  
+  
+
+
+<div><div class="admonition info">
+<p class="admonition-title">📖 阅读信息</p>
+<p>阅读时间：<strong>13</strong> 分钟 | 中文字符：<strong>5349</strong> | 有效代码行数：<strong>11</strong></p>
+</div>
+<h1 id="_1">第八章 表征学习<a class="headerlink" href="#_1" title="Permanent link">¶</a></h1>
+<blockquote>
+<p>好的表征使得"语义相似" = "几何接近" —— 从特征工程到自监督表征学习的完整演进</p>
+</blockquote>
+<hr>
+<h2 id="representation">一、什么是表征 (Representation)<a class="headerlink" href="#representation" title="Permanent link">¶</a></h2>
+<h3 id="11">1.1 表征的定义<a class="headerlink" href="#11" title="Permanent link">¶</a></h3>
+<div class="admonition info">
+<p class="admonition-title">核心定义</p>
+<p><strong>表征 (Representation)</strong> 是对数据含义的<strong>编码</strong>，是对原始数据的一种<strong>映射</strong>。</p>
+<div class="arithmatex">\[ \text{Raw Data} \xrightarrow{\text{Representation}} \text{Representation Space} \]</div>
+</div>
+<p>表征的最终目标是将原始数据（图像、文本、音频等）转换为一个<strong>低维稠密向量</strong>，使得在该向量空间中：
+- <strong>语义相似的样本</strong> → <strong>几何位置接近</strong>（距离小）
+- <strong>语义不同的样本</strong> → <strong>几何位置远离</strong>（距离大）</p>
+<h3 id="12">1.2 为什需要表征学习？<a class="headerlink" href="#12" title="Permanent link">¶</a></h3>
+<table>
+<thead>
+<tr>
+<th>需求</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>降低数据维度</strong></td>
+<td>原始数据通常维度极高（如图像的像素数、文本的词表大小），表征将其压缩为低维向量</td>
+</tr>
+<tr>
+<td><strong>捕获数据语义</strong></td>
+<td>原始像素/字符层面无法直接体现语义，表征向量将语义编码为几何关系</td>
+</tr>
+<tr>
+<td><strong>提升泛化能力</strong></td>
+<td>好的表征可迁移到多个下游任务，无需为每个任务重新设计特征</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="feature-engineering">二、传统表征提取模式：特征工程 (Feature Engineering)<a class="headerlink" href="#feature-engineering" title="Permanent link">¶</a></h2>
+<h2 id="21">2.1 文本数据特征<a class="headerlink" href="#21" title="Permanent link">¶</a></h2>
+<p>词袋模型 (Bag-of-Words, BoW)</p>
+<div class="admonition note">
+<p class="admonition-title">BoW原理</p>
+<p>统计文档中每个单词出现的频次，构建一个以词表为维度、频次为值的向量。</p>
+</div>
+<ul>
+<li>优点：简单快速，可解释性强</li>
+<li>缺点：<mark>完全丢失语序信息</mark>，"A kills B"与"B kills A"的向量相同</li>
+</ul>
+<p>TF-IDF</p>
+<div class="admonition tip">
+<p class="admonition-title">TF-IDF: 词频 × 逆文档频率</p>
+<p>在BoW基础上，引入<strong>逆文档频率(IDF)</strong>来降低常见词（如"的""是"）的权重，提升关键词的重要性。</p>
+</div>
+<div class="arithmatex">\[ TF-IDF(t, d, D) = tf(t, d) \times idf(t, D) \]</div>
+<ul>
+<li><strong>TF (Term Frequency)</strong>：词 t 在文档 d 中出现的频率</li>
+<li><strong>IDF (Inverse Document Frequency)</strong>：log(总文档数 / 包含词t的文档数)</li>
+<li>当一个词在<strong>单篇文档中出现频繁、但在整个语料库中罕见</strong>时，其TF-IDF值最高</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>文档</th>
+<th>blue</th>
+<th>bright</th>
+<th>can</th>
+<th>see</th>
+<th>shining</th>
+<th>sky</th>
+<th>sun</th>
+<th>today</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Doc1</td>
+<td>0.301</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0.151</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>Doc2</td>
+<td>0</td>
+<td>0.0417</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0.0417</td>
+<td>0.201</td>
+</tr>
+<tr>
+<td>Doc3</td>
+<td>0</td>
+<td>0.0417</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0.100</td>
+<td>0.0417</td>
+<td>0</td>
+</tr>
+<tr>
+<td>Doc4</td>
+<td>0</td>
+<td>0.0209</td>
+<td>0.100</td>
+<td>0.100</td>
+<td>0.100</td>
+<td>0</td>
+<td>0.0417</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+<h2 id="22">2.2 图像数据特征<a class="headerlink" href="#22" title="Permanent link">¶</a></h2>
+<p>SIFT (Scale-Invariant Feature Transform)</p>
+<blockquote>
+<p>SIFT提取<strong>128维梯度方向描述符</strong>，对图像的局部关键点进行描述。
+- 通过多尺度空间检测关键点
+- 对每个关键点统计周围区域的梯度方向直方图
+- 对旋转、缩放具有<strong>尺度不变性</strong></p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>步骤</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Scale-space extrema detection</td>
+<td>检测尺度空间中潜在的关键点位置</td>
+</tr>
+<tr>
+<td>Keypoint localization</td>
+<td>精确定位并过滤不稳定点</td>
+</tr>
+<tr>
+<td>Orientation assignment</td>
+<td>为关键点分配主方向</td>
+</tr>
+<tr>
+<td>Keypoint descriptor</td>
+<td>构建128维梯度方向描述符</td>
+</tr>
+</tbody>
+</table>
+<p>HOG (Histogram of Oriented Gradients)</p>
+<blockquote>
+<p>HOG通过统计图像局部区域的<strong>梯度方向直方图</strong>来描述物体轮廓。</p>
+</blockquote>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1"></a>Input Image → Gradient Image → Orientation Voting → Local Normalization → Overlapping Blocks
+</code></pre></div></td></tr></table></div>
+<h2 id="23">2.3 特征工程的三大缺陷<a class="headerlink" href="#23" title="Permanent link">¶</a></h2>
+<div class="admonition warning">
+<p class="admonition-title"><strong>特征工程的三大核心缺陷</strong></p>
+<ol>
+<li><strong>需要人工设计特征模式</strong>，需要领域经验，设计成本高</li>
+<li>SIFT和HOG的设计依赖大量视觉领域的先验知识</li>
+<li>
+<p>换一个域（如医学影像）又要重新设计特征</p>
+</li>
+<li>
+<p><strong>只能表达局部语义</strong>，难以捕捉复杂语义，难以建模非线性结构</p>
+</li>
+<li>BoW忽略语序和语法结构</li>
+<li>
+<p>SIFT/HOG仅描述局部纹理和边缘</p>
+</li>
+<li>
+<p><strong>泛化能力弱</strong>，需要对任务针对性地设计特征</p>
+</li>
+<li>图像分类的特征≠目标检测的特征</li>
+<li>文本分类的特征≠情感分析的特征</li>
+</ol>
+</div>
+<hr>
+<h2 id="representation-learning">三、现代范式：表征学习 (Representation Learning)<a class="headerlink" href="#representation-learning" title="Permanent link">¶</a></h2>
+<h3 id="31">3.1 核心思想<a class="headerlink" href="#31" title="Permanent link">¶</a></h3>
+<div class="admonition success">
+<p class="admonition-title"><strong>数据驱动代替人工设计</strong></p>
+<p>不再手工设计特征提取规则，而是<strong>用模型来学习表征</strong>：</p>
+<div class="arithmatex">\[ \text{原始数据}\; x \xrightarrow{\text{Encoder } f} \text{表征向量}\; z = f(x) \]</div>
+</div>
+<table>
+<thead>
+<tr>
+<th>范式</th>
+<th>监督信号来源</th>
+<th>特点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>监督表征学习</strong></td>
+<td>人工标注标签</td>
+<td>任务针对性强,但标注成本高</td>
+</tr>
+<tr>
+<td><strong>自监督表征学习</strong></td>
+<td>数据自身特性</td>
+<td>无需标注,泛化性、迁移性强</td>
+</tr>
+</tbody>
+</table>
+<h3 id="32-vs">3.2 有监督 vs 自监督表征学习<a class="headerlink" href="#32-vs" title="Permanent link">¶</a></h3>
+<table>
+<thead>
+<tr>
+<th>比较维度</th>
+<th>有监督表征学习</th>
+<th>无监督/自监督表征学习</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>核心思想</strong></td>
+<td>利用人工标注的标签,引导模型学习与任务相关的表征</td>
+<td>从数据本身的结构与分布中,自动发现有意义的表征</td>
+</tr>
+<tr>
+<td><strong>典型方法</strong></td>
+<td>交叉熵/回归损失驱动的端到端学习</td>
+<td>对比学习、掩码建模、生成式模型......</td>
+</tr>
+<tr>
+<td><strong>优势</strong></td>
+<td>任务针对性强,与下游任务直接对齐</td>
+<td>数据成本低;泛化性、迁移性强</td>
+</tr>
+<tr>
+<td><strong>局限</strong></td>
+<td>标注成本高;容易过拟合特定任务</td>
+<td>训练目标未必反应特定任务语义</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="_2">四、如何评估表征的好坏？<a class="headerlink" href="#_2" title="Permanent link">¶</a></h2>
+<h2 id="41-linear-probing">4.1 Linear Probing（线性探测）<a class="headerlink" href="#41-linear-probing" title="Permanent link">¶</a></h2>
+<div class="admonition question">
+<p class="admonition-title"><strong>Linear Probing的原理</strong></p>
+<p>在下游任务上，<strong>冻结预训练好的Encoder</strong>，仅用表征向量 z 和标签 y 来<strong>训练一个线性分类器</strong>。用线性分类器的效果来评判表征的语义表达能力。</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-1-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1"></a>Encoder (冻结) → 表征向量 z → Linear Classifier (可训练) → 预测标签
+</code></pre></div></td></tr></table></div>
+<p><strong>为什么用线性分类器？</strong>
+- 线性模型能力有限，如果线性分类表现好 → 说明表征本身已经很好地编码了语义信息
+- 如果必须用复杂分类器才能表现好 → 说明表征本身质量不够，需要额外非线性变换补救</p>
+</div>
+<h2 id="42">4.2 可视化观察聚类效果<a class="headerlink" href="#42" title="Permanent link">¶</a></h2>
+<blockquote>
+<p>对高维表征进行<strong>降维可视化</strong>（常用PCA、t-SNE算法），观察：</p>
+<ul>
+<li><strong>类间分离 (Inter-class Separation)</strong>：不同类别的样本在向量空间中是否远远分开</li>
+<li><strong>类内紧凑 (Intra-class Compactness)</strong>：同类样本是否紧密聚集在一起</li>
+</ul>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>评估维度</th>
+<th>好的表征</th>
+<th>差的表征</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>类间分离</td>
+<td>不同类别形成清晰的簇,簇间距离大</td>
+<td>各类别混合在一起,边界模糊</td>
+</tr>
+<tr>
+<td>类内紧凑</td>
+<td>同类样本聚集成紧密的簇</td>
+<td>同类样本分散在各处</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition example">
+<p class="admonition-title">可视化流程</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-2-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1"></a>高维表征 → PCA/t-SNE降维到2D/3D → 按真实标签着色 → 观察聚类结构
+</code></pre></div></td></tr></table></div>
+</div>
+<hr>
+<h2 id="pretext">五、Pretext 任务（代理任务）<a class="headerlink" href="#pretext" title="Permanent link">¶</a></h2>
+<h3 id="51-pretext">5.1 什么是 Pretext 任务？<a class="headerlink" href="#51-pretext" title="Permanent link">¶</a></h3>
+<div class="admonition info">
+<p class="admonition-title"><strong>核心思想</strong></p>
+<p>摒弃人工标注，以数据<strong>自身属性</strong>为"伪标签"（Pseudo Label），通过解决人为设计的代理任务，<strong>间接习得</strong>数据的语义特征。</p>
+</div>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-3-1">1</a></span>
+<span class="normal"><a href="#__codelineno-3-2">2</a></span>
+<span class="normal"><a href="#__codelineno-3-3">3</a></span>
+<span class="normal"><a href="#__codelineno-3-4">4</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1"></a>原始图像（未标注数据） → 自动变换（旋转/打乱/灰度化/取patch）
+<a id="__codelineno-3-2" name="__codelineno-3-2"></a>    → 伪标签（角度/排列/相对位置/颜色）
+<a id="__codelineno-3-3" name="__codelineno-3-3"></a>    → 预训练模型（学习视觉表示）
+<a id="__codelineno-3-4" name="__codelineno-3-4"></a>    → 下游任务（分类/检测）
+</code></pre></div></td></tr></table></div>
+<h3 id="52-rotation-prediction">5.2 旋转预测 (Rotation Prediction)<a class="headerlink" href="#52-rotation-prediction" title="Permanent link">¶</a></h3>
+<blockquote>
+<p>将一张自然图像随机旋转为 0°、90°、180°、270°，让模型预测旋转角度（<strong>4分类问题</strong>）。</p>
+</blockquote>
+<p><strong>模型需要学会的能力：</strong>
+- 识别<strong>主体轮廓</strong>（如猫的头朝上还是朝下）
+- 判断<strong>部件朝向</strong>（如车轮、窗户的方向）
+- 理解<strong>场景重力方向</strong>（天空在上、地面在下）</p>
+<h4 id="_3">训练流程<a class="headerlink" href="#_3" title="Permanent link">¶</a></h4>
+<table>
+<thead>
+<tr>
+<th>步骤</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Step 1: 定义旋转变换</td>
+<td>设定四个角度 <span class="arithmatex">\(0^\circ, 90^\circ, 180^\circ, 270^\circ\)</span>，对应标签 <span class="arithmatex">\(y \in \{0,1,2,3\}\)</span></td>
+</tr>
+<tr>
+<td>Step 2: 构建训练样本</td>
+<td>对每张图像生成4个旋转版本</td>
+</tr>
+<tr>
+<td>Step 3: 训练网络</td>
+<td>Encoder f + 分类器 g（4分类），最小化交叉熵损失</td>
+</tr>
+<tr>
+<td>Step 4: 下游迁移</td>
+<td>用训练好的Encoder提取表征，用于下游任务</td>
+</tr>
+</tbody>
+</table>
+<div class="arithmatex">\[
+\mathcal{L}_{Rotation} = -\sum_{y=0}^{3} y \log g(f(x_y))
+\]</div>
+<h3 id="53-pretext">5.3 其他 Pretext 任务<a class="headerlink" href="#53-pretext" title="Permanent link">¶</a></h3>
+<table>
+<thead>
+<tr>
+<th>任务</th>
+<th>方法</th>
+<th>学习目标</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>相对位置预测 (Context Prediction)</strong></td>
+<td>从同一图像采样两个patch，模型预测第二个patch相对第一个的方向（8分类）</td>
+<td>理解物体各部件的位置关系</td>
+</tr>
+<tr>
+<td><strong>拼图游戏 (Jigsaw Puzzle)</strong></td>
+<td>将图像分块打乱，模型预测排列方式（从9!=362,880种中选100种）</td>
+<td>学习局部空间关系及从局部推断全局结构</td>
+</tr>
+<tr>
+<td><strong>着色 (Colorization)</strong></td>
+<td>将彩色图转为灰度图，让模型恢复颜色</td>
+<td>关注纹理、材质、区域类别及颜色连续性</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition tip">
+<p class="admonition-title">着色的语义特性</p>
+<p>颜色恢复本质上依赖语义理解：
+- 天空 → 蓝色系
+- 植被 → 绿色系
+- 皮肤 → 肤色系
+模型必须理解"这是什么物体"才能正确着色。</p>
+</div>
+<h3 id="54-pretext">5.4 不同 Pretext 任务的性能比较<a class="headerlink" href="#54-pretext" title="Permanent link">¶</a></h3>
+<p>在 <strong>ImageNet-1000 分类任务</strong>上（冻结表征 + MLP）：</p>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Conv4</th>
+<th>Conv5</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ImageNet labels (supervised)</td>
+<td>59.7</td>
+<td>59.7</td>
+</tr>
+<tr>
+<td>Random</td>
+<td>27.1</td>
+<td>12.0</td>
+</tr>
+<tr>
+<td>Context Prediction</td>
+<td>45.6</td>
+<td>30.4</td>
+</tr>
+<tr>
+<td>Colorization</td>
+<td>40.7</td>
+<td>35.2</td>
+</tr>
+<tr>
+<td>Jigsaw Puzzle</td>
+<td>45.3</td>
+<td>34.6</td>
+</tr>
+<tr>
+<td><strong>RotNet (Rotation Prediction)</strong></td>
+<td><strong>50.0</strong></td>
+<td><strong>43.8</strong></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>RotNet在Conv5层达到43.8%，显著优于其他Pretext任务，说明==旋转预测能学到更高质量的视觉表征==。</p>
+</blockquote>
+<h3 id="55-pretext">5.5 Pretext 任务的局限性<a class="headerlink" href="#55-pretext" title="Permanent link">¶</a></h3>
+<div class="admonition warning">
+<p class="admonition-title"><strong>两大核心局限</strong></p>
+<ol>
+<li><strong>泛化性有限</strong>：模型可能学会"如何解这道题"，却不一定得到对下游任务最有用的通用表示</li>
+<li>旋转预测任务教会模型判断方向，但不一定学会物体类别</li>
+<li>
+<p>着色任务教会模型预测颜色，但不一定学会物体形态</p>
+</li>
+<li>
+<p><strong>可能出现学习捷径 (Shortcut Learning)</strong>：</p>
+</li>
+<li><strong>边缘连续性</strong>：模型通过图像边缘的连续性来拼图，而非理解物体结构</li>
+<li><strong>颜色分布</strong>：通过统计颜色直方图分布来取巧，而非理解语义</li>
+<li><strong>相机伪影</strong>：利用传感器噪声、JPEG压缩痕迹等低级特征</li>
+</ol>
+</div>
+<hr>
+<h2 id="_4">六、对比学习：从依赖标签到实例判别<a class="headerlink" href="#_4" title="Permanent link">¶</a></h2>
+<h2 id="61">6.1 核心思想<a class="headerlink" href="#61" title="Permanent link">¶</a></h2>
+<div class="admonition info">
+<p class="admonition-title"><strong>从"解题"到"识人"</strong></p>
+<p>Pretext任务教会模型"如何玩游戏"，但我们真正需要模型能 <strong>"区分谁是谁"</strong>。</p>
+<p><strong>对比学习 (Contrastive Learning)</strong>：在特征空间中，
+- <strong>拉近</strong>同类事物（正样本对）
+- <strong>推远</strong>不同类事物（负样本对）</p>
+</div>
+<h2 id="62-vs">6.2 监督对比学习 vs 自监督对比学习<a class="headerlink" href="#62-vs" title="Permanent link">¶</a></h2>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>正负样本来源</th>
+<th>成本</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>监督对比学习</strong></td>
+<td>人工标注哪些属于同类 / 不同类</td>
+<td>★★★ 成本高</td>
+</tr>
+<tr>
+<td><strong>自监督对比学习</strong></td>
+<td>通过数据变换自动构建正负样本对</td>
+<td>★ 免费午餐！</td>
+</tr>
+</tbody>
+</table>
+<h2 id="63-simclr">6.3 SimCLR 框架<a class="headerlink" href="#63-simclr" title="Permanent link">¶</a></h2>
+<div class="admonition note">
+<p class="admonition-title">SimCLR：最经典的对比学习框架</p>
+<p>对每张图施加两种不同的数据增强，形成一对互为"正样本"的分身。模型的目标就是识别这些分身属于同一母体，并同时排斥 batch 内的所有其他图片。</p>
+<p>惊人成果：<mark>自监督特征仅用1%标签微调就能超越AlexNet</mark>！</p>
+</div>
+<p>整体架构</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-4-1">1</a></span>
+<span class="normal"><a href="#__codelineno-4-2">2</a></span>
+<span class="normal"><a href="#__codelineno-4-3">3</a></span>
+<span class="normal"><a href="#__codelineno-4-4">4</a></span>
+<span class="normal"><a href="#__codelineno-4-5">5</a></span>
+<span class="normal"><a href="#__codelineno-4-6">6</a></span>
+<span class="normal"><a href="#__codelineno-4-7">7</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1"></a>Original Image
+<a id="__codelineno-4-2" name="__codelineno-4-2"></a>    ↓ Data Augmentation
+<a id="__codelineno-4-3" name="__codelineno-4-3"></a>    ├──→ x_i → Encoder f → h_i → Projector g → z_i →┐
+<a id="__codelineno-4-4" name="__codelineno-4-4"></a>    │                                                  ↓
+<a id="__codelineno-4-5" name="__codelineno-4-5"></a>    └──→ x_j → Encoder f → h_j → Projector g → z_j → Maximize Similarity
+<a id="__codelineno-4-6" name="__codelineno-4-6"></a>                                                      ↓
+<a id="__codelineno-4-7" name="__codelineno-4-7"></a>                                              Downstream Tasks
+</code></pre></div></td></tr></table></div>
+<p>核心组件详解</p>
+<h3 id="61-data-augmentation">6.1 数据增强 (Data Augmentation)<a class="headerlink" href="#61-data-augmentation" title="Permanent link">¶</a></h3>
+<div class="admonition tip">
+<p class="admonition-title"><strong>关键发现</strong></p>
+<ul>
+<li><strong>数据增强组合</strong>对自监督学习质量起决定性作用</li>
+<li><mark>单纯的随机裁剪效果不佳（模型作弊）</mark></li>
+<li>必须与 <strong>"颜色抖动 (Color Distortion)"</strong> 结合使用</li>
+</ul>
+</div>
+<table>
+<thead>
+<tr>
+<th>增强类型</th>
+<th>说明</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Crop and resize</td>
+<td>随机裁剪后缩放到统一尺寸</td>
+<td>让模型关注不同尺度的内容</td>
+</tr>
+<tr>
+<td>Crop, resize and flip</td>
+<td>裁剪 + 水平翻转</td>
+<td>增加几何变换多样性</td>
+</tr>
+<tr>
+<td><strong>Color distort (drop)</strong></td>
+<td>随机丢弃颜色通道</td>
+<td><mark>防止模型靠颜色作弊</mark></td>
+</tr>
+<tr>
+<td><strong>Color distort (jitter)</strong></td>
+<td>随机改变亮度/对比度/饱和度/色相</td>
+<td><mark>防止模型靠颜色作弊</mark></td>
+</tr>
+<tr>
+<td>Rotate</td>
+<td>随机旋转一定角度</td>
+<td>增加方向多样性</td>
+</tr>
+<tr>
+<td>Cutout</td>
+<td>随机遮挡图像块</td>
+<td>迫使模型从剩余部分推断</td>
+</tr>
+<tr>
+<td>Gaussian noise</td>
+<td>添加高斯噪声</td>
+<td>增加鲁棒性</td>
+</tr>
+<tr>
+<td>Gaussian blur</td>
+<td>高斯模糊</td>
+<td>关注全局结构而非细节</td>
+</tr>
+<tr>
+<td>Sobel filtering</td>
+<td>边缘检测滤波</td>
+<td>强调轮廓信息</td>
+</tr>
+</tbody>
+</table>
+<h3 id="62-base-encoder">6.2 基础编码器 (Base Encoder)<a class="headerlink" href="#62-base-encoder" title="Permanent link">¶</a></h3>
+<blockquote>
+<p>通常采用经典的<strong>卷积神经网络</strong>（如 ResNet-50），作为模型的"主干"，负责将原始图像转化为<strong>高维特征向量</strong> h。</p>
+<ul>
+<li>ResNet-50 输出 2048 维特征向量</li>
+<li>目标：捕捉图像中<strong>核心的语义内容</strong></li>
+</ul>
+</blockquote>
+<h3 id="63-projector">6.3 投影头 (Projector)<a class="headerlink" href="#63-projector" title="Permanent link">¶</a></h3>
+<div class="admonition info">
+<p class="admonition-title"><strong>投影头的作用</strong></p>
+<p>Projector 专门负责吸收和过滤掉那些对对比任务有用、但对通用识别<strong>没用</strong>的冗余信息（颜色、位置），保护前面的编码器能学到更纯净、更本质的语义特征。</p>
+<ul>
+<li>结构：Dense → ReLU → Dense</li>
+<li>输出：经过投影的表征 z</li>
+<li>训练后<strong>丢弃 Projector</strong>，只保留 Base Encoder 用于下游任务</li>
+</ul>
+</div>
+<h3 id="64-nt-xent-loss">6.4 对比损失 (NT-Xent Loss)<a class="headerlink" href="#64-nt-xent-loss" title="Permanent link">¶</a></h3>
+<blockquote>
+<p><strong>NT-Xent (Normalized Temperature-Scaled Cross-Entropy Loss)</strong> 损失函数：</p>
+<div class="arithmatex">\[ \ell(i,j) = -\log \frac{\exp(s_{i,j})}{\sum_{k=1}^{2N} \mathbb{1}_{[k \neq i]} \exp(s_{i,k})} \]</div>
+<div class="arithmatex">\[ L = \frac{1}{2N} \sum_{k=1}^{N} [\ell(2k-1, 2k) + \ell(2k, 2k-1)] \]</div>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>术语</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><span class="arithmatex">\(s_{i,j}\)</span></td>
+<td>向量 <span class="arithmatex">\(z_i\)</span> 与 <span class="arithmatex">\(z_j\)</span> 的余弦相似度</td>
+</tr>
+<tr>
+<td>N</td>
+<td>batch 大小</td>
+</tr>
+<tr>
+<td>2N</td>
+<td>增强后总样本数</td>
+</tr>
+<tr>
+<td>分子</td>
+<td>正样本对相似度（越大越好）</td>
+</tr>
+<tr>
+<td>分母</td>
+<td>所有样本对相似度总和</td>
+</tr>
+<tr>
+<td><strong>损失最小化</strong> → 正样本对相似度↑，所有负样本对相似度↓</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h3 id="65-simclr">6.5 SimCLR 性能<a class="headerlink" href="#65-simclr" title="Permanent link">¶</a></h3>
+<table>
+<thead>
+<tr>
+<th>Model</th>
+<th>Parameters (Millions)</th>
+<th>ImageNet Top-1 (%)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>InstDisc</td>
+<td>25</td>
+<td>54</td>
+</tr>
+<tr>
+<td>MoCo</td>
+<td>25</td>
+<td>60</td>
+</tr>
+<tr>
+<td>Rotation</td>
+<td>100</td>
+<td>55</td>
+</tr>
+<tr>
+<td><strong>SimCLR (2x)</strong></td>
+<td><strong>100</strong></td>
+<td><strong>74</strong></td>
+</tr>
+<tr>
+<td><strong>SimCLR (4x)</strong></td>
+<td><strong>400</strong></td>
+<td><strong>76</strong></td>
+</tr>
+<tr>
+<td>Supervised (oracle)</td>
+<td>-</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>SimCLR(4x) 以 400M 参数实现 76% Top-1 准确率，远超前人方法。</p>
+</blockquote>
+<h2 id="64-moco">6.4 MoCo——动量更新编码器<a class="headerlink" href="#64-moco" title="Permanent link">¶</a></h2>
+<div class="admonition info">
+<p class="admonition-title">MoCo (Momentum Contrast)</p>
+<p><strong>问题</strong>：SimCLR 依赖大 batch size 来提供充足负样本，计算资源门槛高。</p>
+<p><strong>MoCo 的解决方案：</strong>
+1. 引入一个<strong>动态队列</strong>存储负样本的特征向量
+2. 使用<strong>动量更新 (Momentum Update)</strong> 的方式更新 Key Encoder</p>
+</div>
+<p>动量更新公式</p>
+<p><span class="arithmatex">\(\theta_k \leftarrow m\theta_k + (1-m)\theta_q\)</span></p>
+<table>
+<thead>
+<tr>
+<th>符号</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><span class="arithmatex">\(\theta_k\)</span></td>
+<td>Key Encoder（右侧，生成负样本特征）</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(\theta_q\)</span></td>
+<td>Query Encoder（左侧，生成查询特征）</td>
+</tr>
+<tr>
+<td>m</td>
+<td>动量系数，通常取 0.999（缓慢更新）</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition tip">
+<p class="admonition-title">动量更新的优势</p>
+<ul>
+<li>Key Encoder 更新极其<strong>缓慢</strong>，保证负样本特征表示前后<strong>一致性</strong></li>
+<li>队列可存储<strong>大量历史负样本</strong>（如 65536 个），无需依赖大 batch</li>
+<li>SimCLR 发表更晚、消融更全面，发现算力充足时直接开大 batch 也可以</li>
+</ul>
+</div>
+<h2 id="65">6.5 对比学习家族概览<a class="headerlink" href="#65" title="Permanent link">¶</a></h2>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>核心特性</th>
+<th>负样本</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>SimCLR</strong></td>
+<td>对称架构,InfoNCE损失,大batch</td>
+<td>batch内所有其他样本</td>
+</tr>
+<tr>
+<td><strong>MoCo</strong></td>
+<td>动量更新Encoder,队列存储负样本</td>
+<td>队列中的历史特征</td>
+</tr>
+<tr>
+<td><strong>BYOL</strong></td>
+<td>无负样本,预测头+MSE损失</td>
+<td>无需负样本</td>
+</tr>
+<tr>
+<td><strong>SwAV</strong></td>
+<td>聚类+对比,交换预测分配</td>
+<td>聚类原型</td>
+</tr>
+<tr>
+<td><strong>SimSiam</strong></td>
+<td>极简架构,stop-gradient防坍塌</td>
+<td>无需负样本</td>
+</tr>
+<tr>
+<td><strong>SimTriplet</strong></td>
+<td>triplet变体,适合patch匹配</td>
+<td>三元组样本</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="_5">七、单词的表征学习<a class="headerlink" href="#_5" title="Permanent link">¶</a></h2>
+<h3 id="71-one-hot">7.1 One-hot 编码的局限<a class="headerlink" href="#71-one-hot" title="Permanent link">¶</a></h3>
+<div class="admonition warning">
+<p class="admonition-title">传统 NLP 的 One-hot 表征</p>
+<p>在传统 NLP 中，每个单词被表示为 One-hot 向量：</p>
+<p>火车 = [0, 0, 0, 0, 0, 1, 0, 0] 
+ 高铁 = [0, 0, 0, 1, 0, 0, 0, 0] </p>
+</div>
+<p><strong>两大缺陷：</strong>
+1. <strong>维度灾难</strong>：维度 = 词表大小（如 500,000+），极度稀疏
+2. <strong>语义正交</strong>："火车"与"高铁"的内积为 0（正交），<mark>完全无法体现语义相似度</mark></p>
+<blockquote>
+<p>当我们搜索"去杭州的火车"时，也隐含了想搜索"去杭州的高铁"，
+但 One-hot 向量中两者是正交的！</p>
+</blockquote>
+<p><strong>解决方案</strong>：通过表征学习得到<strong>能够包含词汇语义的低维稠密向量</strong>。</p>
+<h3 id="72-word2vec">7.2 Word2Vec 算法<a class="headerlink" href="#72-word2vec" title="Permanent link">¶</a></h3>
+<blockquote>
+<p>Word2Vec (Mikolov et al. 2013, ICLR Workshop)</p>
+</blockquote>
+<h4 id="_6">核心思想<a class="headerlink" href="#_6" title="Permanent link">¶</a></h4>
+<div class="admonition info">
+<p class="admonition-title"><strong>分布式假设 (Distributional Hypothesis)</strong></p>
+<p>"一个词的含义是由经常出现在它附近的词语决定的。"</p>
+<blockquote>
+<p>...government <strong>debt</strong> problems turning into <strong>banking</strong> crises as happened in 2009...
+...saying that Europe needs unified <strong>banking</strong> regulation to replace the hodgepodge..
+...India has just given its <strong>banking</strong> system a shot in the arm...</p>
+</blockquote>
+</div>
+<h4 id="_7">统计语言模型<a class="headerlink" href="#_7" title="Permanent link">¶</a></h4>
+<blockquote>
+<p>最大化文本语料的概率。</p>
+</blockquote>
+<p>假设句子 <span class="arithmatex">\(W = (w_1, w_2, ..., w_T)\)</span>，其联合概率为：</p>
+<p><span class="arithmatex">\(p(W) = p(w_1)p(w_2|w_1)p(w_3|w_1,w_2)\dots p(w_T|w_1,\dots,w_{T-1})\)</span></p>
+<blockquote>
+<p>词表大小为 N，共有 <span class="arithmatex">\(N^T\)</span> 种可能性！直接计算不可行。</p>
+</blockquote>
+<h4 id="_8">算法五步<a class="headerlink" href="#_8" title="Permanent link">¶</a></h4>
+<ol>
+<li><strong>前提</strong>：有一个大的语料库</li>
+<li><strong>初始化</strong>：词表中每个单词由一个向量表示</li>
+<li><strong>定义</strong>：对于文本中每个位置 t，有中心词 c 和上下文 o</li>
+<li><strong>计算</strong>：通过 c 和 o 的向量相似度，计算条件概率</li>
+<li><strong>优化</strong>：调整单词向量，最大化语料概率</li>
+</ol>
+<h4 id="_9">两种变体<a class="headerlink" href="#_9" title="Permanent link">¶</a></h4>
+<div class="admonition tip">
+<p class="admonition-title"><strong>Skip-gram vs CBOW</strong></p>
+<table>
+<thead>
+<tr>
+<th>变体</th>
+<th>输入 → 输出</th>
+<th>特点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Skip-gram</strong></td>
+<td>中心词 → 上下文</td>
+<td>适合低频词，精度高</td>
+</tr>
+<tr>
+<td><strong>CBOW</strong></td>
+<td>上下文 → 中心词</td>
+<td>训练速度快</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>下面以 <strong>Skip-gram</strong> 为例详细介绍：</p>
+<h4 id="skip-gram">Skip-gram 目标函数<a class="headerlink" href="#skip-gram" title="Permanent link">¶</a></h4>
+<p><span class="arithmatex">\(Likelihood  L(\theta) = \prod_{t=1}^{T} \prod_{-m \leq j \leq m \\ j \neq 0} P(w_{t+j} | w_t; \theta)\)</span></p>
+<p><span class="arithmatex">\(J(\theta) = -\frac{1}{T} \log L(\theta) = -\frac{1}{T} \sum_{t=1}^{T} \sum_{-m \leq j \leq m \\ j \neq 0} \log P(w_{t+j} | w_t; \theta)\)</span></p>
+<h4 id="_10">条件概率计算<a class="headerlink" href="#_10" title="Permanent link">¶</a></h4>
+<blockquote>
+<p>每个单词用两个向量表示：<strong>中心词向量</strong> <span class="arithmatex">\(v_w\)</span> 和<strong>上下文向量</strong> <span class="arithmatex">\(u_w\)</span></p>
+</blockquote>
+<p><span class="arithmatex">\(P(o|c) = \frac{\exp(u_o^T v_c)}{\sum_{w \in V} \exp(u_w^T v_c)}\)</span></p>
+<div class="admonition tip">
+<p class="admonition-title">中心词向量和上下文向量分开更加灵活，有利于模型优化</p>
+</div>
+<h4 id="negative-sampling">优化：负采样 (Negative Sampling)<a class="headerlink" href="#negative-sampling" title="Permanent link">¶</a></h4>
+<div class="admonition danger">
+<p class="admonition-title"><strong>问题</strong></p>
+<p>对每个上下文 o，需要计算其与词表 V 中<strong>所有单词</strong>的相似度，复杂度极高！</p>
+</div>
+<div class="admonition success">
+<p class="admonition-title"><strong>解决方案：负采样</strong></p>
+<p>将<strong>多分类</strong>转化为<strong>多个二分类</strong>。
+每对正样本只计算与 k 个随机负样本的相似度（k 一般取 5~20）。</p>
+</div>
+<p><span class="arithmatex">\(J_t(\theta) = \log \sigma(u_o^T v_c) + \sum_{i=1}^{k} \mathbb{E}_{j \sim P(w)} \left[ \log \sigma(-u_j^T v_c) \right]\)</span></p>
+<table>
+<thead>
+<tr>
+<th>术语</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><span class="arithmatex">\(\sigma\)</span></td>
+<td>Sigmoid 函数</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(u_o^T v_c\)</span></td>
+<td>真实上下文的相似度（要最大化）</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(-u_j^T v_c\)</span></td>
+<td>负样本的相似度（要最小化）</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(P(w)\)</span></td>
+<td>采样分布，<span class="arithmatex">\(\propto U(w)^{0.75}\)</span>（降低高频词被采样概率）</td>
+</tr>
+</tbody>
+</table>
+<h4 id="softmax-hierarchical-softmax">优化：层次 Softmax (Hierarchical Softmax)<a class="headerlink" href="#softmax-hierarchical-softmax" title="Permanent link">¶</a></h4>
+<blockquote>
+<p>另一个解决方案：构建<strong>Huffman 树</strong>，每个叶子节点对应一个单词，非叶子节点为二分类器。</p>
+<ul>
+<li>多分类 → 多个二分类</li>
+<li>高词频 → 更短路径 → 计算更快</li>
+<li>Softmax 转化为从根节点到叶子节点的二分类概率连乘</li>
+</ul>
+</blockquote>
+<h3 id="73-glove">7.3 GloVe 算法<a class="headerlink" href="#73-glove" title="Permanent link">¶</a></h3>
+<blockquote>
+<p>GloVe (Pennington et al. 2014, EMNLP)</p>
+</blockquote>
+<h4 id="_11">从局部上下文到全局统计<a class="headerlink" href="#_11" title="Permanent link">¶</a></h4>
+<div class="admonition info">
+<p class="admonition-title"><strong>核心发现</strong></p>
+<p>单词<strong>共现矩阵 (Co-occurrence Matrix)</strong> 蕴含了相似度语义。</p>
+</div>
+<table>
+<thead>
+<tr>
+<th><span class="arithmatex">\(P(x \mid \text{ice})\)</span></th>
+<th><span class="arithmatex">\(P(x \mid \text{steam})\)</span></th>
+<th>比值</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>large (solid)</td>
+<td>small (solid)</td>
+<td><strong>&gt;&gt;1</strong></td>
+<td>solid 与 ice 更相关</td>
+</tr>
+<tr>
+<td>small (gas)</td>
+<td>large (gas)</td>
+<td><strong>&lt;&lt;1</strong></td>
+<td>gas 与 steam 更相关</td>
+</tr>
+<tr>
+<td>large (water)</td>
+<td>large (water)</td>
+<td><strong>~1</strong></td>
+<td>water 与两者都相关</td>
+</tr>
+<tr>
+<td>small (fashion)</td>
+<td>small (fashion)</td>
+<td><strong>~1</strong></td>
+<td>fashion 与两者都不相关</td>
+</tr>
+</tbody>
+</table>
+<h4 id="_12">目标函数<a class="headerlink" href="#_12" title="Permanent link">¶</a></h4>
+<p><span class="arithmatex">\(\sum_{i,j} f(X_{ij}) \left(v_i^\top v_j + b_i + b_j - \log X_{ij}\right)^2\)</span></p>
+<table>
+<thead>
+<tr>
+<th>符号</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>X</td>
+<td>共现矩阵</td>
+</tr>
+<tr>
+<td>i</td>
+<td>中心词</td>
+</tr>
+<tr>
+<td>j</td>
+<td>上下文词</td>
+</tr>
+<tr>
+<td>v</td>
+<td>可学习的单词向量</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(\log\)</span></td>
+<td>缩小频率差距</td>
+</tr>
+<tr>
+<td>b</td>
+<td>偏置项，提高拟合灵活性</td>
+</tr>
+<tr>
+<td>f</td>
+<td>权重参数，平衡高频词和低频词的训练比重</td>
+</tr>
+</tbody>
+</table>
+<h4 id="_13">表征的线性结构<a class="headerlink" href="#_13" title="Permanent link">¶</a></h4>
+<div class="admonition success">
+<p class="admonition-title">GloVe 学习到的词向量展现出惊人的线性语义结构</p>
+<p><span class="arithmatex">\(woman - man + king \approx queen\)</span></p>
+</div>
+<hr>
+<h2 id="_14">八、文本数据的自监督学习<a class="headerlink" href="#_14" title="Permanent link">¶</a></h2>
+<h2 id="81-rnnlstm-transformer">8.1 背景：RNN/LSTM 与 Transformer<a class="headerlink" href="#81-rnnlstm-transformer" title="Permanent link">¶</a></h2>
+<p>RNN (循环神经网络)</p>
+<blockquote>
+<p>针对序列数据的上下文连续建模。当前时刻输出同时取决于当前输入和前一时刻的隐藏状态。</p>
+</blockquote>
+<p>LSTM (长短期记忆网络)</p>
+<blockquote>
+<p>解决 RNN 梯度消失/爆炸问题。引入<strong>遗忘门、输入门、输出门</strong>，有选择地保留关键信息、丢弃无关内容。</p>
+</blockquote>
+<p>Transformer</p>
+<div class="admonition info">
+<p class="admonition-title"><strong>Transformer 的革命性突破</strong></p>
+<ul>
+<li><strong>突破并行瓶颈</strong>：Self-Attention 允许序列中所有位置同时计算</li>
+<li><strong>解决长程依赖</strong>：任意两个词的距离都被视为 1</li>
+<li><strong>开启 Scaling Law</strong>：利用海量数据训练超大参数模型成为可能</li>
+</ul>
+</div>
+<h2 id="82-elmo-embeddings-from-language-models">8.2 ELMo (Embeddings from Language Models)<a class="headerlink" href="#82-elmo-embeddings-from-language-models" title="Permanent link">¶</a></h2>
+<div class="admonition question">
+<p class="admonition-title">Word2Vec 的局限</p>
+<p>Word2Vec 为<strong>每个词赋予唯一向量</strong>，无法解决<strong>一词多义</strong>问题（如 "bank" 可以是银行、河岸）。
+下游任务依赖大量人工标注。</p>
+</div>
+<p>ELMo 的核心方案</p>
+<blockquote>
+<p>训练<strong>两个独立方向</strong>的 LSTM（左→右 和 右→左），将同一词在两组 LSTM 顶层产生的隐藏状态与原始词向量拼接，形成<strong>随上下文动态变化的深层语境化表征</strong>。</p>
+</blockquote>
+<p>ELMo 的局限</p>
+<div class="admonition warning">
+<p class="admonition-title">ELMo 的局限</p>
+<p>由于<strong>两个 LSTM 独立训练、参数不共享</strong>，上下文信息仅在最后阶段进行<strong>浅层拼接</strong>，无法实现词语间的<strong>深层双向交互与融合</strong>。</p>
+</div>
+<h2 id="83-bert-bidirectional-encoder-representations-from-transformers">8.3 BERT (Bidirectional Encoder Representations from Transformers)<a class="headerlink" href="#83-bert-bidirectional-encoder-representations-from-transformers" title="Permanent link">¶</a></h2>
+<blockquote>
+<p>BERT 旨在通过<strong>自注意力</strong>使每一层都同时编码两侧上下文，实现更深层的双向理解。</p>
+</blockquote>
+<p>核心机制：去噪自编码 (Masked Language Model, MLM)</p>
+<blockquote>
+<p><strong>随机 15% 掩码</strong>，利用上下文重建（<mark>完形填空！</mark>）</p>
+</blockquote>
+<div class="admonition info">
+<p class="admonition-title">Masking 策略</p>
+<p>随机选择输入序列中 15% 的 token：</p>
+<table>
+<thead>
+<tr>
+<th>概率</th>
+<th>处理方式</th>
+<th>目的</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>80% (选中 token 中的)</td>
+<td>替换为 <code>[MASK]</code></td>
+<td>主要训练信号</td>
+</tr>
+<tr>
+<td>10% (选中 token 中的)</td>
+<td>替换为<strong>随机</strong> token</td>
+<td>防止模型只学 mask</td>
+</tr>
+<tr>
+<td>10% (选中 token 中的)</td>
+<td>保持<strong>不变</strong></td>
+<td>保持与微调阶段表征对齐</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>BERT 优化目标</p>
+<p><span class="arithmatex">\(\mathcal{L}_{MLM} = \mathbb{E}_{x \in \mathcal{D}} \sum_{i \in \mathcal{M}} -\log P(x_i \mid x_{\backslash \mathcal{M}})\)</span></p>
+<p>其中 <span class="arithmatex">\(\mathcal{M}\)</span> 为被遮挡位置的索引集合，x_{<span class="arithmatex">\(\backslash \mathcal{M}\)</span>} 为其余可见 token。</p>
+<p>BERT 性能</p>
+<table>
+<thead>
+<tr>
+<th>System</th>
+<th>MNLI</th>
+<th>QQP</th>
+<th>QNLI</th>
+<th>SST-2</th>
+<th>CoLA</th>
+<th>Average</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Pre-OpenAI SOTA</td>
+<td>80.6/80.1</td>
+<td>66.1</td>
+<td>82.3</td>
+<td>93.2</td>
+<td>35.0</td>
+<td>74.0</td>
+</tr>
+<tr>
+<td>BiLSTM+ELMo+Attn</td>
+<td>76.4/76.1</td>
+<td>64.8</td>
+<td>79.8</td>
+<td>90.4</td>
+<td>36.0</td>
+<td>71.0</td>
+</tr>
+<tr>
+<td>OpenAI GPT</td>
+<td>82.1/81.4</td>
+<td>70.3</td>
+<td>87.4</td>
+<td>91.3</td>
+<td>45.4</td>
+<td>75.1</td>
+</tr>
+<tr>
+<td><strong>BERT_BASE</strong></td>
+<td><strong>84.6/83.4</strong></td>
+<td><strong>71.2</strong></td>
+<td><strong>90.5</strong></td>
+<td><strong>93.5</strong></td>
+<td><strong>52.1</strong></td>
+<td><strong>79.6</strong></td>
+</tr>
+<tr>
+<td><strong>BERT_LARGE</strong></td>
+<td><strong>86.7/85.9</strong></td>
+<td><strong>72.1</strong></td>
+<td><strong>92.7</strong></td>
+<td><strong>94.9</strong></td>
+<td><strong>60.5</strong></td>
+<td><strong>82.1</strong></td>
+</tr>
+</tbody>
+</table>
+<p>BERT 的局限</p>
+<div class="admonition warning">
+<p class="admonition-title">BERT 的局限</p>
+<ol>
+<li><strong>训练规模保守</strong>，模型潜力尚未激发——Scaling Law</li>
+<li>引入的句级 <strong>NSP (Next Sentence Prediction)</strong> 辅助任务以及输入格式可能分散核心掩码学习——消融实验研究</li>
+</ol>
+</div>
+<h2 id="84-roberta-robustly-optimized-bert-approach">8.4 RoBERTa (Robustly Optimized BERT Approach)<a class="headerlink" href="#84-roberta-robustly-optimized-bert-approach" title="Permanent link">¶</a></h2>
+<p>Scaling Law 验证</p>
+<div class="admonition success">
+<p class="admonition-title"><strong>保持 BERT 架构完全不变</strong>，仅改变训练规模：</p>
+</div>
+<table>
+<thead>
+<tr>
+<th>配置</th>
+<th>数据</th>
+<th>步数</th>
+<th>SQuAD v1.1/v2.0</th>
+<th>MNLI-m</th>
+<th>SST-2</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>BERT (Books+Wiki)</td>
+<td>16GB</td>
+<td>100K</td>
+<td>93.6/87.3</td>
+<td>89.0</td>
+<td>95.3</td>
+</tr>
+<tr>
+<td>+ additional data</td>
+<td>160GB</td>
+<td>100K</td>
+<td>94.0/87.7</td>
+<td>89.3</td>
+<td>95.6</td>
+</tr>
+<tr>
+<td>+ pretrain longer</td>
+<td>160GB</td>
+<td>300K</td>
+<td>94.4/88.7</td>
+<td>90.0</td>
+<td>96.1</td>
+</tr>
+<tr>
+<td>+ pretrain even longer</td>
+<td>160GB</td>
+<td>500K</td>
+<td>94.6/89.4</td>
+<td>90.2</td>
+<td>96.4</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>结论：<mark>训练充分性比架构创新更能决定预训练模型上限</mark>。</p>
+</blockquote>
+<p>消融探究</p>
+<p>RoBERTa 移除 NSP 辅助任务，改变输入格式，进行了消融实验：</p>
+<table>
+<thead>
+<tr>
+<th>Model</th>
+<th>SQuAD 1.½.0</th>
+<th>MNLI-m</th>
+<th>SST-2</th>
+<th>RACE</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>(With NSP) SEGMENT-PAIR</td>
+<td>90.4/78.7</td>
+<td>84.0</td>
+<td>92.9</td>
+<td>64.2</td>
+</tr>
+<tr>
+<td>(Without NSP) FULL-SENTENCES</td>
+<td>90.4/79.1</td>
+<td><strong>84.7</strong></td>
+<td>92.5</td>
+<td><strong>64.8</strong></td>
+</tr>
+<tr>
+<td>(Without NSP) DOC-SENTENCES</td>
+<td><strong>90.6/79.7</strong></td>
+<td><strong>84.7</strong></td>
+<td><strong>92.7</strong></td>
+<td><strong>65.6</strong></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition tip">
+<p class="admonition-title">核心启示</p>
+<p>预训练任务的设计应聚焦于<strong>核心表征学习目标</strong>，冗余的辅助任务不仅非必需，还可能干扰模型对深层语义结构的捕捉。</p>
+</div>
+<h2 id="85-ntp">8.5 NTP 回归——从理解到生成<a class="headerlink" href="#85-ntp" title="Permanent link">¶</a></h2>
+<table>
+<thead>
+<tr>
+<th>路线</th>
+<th>架构</th>
+<th>代表</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>理解路线</strong></td>
+<td>BERT 双向去噪</td>
+<td>BERT, RoBERTa</td>
+</tr>
+<tr>
+<td><strong>生成路线</strong></td>
+<td>NTP 单向预测</td>
+<td>GPT 系列</td>
+</tr>
+</tbody>
+</table>
+<p>NTP (Next Token Prediction)</p>
+<blockquote>
+<p>将序列建模为条件概率的连乘积：</p>
+<p><span class="arithmatex">\(P(x_1, x_2, \dots, x_T) = \prod_{t=1}^{T} P(x_t \mid x_1, \dots, x_{t-1})\)</span></p>
+<p>模型只能依赖<strong>左侧已生成内容</strong>来推断后续 token，这种单向约束使其在生成流畅文本上具有<strong>先天优势</strong>。</p>
+</blockquote>
+<h2 id="86-gpt">8.6 GPT 系列<a class="headerlink" href="#86-gpt" title="Permanent link">¶</a></h2>
+<div class="admonition info">
+<p class="admonition-title"><strong>从 GPT-1 到 GPT-3</strong></p>
+<p>OpenAI 坚持 <strong>decoder-only 自回归架构</strong>，通过参数与数据规模的指数级扩展，证明规模化本身足以驱动性能从"需要微调"提升至 <strong>"上下文即学习 (In-Context Learning)"</strong>。</p>
+</div>
+<table>
+<thead>
+<tr>
+<th>Model</th>
+<th>Parameters</th>
+<th>关键特性</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>GPT-1</td>
+<td>117M</td>
+<td>首次证明 decoder-only 在 NLU 上的有效性</td>
+</tr>
+<tr>
+<td>GPT-2</td>
+<td>1.5B</td>
+<td>展示 zero-shot 能力</td>
+</tr>
+<tr>
+<td><strong>GPT-3</strong></td>
+<td><strong>175B</strong></td>
+<td>上下文即学习，无需微调</td>
+</tr>
+</tbody>
+</table>
+<p>ChatGPT：RLHF 对齐</p>
+<div class="admonition success">
+<p class="admonition-title"><strong>在 GPT-3.5 基础上引入 RLHF</strong></p>
+<p><strong>RLHF (Reinforcement Learning from Human Feedback)</strong> 三阶段：</p>
+<ol>
+<li><strong>SFT (Supervised Fine-Tuning)</strong>：用高质量人工标注对话数据微调预训练模型</li>
+<li><strong>RM (Reward Model)</strong>：对人类排序的模型输出进行训练，学习预测人类偏好</li>
+<li><strong>PPO (Proximal Policy Optimization)</strong>：最大化 RM 评分，约束与 SFT 模型的偏离</li>
+</ol>
+<p>结果：将模型输出与<strong>人类偏好对齐</strong>，标志着大模型产品化的关键转折。</p>
+</div>
+<h2 id="87-chinchilla">8.7 Chinchilla<a class="headerlink" href="#87-chinchilla" title="Permanent link">¶</a></h2>
+<p>动机</p>
+<div class="admonition question">
+<p class="admonition-title">基于 Scaling Law，GPT-3 后大模型普遍进行<strong>盲目扩参</strong>。难道这是性能提升的唯一解法吗？</p>
+</div>
+<p>核心发现</p>
+<blockquote>
+<p>在相同计算预算下，<strong>主流大模型严重训练不足</strong>。缩小模型规模并等比例增加数据量，可获得更优的下游性能。</p>
+</blockquote>
+<p>模型对比</p>
+<table>
+<thead>
+<tr>
+<th>Model</th>
+<th>Parameters</th>
+<th>Training Tokens</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>GPT-3</td>
+<td>175B</td>
+<td>300B</td>
+</tr>
+<tr>
+<td>Gopher</td>
+<td>280B</td>
+<td>300B</td>
+</tr>
+<tr>
+<td>MT-NLG 530B</td>
+<td>530B</td>
+<td>270B</td>
+</tr>
+<tr>
+<td><strong>Chinchilla</strong></td>
+<td><strong>70B</strong></td>
+<td><strong>1.4 Trillion</strong></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><mark>Chinchilla 以 70B 参数、1.4T token，在广泛下游任务上全面超越 280B 的 Gopher 和 530B 的 MT-NLG！</mark></p>
+</blockquote>
+<p>最优配比</p>
+<blockquote>
+<p>Chinchilla 对 400+ 模型（70M~16B）进行训练曲线拟合，发现：</p>
+<ul>
+<li><strong>模型规模与数据规模</strong>应随计算预算<strong>近似等比例扩展</strong></li>
+<li>约 <strong>20:1 的 token-参数比</strong>成为计算最优训练的核心约束</li>
+<li>推翻了此前 Kaplan et al. (2020) 结论"扩参远快于扩数据"</li>
+</ul>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Approach</th>
+<th>Coeff. <span class="arithmatex">\(a\)</span> (<span class="arithmatex">\(N_{opt} \propto C^a\)</span>)</th>
+<th>Coeff. <span class="arithmatex">\(b\)</span> (<span class="arithmatex">\(D_{opt} \propto C^b\)</span>)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Min over curves</td>
+<td>0.50</td>
+<td>0.50</td>
+</tr>
+<tr>
+<td>IsoFLOP profiles</td>
+<td>0.49</td>
+<td>0.51</td>
+</tr>
+<tr>
+<td>Parametric modelling</td>
+<td>0.46</td>
+<td>0.54</td>
+</tr>
+<tr>
+<td><strong>Kaplan et al. (2020)</strong></td>
+<td><strong>0.73</strong></td>
+<td><strong>0.27</strong></td>
+</tr>
+</tbody>
+</table>
+<p>启示</p>
+<div class="admonition tip">
+<p class="admonition-title"><strong>Chinchilla 的工程优势与伦理挑战</strong></p>
+<p><strong>工程优势：</strong>
+- 更优的模型并不一定需要更大的部署开销
+- 显著降低推理与微调的计算开销</p>
+<p><strong>伦理挑战：</strong>
+- 更大规模的数据将不可避免地包含<strong>有毒信息、社会偏见与个人信息</strong>
+- 数据集的质量控制、训练-测试重叠检测以及<strong>伦理审查</strong>变得至关重要</p>
+</div>
+<blockquote>
+<p>预训练的竞争指标应该从 <strong>参数量</strong> 转变为 <strong>单位计算量的性能效率</strong>。</p>
+</blockquote>
+<h2 id="88-masked-image-modeling-mim">8.8 图像掩码重建 (Masked Image Modeling, MIM)<a class="headerlink" href="#88-masked-image-modeling-mim" title="Permanent link">¶</a></h2>
+<p>MAE (Masked Autoencoder)</p>
+<div class="admonition info">
+<p class="admonition-title"><strong>核心思想：通过残缺理解整体</strong></p>
+<ul>
+<li>遮挡图像 <strong>75%</strong> 的区域</li>
+<li>迫使模型利用仅存的 <strong>25% 可见部分</strong> 去重建全局内容</li>
+<li>跳出局部纹理局限，真正习得<strong>物体结构与语义关联</strong></li>
+</ul>
+<p><strong>非对称高效架构：</strong>
+- 重型 Encoder：仅处理 25% 的可见图块 → 学习强表征
+- 轻型 Decoder：负责像素重建 → 解耦学习与重建
+- 训练速度提升 <strong>3-5 倍</strong></p>
+</div>
+<p>SimMIM</p>
+<div class="admonition tip">
+<p class="admonition-title">SimMIM</p>
+<p>直接对图像块进行随机掩码，并通过轻量预测头<strong>回归原始像素值</strong>。</p>
+<ul>
+<li>无需离散化或复杂结构</li>
+<li>大幅降低计算成本</li>
+<li>能适配 <strong>ViT、Swin</strong> 等多种骨干网络</li>
+</ul>
+</div>
+<hr>
+<h2 id="_15">九、自监督表征学习总结<a class="headerlink" href="#_15" title="Permanent link">¶</a></h2>
+<h3 id="91">9.1 核心思想<a class="headerlink" href="#91" title="Permanent link">¶</a></h3>
+<div class="admonition abstract">
+<p class="admonition-title">自监督学习的核心</p>
+<p>不依赖人工标注，通过从数据内部挖掘结构来<strong>自动生成监督信号</strong>，从而训练模型提取出能抓住数据本质的<strong>通用特征表示</strong>。</p>
+</div>
+<h3 id="92">9.2 演进路线<a class="headerlink" href="#92" title="Permanent link">¶</a></h3>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-5-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1"></a>特征工程 → Pretext任务 → 对比学习 → 掩码重建
+</code></pre></div></td></tr></table></div>
+<table>
+<thead>
+<tr>
+<th>时期</th>
+<th>核心思路</th>
+<th>代表方法</th>
+<th>特点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>早期 (2015-2018)</strong></td>
+<td>设计手工 Pretext 任务</td>
+<td>Rotation, Jigsaw, Colorization</td>
+<td>教会模型"解题"</td>
+</tr>
+<tr>
+<td><strong>爆发期 (2019-2020)</strong></td>
+<td>对比学习,实例判别</td>
+<td>SimCLR, MoCo, BYOL</td>
+<td>从根本上学习区分万物</td>
+</tr>
+<tr>
+<td><strong>融合期 (2021-2022)</strong></td>
+<td>掩码图像建模(MIM)</td>
+<td>MAE, BEiT, SimMIM</td>
+<td>视觉与 NLP 架构大统一</td>
+</tr>
+<tr>
+<td><strong>现代 (2023-现在)</strong></td>
+<td>多模态表征</td>
+<td>LLM, VLM, CLIP</td>
+<td>通向通用人工智能(AGI)</td>
+</tr>
+</tbody>
+</table>
+<h3 id="93-vs">9.3 图像 vs 文本自监督学习的区别<a class="headerlink" href="#93-vs" title="Permanent link">¶</a></h3>
+<table>
+<thead>
+<tr>
+<th>维度</th>
+<th>语言 (NLP)</th>
+<th>图像 (CV)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>数据性质</strong></td>
+<td>离散 Token，天然具备序列、句法、上下文依赖</td>
+<td>连续像素信号，局部像素相似性不代表语义</td>
+</tr>
+<tr>
+<td><strong>自监督方式</strong></td>
+<td>直接掩码预测 → 学习深层语义</td>
+<td>需构造代理任务或对比学习间接学习</td>
+</tr>
+<tr>
+<td><strong>文本独特优势</strong></td>
+<td>离散符号 → 天然适合 Token 预测</td>
+<td>连续信号 → 语义鸿沟大</td>
+</tr>
+</tbody>
+</table>
+<h3 id="94">9.4 自监督学习的广泛应用<a class="headerlink" href="#94" title="Permanent link">¶</a></h3>
+<table>
+<thead>
+<tr>
+<th>领域</th>
+<th>应用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>计算机视觉</strong></td>
+<td>分类、检测、分割、深度估计</td>
+</tr>
+<tr>
+<td><strong>自然语言处理</strong></td>
+<td>理解、生成、翻译、问答</td>
+</tr>
+<tr>
+<td><strong>多模态</strong></td>
+<td>图文匹配、视觉问答、图文生成</td>
+</tr>
+<tr>
+<td><strong>大模型</strong></td>
+<td>自监督表征学习是大模型 (LLM, VLM) 的<strong>核心引擎</strong></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition tip">
+<p class="admonition-title">回顾开篇</p>
+<p><strong>好的表征使得"语义相似" = "几何接近"</strong></p>
+<p>从手工特征工程到自动表征学习，从 Pretext 任务到对比学习，从 Word2Vec 到 BERT/GPT，自监督表征学习已成为现代深度学习的基石，驱动着通用人工智能的持续演进。</p>
+</div></div>
+
+
+
+
+
+
+
+  
+  
+
+
+
+  
+
+
+
+  <form class="md-feedback" name="feedback" hidden>
+    <fieldset>
+      <legend class="md-feedback__title">
+        此页面有帮助吗？
+      </legend>
+      <div class="md-feedback__inner">
+        <div class="md-feedback__list">
+          
+            <button class="md-feedback__icon md-icon" type="submit" title="This page was helpful" data-md-value="1">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M5 9v12H1V9zm4 12a2 2 0 0 1-2-2V9c0-.55.22-1.05.59-1.41L14.17 1l1.06 1.06c.27.27.44.64.44 1.05l-.03.32L14.69 8H21a2 2 0 0 1 2 2v2c0 .26-.05.5-.14.73l-3.02 7.05C19.54 20.5 18.83 21 18 21zm0-2h9.03L21 12v-2h-8.79l1.13-5.32L9 9.03z"/></svg>
+            </button>
+          
+            <button class="md-feedback__icon md-icon" type="submit" title="This page could be improved" data-md-value="0">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 15V3h4v12zM15 3a2 2 0 0 1 2 2v10c0 .55-.22 1.05-.59 1.41L9.83 23l-1.06-1.06c-.27-.27-.44-.64-.44-1.06l.03-.31.95-4.57H3a2 2 0 0 1-2-2v-2c0-.26.05-.5.14-.73l3.02-7.05C4.46 3.5 5.17 3 6 3zm0 2H5.97L3 12v2h8.78l-1.13 5.32L15 14.97z"/></svg>
+            </button>
+          
+        </div>
+        <div class="md-feedback__note">
+          
+            <div data-md-value="1" hidden>
+              
+              
+                
+              
+              
+              
+                
+                
+              
+              谢谢你的反馈！
+            </div>
+          
+            <div data-md-value="0" hidden>
+              
+              
+                
+              
+              
+              
+                
+                
+              
+              Thanks for your feedback! Help us improve this page by using our <a href="https://marketingplatform.google.com/about/analytics/" target="_blank" rel="noopener">feedback form</a>.
+            </div>
+          
+        </div>
+      </div>
+    </fieldset>
+  </form>
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  回到页面顶部
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2024~2025 Gaiake/All Rights Reserved.
+    </div>
+  
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+    <a href="image/wechat.jpg" target="_blank" rel="noopener" title="Wechat" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M385.2 167.6c6.4 0 12.6.3 18.8 1.1C387.4 90.3 303.3 32 207.7 32 100.5 32 13 104.8 13 197.4c0 53.4 29.3 97.5 77.9 131.6l-19.3 58.6 68-34.1c24.4 4.8 43.8 9.7 68.2 9.7 6.2 0 12.1-.3 18.3-.8-4-12.9-6.2-26.6-6.2-40.8-.1-84.9 72.9-154 165.3-154m-104.5-52.9c14.5 0 24.2 9.7 24.2 24.4 0 14.5-9.7 24.2-24.2 24.2-14.8 0-29.3-9.7-29.3-24.2.1-14.7 14.6-24.4 29.3-24.4m-136.4 48.6c-14.5 0-29.3-9.7-29.3-24.2 0-14.8 14.8-24.4 29.3-24.4 14.8 0 24.4 9.7 24.4 24.4 0 14.6-9.6 24.2-24.4 24.2M563 319.4c0-77.9-77.9-141.3-165.4-141.3-92.7 0-165.4 63.4-165.4 141.3S305 460.7 397.6 460.7c19.3 0 38.9-5.1 58.6-9.9l53.4 29.3-14.8-48.6C534 402.1 563 363.2 563 319.4m-219.1-24.5c-9.7 0-19.3-9.7-19.3-19.6 0-9.7 9.7-19.3 19.3-19.3 14.8 0 24.4 9.7 24.4 19.3 0 10-9.7 19.6-24.4 19.6m107.1 0c-9.7 0-19.3-9.7-19.3-19.6 0-9.7 9.7-19.3 19.3-19.3 14.5 0 24.4 9.7 24.4 19.3.1 10-9.9 19.6-24.4 19.6"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/Gaiake" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="mailto:<mayuxi660@gmail.com>" target="_blank" rel="noopener" title="" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M61.4 64C27.5 64 0 91.5 0 125.4c0 .9 0 1.7.1 2.6H0v256c0 35.3 28.7 64 64 64h384c35.3 0 64-28.7 64-64V128h-.1c0-.9.1-1.7.1-2.6 0-33.9-27.5-61.4-61.4-61.4zM464 192.3V384c0 8.8-7.2 16-16 16H64c-8.8 0-16-7.2-16-16V192.3l154.8 117.4c31.4 23.9 74.9 23.9 106.4 0zM48 125.4c0-7.4 6-13.4 13.4-13.4h389.2c7.4 0 13.4 6 13.4 13.4 0 4.2-2 8.2-5.3 10.7L280.2 271.5c-14.3 10.8-34.1 10.8-48.4 0L53.3 136.1c-3.3-2.5-5.3-6.5-5.3-10.7"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["announce.dismiss", "navigation.tracking", "navigation.tabs", "navigation.sections", "navigation.top", "navigation.footer", "search.suggest", "search.highlight", "search.share", "navigation.expand", "navigation.indexes", "content.tabs.link", "content.tooltips", "content.code.copy", "content.code.select", "content.code.annotate"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

@@ -1,0 +1,2641 @@
+SOURCE: 复习提纲(1).pdf
+PAGES: 140
+
+
+===== PAGE 1 chars=377 =====
+内容（一页小抄）
+1
+二进制信号
+转换
+加减乘除
+补码
+浮点数
+Normalized、denormalized
+0/1对应实际电压（噪声边际）
+时延
+扇入扇出
+布尔运算
+公理定理，Shannon、De Morgan
+布尔表达Vs真值表
+最小项、最大项
+卡诺图
+Cost判定
+组合电路
+Decoder
+Encoder
+Mux
+全加器
+时序分析
+时序电路
+Latch（SR、D）
+Flip-Flop
+脉冲/边缘触发
+D、JK、T触发器
+电路图
+布尔表达
+状态表（k-map）
+状态图
+时序分析
+计算单元
+移位器、计数器
+加法器（RCA、CLA）、减法器
+标志位Flag
+数据通路
+乘法器（优化、booth、array）
+除法器
+指令集
+操作数
+访存（立即数、直接、间接、
+寄存器、寄存器索引、寄存器基址）
+典型架构（堆栈、累加、内存-内存、内存-寄存、取存）
+
+===== PAGE 2 chars=204 =====
+2
+Signal Examples Over Time
+Analog
+Asynchronous
+Synchronous
+Time
+Continuous 
+in value & 
+time
+Discrete in        
+value & 
+continuous 
+in time
+Discrete in 
+value & 
+time
+Digital
+
+===== PAGE 3 chars=290 =====
+3
+1.0
+0.9
+0.6
+0.4
+0.0
+Volts
+HIGH
+LOW
+HIGH
+LOW
+OUTPUT INPUT
+0.1
+(a) Example voltage ranges
+(b) Time-dependent Voltage
+(c) Binary model of time-dependent voltage
+1
+0
+1.0
+0.5
+0.0
+Voltage (Volts)
+Time
+Time
+Signal Example – Physical Quantity: Voltage
+Threshold 
+Region
+
+===== PAGE 4 chars=109 =====
+4
+About the Decimal Number
+ 
+ 
+ 
+123.456 
+1*102+2*101+3*100+4*10-1+5*10-2+6*10-3
+
+===== PAGE 5 chars=122 =====
+5
+What About the Binary Number?
+ 
+ 
+ 
+(100101.01)2 
+1*25+0*24+0*23+1*22+0*21+1*20+0*2-1+1*2-2
+
+===== PAGE 6 chars=188 =====
+6
+Example: Convert 13510  To Base 2
+   (135)10 = (1000 0111)2
+2  1  3  5
+2  6  7…………1
+2   3  3…………1
+2  1  6…………1
+2 8…………0
+2  4…………0
+2  2…………0
+2  1…………0
+2  0…………1
+
+===== PAGE 7 chars=137 =====
+Example: Convert 0.687510  To Base 2
+2× 0.6875………… = 1.375
+   (0.6875)10 = (0.1011)2
+2× 0.375………… = 0.75
+2× 0.75………… = 1.5
+2× 0.5………… = 1
+
+===== PAGE 8 chars=370 =====
+8
+Single Bit Binary Addition with Carry
+Given two binary digits (X,Y), a carry in (Z) we get the 
+following sum (S) and carry (C): 
+Carry in (Z) of 0: 
+ 
+ 
+ 
+Carry in (Z) of 1: 
+ 
+Z  1  1  1  1 
+X  0  0  1  1 
++ Y  + 0  + 1  + 0  + 1 
+C S  0 1  1 0  1 0  1 1 
+ 
+Z  0  0  0  0 
+X  0  0  1  1 
++ Y  + 0  + 1  + 0  + 1 
+C S  0 0  0 1  0 1  1 0
+
+===== PAGE 9 chars=394 =====
+9
+ Given two binary digits (X,Y), a borrow in (Z) we 
+get the following difference (S) and borrow (B):
+ Borrow in (Z) of 0:
+ Borrow in (Z) of 1:  
+Single Bit Binary Subtraction with Borrow
+Z
+ 
+1
+ 
+1
+ 
+1
+ 
+1
+X
+ 
+0
+ 
+0
+ 
+1
+ 
+1
+- Y
+ 
+-0
+ 
+-1
+ 
+-0
+ 
+-1
+B S
+ 
+1 1
+ 
+1 0
+ 
+0 0
+ 
+1 1
+Z
+ 
+0
+ 
+0
+ 
+0
+ 
+0
+X
+ 
+0
+ 
+0
+ 
+1
+ 
+1
+- Y
+ 
+-0
+ 
+-1
+ 
+-0
+ 
+-1
+B S
+ 
+0 0
+ 
+1 1
+ 
+0 1
+ 
+0 0
+
+===== PAGE 10 chars=293 =====
+10
+Binary Multiplication
+The binary multiplication table is simple: 
+0  0 = 0  |  1  0 = 0  |  0  1 = 0  |  1  1 = 1 
+Extending multiplication to multiple digits: 
+Multiplicand 1011 
+Multiplier x  101 
+Partial Products 1011 
+ 0000 - 
+ 1011 - - 
+Product 110111
+
+===== PAGE 11 chars=300 =====
+11
+Binary Division
+The binary multiplication table is simple: 
+0 / 0       | 1 / 0               meaningless 
+0 / 1 = 0 | 1 / 1 = 1 
+Extending division to multiple digits: 
+Dividend 11001 
+Divisor /  101 
+ 101) 11001 
+ 101     
+ 101      
+101               
+Quotient 101
+
+===== PAGE 12 chars=429 =====
+Bit-Level Operations in C
+ Operations &,  |,  ~,  ^ Available in C
+• Apply to any “integral” data type
+ long, int, short, char, unsigned
+• View arguments as bit vectors
+• Arguments applied bit-wise
+ Examples (Char data type)
+• ~0x41 -> 0xBE
+ ~010000012 -> 101111102
+• ~0x00 -> 0xFF
+ ~000000002 -> 111111112
+• 0x69 & 0x55 -> 0x41
+ 011010012 & 010101012 -> 010000012
+• 0x69 | 0x55 -> 0x7D
+ 011010012 | 010101012 -> 011111012
+
+===== PAGE 13 chars=351 =====
+Contrast: Logic Operations in C
+ Contrast to Logical Operators
+• &&, ||, !
+ View 0 as “False”
+ Anything nonzero as “True”
+ Always return 0 or 1
+ Early termination (short cut)
+ Examples (char data type)
+• !0x41  ->  0x00
+• !0x00  ->  0x01
+• !!0x41  ->  0x01
+• 0x69 && 0x55  ->  0x01
+• 0x69 || 0x55  ->  0x01
+• p && *p (avoids null pointer access)
+
+===== PAGE 14 chars=627 =====
+Shift Operations
+ Left Shift: x << y
+• Shift bit-vector x left y positions
+• Throw away extra bits on left
+ Fill with 0’s on right
+ Right Shift: x >> y
+• Shift bit-vector x right y positions
+ Throw away extra bits on right
+• Logical shift
+ Fill with 0’s on left
+• Arithmetic shift
+ Replicate most significant bit on right
+ Undefined Behavior
+• Shift amount < 0 or ≥ word size
+01100010Argument x
+00010000<< 3
+00011000Log. >> 2
+00011000Arith. >> 2
+10100010Argument x
+00010000<< 3
+00101000Log. >> 2
+11101000Arith. >> 2
+0001000000010000
+0001100000011000
+0001100000011000
+00010000
+00101000
+11101000
+00010000
+00101000
+11101000
+
+===== PAGE 15 chars=230 =====
+Mapping Signed  Unsigned
+0
+1
+2
+3
+4
+5
+6
+7
+-8
+-7
+-6
+-5
+-4
+-3
+-2
+-1
+0
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+0000
+0001
+0010
+0011
+0100
+0101
+0110
+0111
+1000
+1001
+1010
+1011
+1100
+1101
+1110
+1111
+=
++/- 16
+                           15
+U2T
+T2U
+
+===== PAGE 16 chars=263 =====
+Sign Extension
+ Task:
+• Given w-bit signed integer x
+• Convert it to w+k-bit integer with same value
+ Rule:
+• Make k copies of sign bit:
+• X  =  xw–1 ,…, xw–1 , xw–1 , xw–2 ,…, x0
+k copies of MSB
+• • •X 
+X  • • • • • •
+• • •
+w
+wk                            16
+
+===== PAGE 17 chars=585 =====
+Multiplication
+17
+ 1         0001
+ 4       x 0100
+           0000
+          0000
+         0001
+        0000  0
+       xxxxxxxx
+ 4     00000100
+-7         1001
+ 4       x 0100
+           0000
+          0000
+       111001
+        0000  0
+       xxxxxxxx
+-28    11100100
+ 1         0001
+-4       x 1100
+           0000
+          0000
+         0001
+       11111  0 
+       xxxxxxxx
+-4     11111100
+-7         1001
+-4       x 1100
+       00000000
+       0000000
+       111001
+       00111  0 (符号位1，同上)
+       xxxxxxxx
+ 28   100011100
+符号位1，我们取反+1
+：0001->1110-
+>1111，
+高位补齐，低位添0
+->（1）1111(000)
+
+===== PAGE 18 chars=341 =====
+Normalized Encoding Example
+ Value: Float F = 15213.0;
+• 1521310  = 111011011011012   
+                     = 1.11011011011012 x 213
+ Significand
+M = 1.11011011011012
+frac =   110110110110100000000002
+ Exponent
+E  = 13
+Bias = 127
+Exp = 140 = 100011002
+ Result:
+0 10001100 11011011011010000000000 
+s exp frac
+                           18
+
+===== PAGE 19 chars=452 =====
+Carnegie Mellon
+Normalized Values
+ Condition: exp ≠ 000…0 and exp ≠ 111…1
+• 指数000…0和111…1是保留给特殊情况
+ Exponent coded as biased value: E  =  Exp – Bias
+• Exp: unsigned value exp 
+• Bias = 2k-1 - 1, where k is number of exponent bits
+ Single precision: 127 (Exp: 1…254, E: -126…127)
+ Double precision: 1023 (Exp: 1…2046, E: -1022…1023)
+ Significand coded with implied leading 1: 
+M  =  1.xxx…x2
+注意，内存中M仅存储分数部分。1在每次计算中自动会加。
+                           19
+
+===== PAGE 20 chars=660 =====
+Carnegie Mellon
+s exp  frac E Value
+0 0000 000 -6 0
+0 0000 001 -6 1/8*1/64 = 1/512
+0 0000 010 -6 2/8*1/64 = 2/512
+…
+0 0000 110 -6 6/8*1/64 = 6/512
+0 0000 111 -6 7/8*1/64 = 7/512
+0 0001 000 -6 8/8*1/64 = 8/512
+0 0001 001  -6 9/8*1/64 = 9/512
+…
+0 0110 110 -1 14/8*1/2 = 14/16
+0 0110 111 -1 15/8*1/2 = 15/16
+0 0111 000 0 8/8*1    = 1
+0 0111 001 0 9/8*1    = 9/8
+0 0111 010 0 10/8*1   = 10/8
+…
+0 1110 110 7 14/8*128 = 224
+0 1110 111 7 15/8*128 = 240
+0 1111 000 n/a inf
+Dynamic Range (Positive Only)
+closest to zero
+largest denorm
+smallest norm
+closest to 1 below
+closest to 1 above
+largest norm
+Denormalized
+numbers
+Normalized
+numbers
+                           20
+
+===== PAGE 21 chars=443 =====
+Carnegie Mellon
+Rounding
+ Rounding Modes (illustrate with $ rounding)
+ $1.40  $1.60  $1.50  $2.50  –$1.50
+• Towards zero $1         $1         $1         $2      –$1
+• Round down (−) $1         $1         $1         $2          –$2
+• Round up (+) $2         $2         $2         $3          –$1
+• Nearest Even (default) $1         $2         $2         $2          –$2
+ What are the advantages of the modes?
+                           21
+
+===== PAGE 22 chars=443 =====
+Carnegie Mellon
+IEEE 754
+ Condition: exp ≠ 000…0 and exp ≠ 111…1
+• 指数000…0和111…1是保留给特殊情况
+ Exponent coded as biased value: E  =  Exp – Bias
+• Exp: unsigned value exp 
+• Bias = 2k-1 - 1, where k is number of exponent bits
+ Single precision: 127 (Exp: 1…254, E: -126…127)
+ Double precision: 1023 (Exp: 1…2046, E: -1022…1023)
+ Significand coded with implied leading 1: 
+M  =  1.xxx…x2
+注意，内存中M仅存储分数部分。1在每次计算中自动会加。
+                           22
+
+===== PAGE 23 chars=276 =====
+Noise Margins
+                           23
+Driver Receiver
+Forbidden
+Zone
+NML
+NMH
+Input CharacteristicsOutput Characteristics
+VO H
+VDD
+VO L
+GND
+VIH
+VIL
+Logic High
+Input Range
+Logic Low
+Input Range
+Logic High
+Output Range
+Logic Low
+Output Range
+NMH = VOH - VIH
+NML = VIL - VOL
+
+===== PAGE 24 chars=272 =====
+DC Transfer Characteristics
+                           24
+NMH = NML = VDD / 2
+VDD
+V(A)
+V(Y)
+VOH VDD
+VOL
+VIL, VIH
+0
+A Y
+VDD
+V(A)
+V(Y)
+VOH
+VDD
+VOL
+VIL VIH
+Unity Gain
+Points
+Slope = 1
+0
+VDD / 2
+Ideal Buffer:                                     Real Buffer:
+NMH, NML < VDD / 2
+
+===== PAGE 25 chars=220 =====
+ Outputs don’t instantaneously reflect input changes
+ Propagation delay is a measure of this time
+ Delay from H to L can be different than from L to H
+Propagation Delay (Tpd, Tplh, Tphl)
+                           25
+
+===== PAGE 26 chars=232 =====
+ Takes time for signal to reach its output voltage
+ Will be affected by capacitance, fan-out
+ Also known as slew rate
+ Typically measured from 10%/90% of VOL/VOH swing
+Transition Time (Rise & Fall)
+                           26
+
+===== PAGE 27 chars=556 =====
+ Power “dissipation” and “consumption”
+ Static (“quiescent”) power dissipation
+• When device outputs not changing
+• Caused by the quiescent supply current, IDD (also called 
+the leakage current)：PS = IDD · VCC
+• Very low for CMOS
+ Dynamic power dissipation
+Power Dissipation
+                           27
+2( )D PD L CCP C C V f   
+  
+= Power dissipation capacitance (constant for logic family)
+= Capacitive load on output (driving other devices)
+= Supply voltage
+   = Transition frequency (0.5 x number of output transitions/s
+PD
+L
+CC
+C
+C
+V
+f econd)
+
+===== PAGE 28 chars=265 =====
+ Fan-in refers to the maximum number of input signals that 
+feed the input equations of a logic cell.
+ Fan-out refers to the maximum number of output signals 
+that are fed by the output equations of a logic cell.
+Fan-in and Fan-out 
+                           28
+
+===== PAGE 29 chars=515 =====
+ Fan-out refers to the maximum number of output signals 
+that are fed by the output equations of a logic cell.
+• Fan Out is calculated from the amount of current available in the 
+output of a gate and the amount of current needed in each input of 
+the connecting gate. It is specified by manufacturer and is provided 
+in the data sheet. Exceeding the specified maximum load may cause 
+a malfunction because the circuit will not be able supply the 
+demanded power.
+Fan-in and Fan-out 
+                           29
+
+===== PAGE 30 chars=208 =====
+Theorems: Single Variable
+ (T1) X + 1 = 1
+ (T2) X + 0 = X
+ (T3) X + X = X
+ (T4) X = X
+ (T5) X + X = 1
+ (T1D) X · 0 = 0
+ (T2D) X · 1 = X
+ (T3D) X · X = X
+ (T5D) X · X = 0
+                           30
+
+===== PAGE 31 chars=443 =====
+Theorems: 2-3 Variables
+ (T6) X + Y = Y + X
+ (T7) (X + Y) + Z = X + (Y + Z)
+ (T8) X · (Y + Z) = X · Y + X · Z
+ (T9) X + X · Y = X
+ (T10) X · Y + X · Y = X
+ (T11) X · Y + X · Z + Y · Z = X 
+· Y + X · Z
+ (T6D) X · Y = Y · X
+ (T7D) (X · Y) · Z = X · (Y · Z)
+ (T8D) X + Y · Z = (X + Y) · (X + Z)
+ (T9D) X · (X + Y) = X
+ (T10D) (X + Y) · (X + Y) = X
+ (T11D) (X + Y) · (X + Z) · (Y + Z) = 
+(X + Y) · (X + Z)
+                           31
+
+===== PAGE 32 chars=472 =====
+Theorems: n Variables
+ Generalized Idempotent Theorem
+• (T12) X + X + … + X = X
+• (T12D) X · X · … · X = X
+ De Morgan’s Theorem
+• (T13) X1 · X2 · … · Xn = X1 + X2 + … + Xn 
+• (T13D) X1 + X2 + … + Xn = X1 · X2 · … · Xn 
+• (T14) �(X1, X2, …, Xn, +,·) = F(X1, X2, …, Xn , ·, +)
+ Shannon’s Theorem
+• (T15) F(X1, X2, …, Xn) = X1 · F(1, X2, …, Xn) + X1 · F(0, X2, …, Xn)
+• (T15D) F(X1, X2, …, Xn) = [X1 + F(0, X2, …, Xn) · [X1 + F(1, X2, …, Xn)]
+                           32
+
+===== PAGE 33 chars=314 =====
+Boolean expressions-NOT unique
+ Unlike truth tables, expressions 
+representing a Boolean function are NOT 
+unique.
+ Example:
+ F(x,y,z) = xyz+ xyz + xyz
+ G(x,y,z) = xyz + yz 
+ The corresponding truth tables for F() and 
+G() are to the right. They are identical.
+ Thus, F() = G()
+                           33
+
+===== PAGE 34 chars=447 =====
+Truth Table notation for Minterms and Maxterms
+ Minterms and Maxterms 
+are easy to denote using a 
+truth table.
+ Example: 
+Assume 3 variables x,y,z 
+(order is fixed)
+                           34
+No. x y z Minterm Maxterm
+0 0 0 0 xyz = m0 x+y+z = M0
+1 0 0 1 xyz = m1 x+y+z = M1
+2 0 1 0 xyz = m2 x+y+z = M2
+3 0 1 1 xyz = m3 x+y+z = M3
+4 1 0 0 xyz = m4 x+y+z = M4
+5 1 0 1 xyz = m5 x+y+z = M5
+6 1 1 0 xyz = m6 x+y+z = M6
+7 1 1 1 xyz = m7 x+y+z = M7
+
+===== PAGE 35 chars=353 =====
+Canonical Forms (Unique)
+ Any Boolean function F() can be expressed as a unique sum of minterms and a 
+unique product of maxterms (under a fixed variable ordering).
+ In other words, every function F() has two canonical forms:
+• Canonical Sum-Of-Products  (sum of minterms)
+• Canonical Product-Of-Sums(product of maxterms)
+                           35
+
+===== PAGE 36 chars=715 =====
+Standard Forms (NOT Unique)
+ Standard forms are “like” canonical forms, except that not all variables 
+need appear in the individual product (SOP) or sum (POS) terms.
+ Example
+• f1(x,y,z) = xyz + yz + xz is a standard sum-of-products form
+• f1(x,y,z) = (x+y+z)•(y+z)•(x+z) is a standard product-of-sums form
+ Conversion of SOP from standard to canonical form
+• Expand non-canonical terms by inserting equivalent of 1 in each missing 
+variable x: (x + x) = 1
+• Remove duplicate minterms
+ Conversion of POS from standard to canonical form
+• Expand noncanonical terms by adding 0 in terms of missing variables (e.g., 
+xx = 0) and using the distributive law
+• Remove duplicate maxterms
+                           36
+
+===== PAGE 37 chars=315 =====
+An Example of 4-Variable K-Map
+                           37
+0
+C D
+0 0
+0 1
+1 0
+1 1
+B
+0
+0
+0
+0
+0 0
+0 1
+1 0
+1 1
+1
+1
+1
+1
+1
+1
+1
+0
+1
+1
+1
+YA
+0
+0
+0
+0
+0
+0
+0
+0
+0 0
+0 1
+1 0
+1 1
+0
+0
+0
+0
+0 0
+0 1
+1 0
+1 1
+1
+1
+1
+1
+1
+1
+1
+1
+1
+1
+1
+1
+1
+1
+1
+0
+0
+0
+0
+0
+01 11
+1
+0
+0
+1
+0
+0
+1
+101
+1
+1
+1
+1
+0
+0
+0
+1
+11
+10
+00
+00
+10AB
+CD
+Y
+Y = AC + ABD + ABC + BD
+
+===== PAGE 38 chars=505 =====
+K-Map Definitions
+                           38
+ Implicant
+• Product of literals ABC, AC, BC
+ Prime implicant
+• Implicant corresponding to the largest circle in a K-map, 
+i.e., is a product term obtained by combining the maximum 
+possible number of adjacent squares in the map into a 
+rectangle with the number of squares a power of 2.
+ Essential prime implicant
+• A prime implicant is called an Essential Prime Implicant if 
+it is the only prime implicant that covers (includes) one or 
+more minterms.
+
+===== PAGE 39 chars=247 =====
+Selection Rule Example with Don't Cares
+ Simplify F(A, B, C, D) given on the K-map
+Selected
+            Minterms covered by essential prime implicants
+1
+1
+x
+x
+x x
+x
+1
+B
+D
+A
+C
+1
+1 1
+1
+x
+x
+x x
+x
+1
+B
+D
+A
+C
+1
+1
+Essential
+                           39
+
+===== PAGE 40 chars=2 =====
+40
+
+===== PAGE 41 chars=131 =====
+HDL-based Design Flow
+ Logic design with HDL
+ Simulation
+ Synthesis
+ Physical Design
+ Final step
+                           41
+
+===== PAGE 42 chars=240 =====
+Combinational vs. Sequential Circuits
+                           42
+Combinational
+Circuit
+n-inputs m-outputs
+(Depend only on inputs)
+Combinational
+Circuit
+n-inputs m-outputs
+Storage
+ElementsNextstate
+Sequential Circuit
+Combinational Circuit
+
+===== PAGE 43 chars=306 =====
+How to Design Combinational Logic 
+Circuits 
+ Design procedure
+• Determine inputs, outputs and their logic 
+relationship
+  Truth table
+• Determine logic functions and perform 
+optimization 
+ Algebra or K-map
+• Draw logic circuit diagram and timing diagram
+ Timing analysis
+                           43
+
+===== PAGE 44 chars=139 =====
+Some Classic/Basic Designs
+ Encoder and decoder
+ Multiplexer and demultiplexer
+ Half adder and full adder 
+                           44
+
+===== PAGE 45 chars=167 =====
+ 1-to-2-Line Decoder
+ 2-to-4-Line Decoder
+Decoder Examples
+                           45
+The 2-4-line made up of  2 1-to-2-line 
+decoders and 4 (2-inputs) AND gates.
+
+===== PAGE 46 chars=70 =====
+Decoder Expansion: 3-8 Decoder (cont’d)
+                           46
+
+===== PAGE 47 chars=70 =====
+Decoder Expansion: 3-8 Decoder (cont’d)
+                           47
+
+===== PAGE 48 chars=561 =====
+ 8-to-3-line encoder
+Input Output
+I0 I1 I2 I3 I4 I5 I6 I7 O0 O1 O2
+1 0 0 0 0 0 0 0 0 0 0
+0 1 0 0 0 0 0 0 0 0 1
+0 0 1 0 0 0 0 0 0 1 0
+0 0 0 1 0 0 0 0 0 1 1
+0 0 0 0 1 0 0 0 1 0 0
+0 0 0 0 0 1 0 0 1 0 1
+0 0 0 0 0 0 1 0 1 1 0
+0 0 0 0 0 0 0 1 1 1 1
+                           48
+Classic Designs: Encoder
+O0 = I4 + I5 + I6 + I7
+O1 = I2 + I3 + I6 + I7
+O2 = I1 + I3 + I5 + I7
+OR gates!
+However, there exists two issues that may make the encoder just 
+designed does not work:
+1. If more than one input value is 1 (e.g., I3 & I6 are both 1)
+2. All inputs are 0 vs. I0 = 1
+
+===== PAGE 49 chars=574 =====
+Priority Encoder Example
+ Priority encoder with 4 inputs (D3, D2, D1, D0) - highest priority to most 
+significant 1 present - Code outputs A1, A0 and V where V indicates at least 
+one 1 present.
+ Xs in input part of table represent 0 or 1; thus table entries correspond to 
+product terms instead of minterms. The column on the left shows that all 16 
+minterms are present in the product terms in the table
+No. of Min-
+terms/Row
+Inputs Outputs
+D3 D2 D1 D0 A1 A0 V
+1 0 0 0 0 X X 0
+1 0 0 0 1 0 0 1
+2 0 0 1 X 0 1 1
+4 0 1 X X 1 0 1
+8 1 X X X 1 1 1
+                           49
+
+===== PAGE 50 chars=283 =====
+2-to-1-Line Multiplexer
+ Since 2 = 21, n = 1
+ The single selection variable S has two values:
+• S = 0 selects input I0
+• S = 1 selects input I1
+ The equation:
+       Y =     I0 + SI1
+ The circuit:
+S
+S
+I0
+I1
+D e c od e rE n a bl i ng
+C i r cu i ts
+Y
+                           50
+
+===== PAGE 51 chars=174 =====
+4-to-1-line Multiplexer (cont’d)
+ 2-to-22-line decoder
+ 22 ×  2 AND-OR
+S1
+Decoder
+S0
+Y
+S1
+Decoder
+S0
+Y
+S1
+Decoder
+4 × 2 AND-ORS0
+Y
+I2
+I3
+I1
+I0
+                           51
+
+===== PAGE 52 chars=169 =====
+ Demultiplexer (DEMUX, DMUX)
+Input Output
+S0 S1 D0 D1 D2 D3
+0 0 D 0 0 0
+0 1 0 D 0 0
+1 0 0 0 D 0
+1 1 0 0 0 D
+                           52
+Classic Designs: Demultiplexer
+
+===== PAGE 53 chars=576 =====
+Classic Designs: Full Adder
+ A full adder is similar to a half adder, but includes a carry-in 
+bit from lower stages.   
+ Like the half-adder, it computes a sum bit F and a carry bit 
+Cin
+• For a carry-in (Cin) of                                                            
+0, it is the same as                                                              
+the half-adder: 
+• For a carry-in
+(Cin) of 1:            
+Cin 0 0 0 0
+A 0 0 1 1
++ B + 0 + 1 + 0 + 1
+Cout F 0 0 0 1 0 1 1 0
+Cin 1 1 1 1
+A 0 0 1 1
++ B + 0 + 1 + 0 + 1
+Cout F 0 1 1 0 1 0 1 1
+                           53
+
+===== PAGE 54 chars=174 =====
+Input Output
+A B Cin F Cout
+0 0 0 0 0
+0 0 1 1 0
+0 1 0 1 0
+0 1 1 0 1
+1 0 0 1 0
+1 0 1 0 1
+1 1 0 0 1
+1 1 1 1 1
+                           54
+Classic Designs: Full Adder (cont’d)
+
+===== PAGE 55 chars=81 =====
+55
+Classic Designs: Full Adder (cont’d)
+A
+B
+Cin
+F
+Cout
+
+===== PAGE 56 chars=146 =====
+Timing Analysis
+ Circuit delay
+                           56
+Ideal case
+In practice
+Rise-time delay of the transmission gateDelay of the invertor
+
+===== PAGE 57 chars=338 =====
+ The critical (longest) path
+• Tpd of the circuit = ∑ all Tpd of circuit elements along the critical path
+ The shortest path
+• Tcd of the circuit = ∑ all Tcd of circuit elements along the shortest 
+path
+                           57
+Timing Analysis (cont’d)
+A
+B
+C
+D Y
+Critical Path
+Short Path
+n1
+n2
+Tpd = 2Tpd_AND + Tpd_OR Tcd = Tcd_AND
+
+===== PAGE 58 chars=182 =====
+ Race hazard
+• Glitch: when a single input change causes multiple 
+output changes
+                           58
+Timing Analysis (cont’d)
+N1
+Race hazard in a circuit
+No glitch Glitch
+
+===== PAGE 59 chars=203 =====
+Sequential Circuits: Storage Elements
+ Bistable circuits
+• Latches
+• Flip-flops 
+                           59
+Combinational
+Circuit
+n-inputs m-outputs
+Storage
+ElementsNextstate
+Sequential Circuit
+State
+
+===== PAGE 60 chars=54 =====
+SR Latch with NOR Gates
+                           60
+
+===== PAGE 61 chars=55 =====
+�� Latch with NAND Gates
+                           61
+
+===== PAGE 62 chars=400 =====
+ D (Data) latch
+• Adding an inverter to the SR latch, gives the D latch.
+ Two inputs: C, D
+• C: controls when the output changes
+• D (the data input): controls what the output changes to
+ Function
+• When C = 1, D passes through to Q (transparent)
+• When C = 0, Q holds its previous value (opaque)
+ Avoids invalid case when 
+• Q ≠ Q
+D Latch
+                           62
+C
+D �
+�
+The graphic symbol
+
+===== PAGE 63 chars=400 =====
+ D (Data) latch
+• Adding an inverter to the SR latch, gives the D latch.
+ Two inputs: C, D
+• C: controls when the output changes
+• D (the data input): controls what the output changes to
+ Function
+• When C = 1, D passes through to Q (transparent)
+• When C = 0, Q holds its previous value (opaque)
+ Avoids invalid case when 
+• Q ≠ Q
+D Latch
+                           63
+C
+D �
+�
+The graphic symbol
+
+===== PAGE 64 chars=577 =====
+Pulse-Triggered Flip-Flop
+ SR flip-flop
+• Consists of two clocked SR latches in series with the clock on the second latch inverted
+ The input is observed by the first latch with C = 1
+ The output is changed by the second latch with C = 0 
+ The path from input to output is broken by the difference in clocking 
+values (C = 1 and C = 0).
+ The behavior demonstrated by the example with D driven by Y given 
+previously is prevented since the clock must change from 1 to 0 before a 
+change in Y based on D can occur. 
+                           64
+C
+S
+R
+�
+�
+C
+R
+�
+�
+C
+S
+R
+�S
+�
+
+===== PAGE 65 chars=43 =====
+1’s Catching
+                           65
+
+===== PAGE 66 chars=561 =====
+ The edge-triggered D flip-flop can be formed by:
+• Replacing the first clocked SR latch with a clocked D latch or
+• Adding a D input and inverter to a master-slave SR flip-flop
+ The delay of the SR master-slave flip-flop can be avoided since the 1’s-
+catching behavior is not present with D replacing S and R inputs
+ The change of the D flip-flop output is associated with the negative edge 
+at the end of the pulse, i.e., negative-edge triggered flip-flop
+Edge-Triggered D Flip-Flop
+                           66
+C
+S
+R
+�
+�C
+�
+�C
+D �D
+� C
+D �
+�C
+�
+�C
+D �D
+�
+
+===== PAGE 67 chars=305 =====
+ Formed by adding inverter to clock input
+ Q changes to the value on D applied at the positive clock edge within 
+timing constraints to be specified
+ Our choice as the standard flip-flop for most sequential circuits
+Positive-Edge Triggered D Flip-Flop
+                           67
+C
+D �
+�C
+�
+�C
+D �D
+�
+
+===== PAGE 68 chars=466 =====
+JK (Jack Kilby) Flip-Flop
+ Behavior
+• Same as SR flip-flop with J analogous to S and K analogous to R
+• Except that J = K = 1 is allowed, and
+• For J = K = 1, the flip-flop changes to the opposite state
+• Has the same “1s catching” behavior as SR flip-flop
+• If the master changes to the wrong state, that state will be passed to 
+the slave
+• E.g., if master falsely set by J = 1, K = 1 cannot reset it during the 
+current clock cycle
+                           68
+
+===== PAGE 69 chars=348 =====
+T Flip-Flop
+ Behavior
+• Has a single input T
+ For T = 0, no change to state
+ For T = 1, changes to opposite state
+ Same as a JK flip-flop with J = K = T
+ Has the same “1’s catching” behavior as JK flip-flop
+ Cannot be initialized to a known state using the T input
+• Reset (asynchronous or synchronous) essential
+                           69
+
+===== PAGE 70 chars=219 =====
+Example: Boolean Equation
+�C
+D Q
+C
+D Q
+�
+y
+x A
+B
+CP
+                           70
+�
+Next State
+Output
+ Boolean equations for the 
+functions:
+• A(t+1) = A(t)x(t) + B(t)x(t)
+• B(t+1) = A(t)x(t)
+• y(t) = x(t)(B(t) + A(t))
+
+===== PAGE 71 chars=446 =====
+Example: State Table
+                           71
+Present State Input Next State Output 
+A(t)  B(t) x(t) A(t+1)  B(t+1) y(t) 
+0     0 0 0         0 0 
+0     0 1 0         1 0 
+0     1 0 0         0 1 
+0     1 1 1         1 0 
+1     0 0 0         0 1 
+1     0 1 1         0 0 
+1     1 0 0         0 1 
+1     1  1 1         0 0 
+ 
+ Boolean equations for the functions:
+• A(t+1) = A(t)x(t) + B(t)x(t)
+• B(t+1) = A(t)x(t)
+• y(t) = x(t)(B(t) + A(t))
+
+===== PAGE 72 chars=253 =====
+Example: State Diagram
+ Diagram gets confusing for large circuits
+ For small circuits, usually easier to understand than the state 
+table
+                           72
+A B
+0 0
+0 1 1 1
+1 0
+x=0/y=1 x=1/y=0
+x=1/y=0
+x=1/y=0
+x=0/y=1
+x=0/y=1
+x=1/y=0
+x=0/y=0
+
+===== PAGE 73 chars=611 =====
+Sequence Recognizer Procedure (cont’d)
+ Example:  Recognize the sequence 1101
+• Note that the sequence 1111101 contains 1101 and "11" is a proper 
+sub-sequence of 1101.   
+ Thus, the sequential machine must remember that the first two 
+one's have occurred as it receives another symbol. 
+ Also, the sequence 1101101 contains 1101 as both an initial 
+subsequence and a final subsequence with some overlap, i. e., 
+1101101 or 1101101. 
+ And, the 1 in the middle, 1101101, is in both subsequences.
+ The sequence 1101 must be recognized each time it occurs in 
+the input sequence.
+                           73
+
+===== PAGE 74 chars=309 =====
+Example: Recognize 1101 (cont’d)
+ State transition arcs must represent the fact that an input 
+subsequence has occurred.  Thus, we get:
+                           74
+C
+1/1
+A B1/0 1/0 D0/0
+0/0
+0/0 1/0
+0/0
+ Note that the 1 arc from state C to state C implies that State C 
+means two or more 1's have occurred.
+
+===== PAGE 75 chars=640 =====
+Formulation: Find State Table 
+ From the state diagram, we 
+can fill in the state table.
+ There are 4 states, one input, 
+and one output. We will 
+choose the form with four 
+rows, one for each current 
+state.
+ From State A, the 0 and 1 
+input transitions have been 
+filled in along with the 
+outputs.
+                           75
+1/0
+0/0
+0/0
+1/1
+A B1/0
+C
+1/0
+D
+0/0
+0/0
+Present 
+State 
+Next State 
+x=0   x=1 
+Output 
+x=0   x=1 
+A        
+B   
+C   
+D   
+ 
+A B 0 0
+A
+D
+A
+C
+C
+B
+0
+0
+0
+0
+0
+1
+Note that state table can also be used to merge equivalent states.
+1/0
+0/0
+What would the state diagram and state table look like for the Moore model?
+
+===== PAGE 76 chars=438 =====
+Example: Moore Model (cont’d)
+ We mark outputs on states for Moore model
+ Arcs now show only state transitions
+ Add a new state E to produce the output 1
+ Note that the new state, E produces the same behavior in the future as state 
+B. But it gives a different output at the present time. Thus, these states do 
+represent a different abstraction of the input history.
+                           76
+A/0 B/0 C/0 D/0
+0
+E/1
+0
+0
+0
+11
+1
+110
+
+===== PAGE 77 chars=346 =====
+Example: Moore Model (cont’d)
+ Fill in the state table according to the stable diagram
+ Memory aid re more state in the Moore model: “Moore is 
+More.”
+                           77
+A/0 B/0 C/0 D/0
+0
+E/1
+0
+0
+0
+11
+1
+110
+Present 
+State 
+Next State 
+x=0     x=1 
+Output 
+y 
+A A       B 0 
+B A       C 0 
+C D       C 0 
+D A       E 0 
+E A       C 1
+
+===== PAGE 78 chars=282 =====
+ Performing two-level optimization:
+ D1 = Y1Y2 + XY1Y2
+D2 = XY1Y2 + XY1Y2 + XY1Y2
+Z   = XY1Y2                       
+Optimization: Counting Order Assignment
+                           78
+Y2
+Y1
+X
+0
+0
+00
+10
+0
+0
+Y2
+Y1
+X
+0
+0
+10
+10
+0
+1
+Y2
+Y1
+X
+1
+0
+00
+00
+1
+1
+D1 D2 Z
+Gate Input Cost = ?
+
+===== PAGE 79 chars=232 =====
+Optimization: Gray Code Assignment
+ Performing two-level optimization:
+ D1 = Y1Y2 + XY2
+D2 = X
+Z   = XY1Y2                            79
+Gate Input Cost = ?
+Y2
+Y1
+X
+1
+0
+00
+00
+0
+0
+Y2
+Y1
+X
+1
+0
+10
+10
+1
+0
+Y2
+Y1
+X
+0
+0
+00
+11
+1
+0
+D1 D2 Z
+
+===== PAGE 80 chars=158 =====
+Map Technology: Gray Code Assignment
+ D Flip-flops with Reset (not inverted)
+                           80
+Clock
+D
+D
+C
+R
+Y2
+Z
+C
+R
+Y1
+X
+Reset
+Initial circuit
+
+===== PAGE 81 chars=139 =====
+Mapped Circuit
+                           81
+Clock
+D
+D
+C
+R
+Y2
+Z
+C
+R
+Y1
+X
+Reset
+ NAND gates with up to 4 inputs and inverters
+Final circuit
+
+===== PAGE 82 chars=125 =====
+Design vs. Analysis: An Example
+                           82
+ Logic diagram:
+Clock
+Reset
+D
+QC
+Q
+R
+D
+QC
+Q
+R
+D
+QC
+Q
+R
+A
+B
+C
+Z
+
+===== PAGE 83 chars=231 =====
+Flip-Flop Input Equations
+                           83
+ Variables
+• Inputs: None
+• Outputs: Z
+• State Variables: A, B, C
+ Initialization: Reset to (0,0,0)
+ Equations
+• A(t+1) =                        Z =
+• B(t+1) = 
+• C(t+1) =
+
+===== PAGE 84 chars=291 =====
+State Table
+                           84
+ A(t+1) = BC
+ B(t+1) = BC + BC
+ C(t+1) = AC
+ Z = A
+ Let Y=X(t+1)
+  � � �  YAYBYC  Z
+  0  0  0 0  0  1 0
+  0  0  1 0  1  0 0
+  0  1  0 0  1  1 0
+  0  1  1 1  0  0 0
+  1  0  0 0  0  0 1
+  1  0  1 0  1  0 1
+  1  1  0 0  1  0 1
+  1  1  1 1  0  0 1
+
+===== PAGE 85 chars=290 =====
+State Table
+                           85
+ A(t+1) = BC
+ B(t+1) = BC + BC
+ C(t+1) = AC
+ Z = A
+ Let Y=X(t+1)
+  � � �  YAYBYC  Z
+  0  0  0 0  0  1 0
+  0  0  1 0  1  0 0
+  0  1  0 0  1  1 0
+  0  1  1 1  0  0 0
+  1  0  0 0  0  0 1
+  1  0  1 0  1  0 1
+  1  1  0 0  1  0 1
+  1  1  1 1  0  0 1
+
+===== PAGE 86 chars=148 =====
+State Diagram
+                           86
+ Which states are used?
+ What is the function of
+the circuit?
+000
+011 010
+001100
+101
+110
+111
+Reset ABC
+
+===== PAGE 87 chars=119 =====
+Timing Diagram of Sequential Circuits
+                           87
+tclk ≥ tffpd + tcomb + tsetup
+thold ≤ tffpd + tcomb
+
+===== PAGE 88 chars=291 =====
+State Table
+                           88
+ A(t+1) = BC
+ B(t+1) = BC + BC
+ C(t+1) = AC
+ Z = A
+ Let Y=X(t+1)
+  � � �  YAYBYC  Z
+  0  0  0 0  0  1 0
+  0  0  1 0  1  0 0
+  0  1  0 0  1  1 0
+  0  1  1 1  0  0 0
+  1  0  0 0  0  0 1
+  1  0  1 0  1  0 1
+  1  1  0 0  1  0 1
+  1  1  1 1  0  0 1
+
+===== PAGE 89 chars=65 =====
+State Table: Two Alternative Forms
+                           89
+
+===== PAGE 90 chars=321 =====
+S-R Flip-Flop Descriptors
+ Characteristic Table
+ Characteristic Equation
+Q(t+1) = S + R . Q(t), S.R = 0
+ Excitation Table
+0
+0
+1
+1
+OperationS
+0
+1
+0
+1
+R
+No change
+Reset
+Set
+Undefined
+0
+1
+?
+Q(t +1)
+Q(t)
+Operation
+No change
+Set
+Reset
+No change
+S
+X
+0
+1
+0
+Q(t+ 1)
+0
+1
+1
+0
+Q(t)
+0
+0
+1
+1
+R
+X
+0
+1
+0
+                           90
+
+===== PAGE 91 chars=208 =====
+D Flip-Flop Descriptors
+ Characteristic Table
+ Characteristic Equation
+Q(t+1) = D
+ Excitation Table
+D
+0
+1
+Operation
+Reset
+Set
+0
+1
+Q(t 1)+
+Q(t +1)
+0
+1
+0
+1
+D Operation
+Reset
+Set
+                           91
+
+===== PAGE 92 chars=319 =====
+J-K Flip-Flop Descriptors
+ Characteristic Table
+ Characteristic Equation
+Q(t+1) = J Q(t) + K Q(t)
+ Excitation Table
+Q(t +1)
+0
+1
+1
+0
+Q(t)
+0
+0
+1
+1
+Operation
+X
+X
+0
+1
+K
+0
+1
+X
+X
+J
+No change
+Set
+Reset
+No Change
+0
+0
+1
+1
+No change
+Set
+Reset
+Complement
+OperationJ
+0
+1
+0
+1
+K
+0
+1
+Q(t +1)
+Q(t)
+Q(t)
+                           92
+
+===== PAGE 93 chars=247 =====
+T Flip-Flop Descriptors
+ Characteristic Table
+ Characteristic Equation
+Q(t+1) = T  Q
+ Excitation Table
++Q(t 1)
+Q(t)
+1
+0
+T
+No change
+Complement
+Operation
+Q(t)
+                           93
+No change
+Complement
+Operation
+0
+1
+T Q(t 1)
+Q(t)
+Q(t)
++
+
+===== PAGE 94 chars=62 =====
+Flip-Flops With EN for Register
+                           94
+
+===== PAGE 95 chars=62 =====
+Multiplexer Bus vs. 3-State Bus
+                           95
+
+===== PAGE 96 chars=601 =====
+Shift Registers
+ A register capable of shifting its stored bits laterally in one or 
+both directions is called a shift register 
+ Shift Registers move data laterally within the register toward its 
+MSB or LSB position
+ In the simplest case, the shift register is simply a set of 
+D flip-flops connected in a row like this:
+• Data input, In, is called a serial input or the shift right input
+• Data output, Out, is often called the serial output
+• The vector (A, B, C, Out) is called the parallel output if they can be 
+accessed in parallel                            96
+D QD QD QD Q
+In
+CP
+A B C Out
+
+===== PAGE 97 chars=65 =====
+Shift Register with Parallel Load 
+                           97
+
+===== PAGE 98 chars=465 =====
+Shift Registers with Additional Functions
+ By placing a 4-input 
+multiplexer in front of each D 
+flip-flop in a shift register, we 
+can implement a circuit
+with shifts right, shifts left, 
+parallel load, hold.
+ Shift registers can also be 
+designed to shift more than a 
+single bit position right or left
+ Shift registers can be designed 
+to shift a variable number of 
+bit positions specified by a 
+variable called a shift amount.
+                           98
+
+===== PAGE 99 chars=351 =====
+Ripple Counters 
+ When there is a positive edge 
+on the clock input of A, A 
+complements
+ The clock input for flip-flop B 
+is the complemented output of 
+flip-flop A
+ When flip A changes
+from 1 to 0, there is a
+positive edge on the
+clock input of B causing B to 
+complement
+                           99
+Reset
+Clock
+D
+D
+CR
+CR
+B
+A
+CP
+B
+A
+0 1 2 3 0 1
+
+===== PAGE 100 chars=470 =====
+Ripple Counters (cont’d) 
+ Starting with C = B = A = 1, equivalent to (C,B,A) = 7 
+base 10, the next clock increments the count to 
+(C,B,A) = 0 base 10.  In fine timing detail:
+• The clock to output delay
+tPHL causes an increasing
+delay from clock edge for
+each stage transition.
+• Thus, the count “ripples”
+from least to most
+significant bit.
+• For n bits, total worst case
+delay is n∙tPHL
+                           100
+CP
+A
+B
+C
+tPHL
+tPHL
+tpHL
+CP
+A
+B
+C
+tPHL
+tPHL
+tpHL
+
+===== PAGE 101 chars=291 =====
+Synchronous Counters
+ To eliminate the "ripple" effects, use a common clock for each 
+flip-flop and a combinational circuit to generate the next state.
+ For an up-counter, use an incrementer
+                           101
+D3 Q3
+D2 Q2
+D1 Q1
+D0 Q0
+Clock
+Incre-
+menterA3
+A2
+A1
+A0
+S3
+S2
+S1
+S0
+
+===== PAGE 102 chars=501 =====
+Synchronous Counters (cont’d) 
+ Internal details =>
+ Internal Logic
+• XOR complements each bit
+• AND chain causes complement
+of a bit if all bits toward LSB
+from it equal 1
+ Count Enable
+• Forces all outputs of AND
+chain to 0 to “hold” the state
+ Carry Out
+• Added as part of  incrementer
+• Connect to Count Enable of
+additional 4-bit counters to
+form larger counters
+                           102
+Incrementer
+D
+C
+D
+C
+D
+C
+D
+C
+C o u nt  enable EN
+C l o ck
+C a r ry
+o u t pu t  CO
+Q 0
+Q 1
+Q 2
+Q 3
+.
+
+===== PAGE 103 chars=414 =====
+Synchronous Counters (cont’d) 
+ Carry chain
+• Series of AND gates through which the
+carry “ripples”
+• Yields long path delays
+• Called serial gating
+ Replace AND carry chain with ANDs =>
+in parallel
+• Reduces path delays
+• Called parallel gating
+• Like carry lookahead
+• Lookahead can be used on COs
+and ENs to prevent long paths in
+large counters
+ Symbol for synchronous counter
+                           103
+
+===== PAGE 104 chars=213 =====
+Ripple-Carry Adder (RCA)
+ Chain 1-bit adders together
+ Carry ripples through entire chain
+ Disadvantage: slow
+                           104
+B3 A 3
+F A
+B2 A 2
+F A
+B1
+S3C4
+C0
+C3 C2 C1
+S2 S1 S0
+A 1
+F A
+B0 A 0
+F A
+
+===== PAGE 105 chars=501 =====
+Carry-Lookahead Adder (CLA)
+ E.g., a 4-bit adder
+C1 = A0B0 + (A0 + B0) C0
+C2 = A1B1 + (A1 + B1) C1
+      = A1B1 + (A1 + B1) A0B0 + (A1 + B1)(A0 + B0) C0
+C3 = A2B2 + (A2 + B2) C2 
+      = A2B2 + (A2 + B2) A1B1 + (A2 + B2)(A1 + B1)A0B0 + (A2 + B2)(A1 +                                            
+B1)(A0 + B0) C0
+C4 = A3B3 + (A3 + B3) C3
+       = A3B3 + (A3 + B3) A2B2 + (A3 + B3)(A2 + B2)A1B1 + (A3 + B3) (A2 + 
+B2)(A1 + B1)A0B0 + (A3 + B3)(A2 + B2)(A1 + B1)(A0 + B0) C0
+                           105
+
+===== PAGE 106 chars=555 =====
+Carry-Lookahead Adder: Bit Level
+ Column i produces a carry out by either generating a carry 
+out or propagating a carry in to the carry out
+ Generate (Gi) and propagate (Pi) signals for each column:
+ Column i will generate a carry out if Ai AND Bi are both 1
+Gi = Ai Bi
+ Column i will propagate a carry in to the carry out if Ai OR Bi is 1
+Pi = Ai + Bi
+ The carry out of column i+1 (Ci+1) is:
+Ci+1 = Ai Bi  + (Ai + Bi ) Ci 
+                   = Gi  + Pi Ci
+ The sum of column i (Si) is:
+Si = Ai ⊕  Bi ⊕  Ci = Pi ⊕  Ci
+                           106
+
+===== PAGE 107 chars=422 =====
+Revisit the 4-Bit Adder
+ Compute carry out (Cout) for 4-bit blocks using 
+generate and propagate signals
+C1    = G0 + P0C0
+C2    = G1 + P1C1
+= G1 + P1 (G0 + P0C0)
+            = G1 + P1G0 + P1 P0C0
+C3    = G2 + P2C2
+= G2 + P2 (G1 + P1G0 + P1P0C0)
+= G2 + P2G1 + P2P1G0 + P2P1P0C0
+C4    = G3 + P3C3
+= G3 + P3 (G2 + P2G1 + P2P1G0 + P2P1P0C0)
+        = G3 + P3G2 + P3P2G1 + P3P2P1G0 + P3P2P1P0C0
+                           107
+
+===== PAGE 108 chars=691 =====
+Carry-Lookahead Addition: Block/Group 
+Level (cont’d) 
+ Step 1: compute Gi and Pi for all columns 
+ Step 2: compute G and P for k-bit blocks
+ Step 3: Cin propagates through each k-bit propagate/generate 
+block
+                           108
+ C4 = G3 + P3G2 + P3P2G1 + P3P2P1G0 + P3P2P1P0C0= G3:0+ P3:0C0
+ C8 = G7 + P7G6 + P7P6G5 + P7P6P5G4 + P7P6P5P4C4= G7:4+ P7:4C4
+ C12 = G11+P11G10+P11P10G9+P11P10P9G8+ P11P10P9P8C8= G11:8+ P11:8C8
+ C16 = G15+P15G14+P15P14G13+P15P14P13G12+P15P14P13P12C12= G15:12+ P15:12C12
+ Generally, for 4-bit blocks
+                Gi:j  = Gi + Pi (Gi-1 + Pi-1 (Gi-2 + Pi-2Gj )
+                Pi:j   = PiPi-1Pi-2Pj
+                Cj+1 = Gi:j  + Pi:jCj
+i=j+3
+
+===== PAGE 109 chars=313 =====
+4-Bit Adder vs. 16-Bit Adder
+                           109
+ C4 = G3:0+ P3:0C0
+ C8 = G7:4+ P7:4C4
+ C12 = G11:8+ P11:8C8
+ C16 = G15:12+ P15:12C12
+ C1 = G0+ P0C0
+ C2 = G1+ P1C1
+ C3 = G2+ P2C2
+ C4 = G3+ P3C3
+4-bit Adder 16-bit Adder 
+Exactly the same structure. So CLA could be 
+used to generate Group Carry.
+
+===== PAGE 110 chars=292 =====
+32-bit CLA with 4-bit Blocks
+110
+B0
+++++
+P3:0
+G3
+P3
+G2
+P2
+G1
+P1
+G0
+P3
+P2
+P1
+P0
+G3:0
+Cin
+Cout
+A0
+S0
+C0
+B1 A1
+S1
+C1
+B2 A2
+S2
+C2
+B3 A3
+S3
+Cin
+A3:0B3:0
+S3:0
+4-bit CLA
+Block Cin
+A7:4B7:4
+S7:4
+4-bit CLA
+Block
+C3C7
+A27:24B27:24
+S27:24
+4-bit CLA
+Block
+C23
+A31:28B31:28
+S31:28
+4-bit CLA
+Block
+C27
+Cout
+
+===== PAGE 111 chars=257 =====
+Carry-Lookahead Adder Delay
+                           111
+tCLA = tpg + tpg_block +(N/k - 1) tAND_OR + ktFA
+tpg:  delay to generate all PiGi
+tpg_block: delay of generate all Pi:j, Gi:j
+tAND_OR: delay from Cin to Cout of final AND/OR gate in k-bit CLA 
+block
+
+===== PAGE 112 chars=234 =====
+4-bit Subtractor Using 4-bit Adder
+                           112
+   4-bit
+ Adder
+X3  X2   X1    X0
+D3      D2    D1     D0
+C-inC-outC4
+Y3    Y2    Y1     Y0
+C0 = 1
+Inputs to be subtracted 
+Difference Output 
+S3      S2     S1      S0
+
+===== PAGE 113 chars=218 =====
+4-Bit Binary Adder-Subtractors
+                           113
+ When S=0: Addition (A+B) 
+ When S=1: Subtraction (A+2’s complement of B)
+ Can be used to add/subtract unsigned numbers and signed 2’s complement numbers
+
+===== PAGE 114 chars=420 =====
+Important Flags
+                           114
+ Zero flag (ZF)
+• ZF = 1 means the result is 0
+• Valid for both unsigned and signed operations
+ Sign flag (SF/NF)
+• The sign of the result, i.e., Sn-1
+• Valid for signed operations
+ Carry/borrow flag (CF)
+• If CF = 1
+ Carry for addition, i.e., Cout
+ Borrow for subtraction, i.e., ~Cout
+• Valid for unsigned operations
+ Overflow flag (OF)
+• Valid for signed operations
+
+===== PAGE 115 chars=106 =====
+Adders with Flags
+ ZF, SF, CF and OF
+                           115
+A B
+S
+Cout Cin+
+N
+NN
+Symbol
+ZF OFCFSF
+
+===== PAGE 116 chars=350 =====
+Datapath = ALU + Registers
+ The combination of a set 
+of registers with a shared 
+ALU and interconnecting 
+paths is the datapath for 
+the system.
+ The control unit for the 
+datapath directs the 
+information low through 
+the buses, the ALU, the 
+shifter, and the registers 
+by applying signals to the 
+select inputs. 
+                           116
+
+===== PAGE 117 chars=528 =====
+A Simple Example: 1-Bit ALU with 3 OPs
+                           117
+module ALU(
+    input [3:0] a, b,
+    input [1:0] aluop,
+    input cin,
+    output [3:0] f, 
+    output OF, SF, ZF, CF,
+    output cout
+);
+    wire [3:0] sum;
+    CLA_FLAGS(a, b, cin, sum, 
+OF, SF, ZF, CF, cout);
+    always @(*) begin
+        case(aluop)
+            2’b00: f = a & b;
+            2’b01: f = a | b;
+            2’b10: f = sum;
+            default: f = 0;
+        endcase
+    end
+endmodule
+F1:0 Function
+00 A & B
+01 A | B
+10 A + B
+11 not used
+
+===== PAGE 118 chars=441 =====
+Set Less Than (SLT) Example
+ Configure 32-bit ALU for SLT 
+operation: A = 25 and B = 32
+• A < B, so Y should be 32-bit 
+representation of 1 (0x00000001)
+• F2:0 = 111
+ F2 = 1 (adder acts as subtracter), so 
+25 - 32 = -7
+ -7 has 1 in the most significant bit 
+(S31 = 1)
+ F1:0 = 11 multiplexer selects Y = S31 
+(zero extended) = 0x00000001.
++2
+0
+1
+A B
+Cout
+Y
+3
+0
+1
+F2
+F1:0
+[N-1] S
+NN
+N
+N
+N NNN
+N
+2
+Zero
+Extend
+                           118
+
+===== PAGE 119 chars=58 =====
+4-Bit Barrel Shifter (ROL)
+                           119
+
+===== PAGE 120 chars=655 =====
+Example of Implementation 2
+                           120
+ Let’s do 0010 x 0110 (2 x 6), unsigned
+Iteration
+Step Multiplier Multiplicand Product
+0 initial values 0110 0010 0000 ××××
+1
+1: 0 -> no op 0110 0010 0000 ××××
+2: Multiplier shift right/ Product shift 
+right ×011 0010 0000 0×××
+2
+1: 1 -> product = product + 
+multiplicand ×011 0010 0010 0×××
+2: Multiplier shift right/ Product shift 
+right ××01 0010 0001 00××
+3
+1: 1 -> product = product + 
+multiplicand ××01 0010 0011 00××
+2: Multiplier shift right/ Product shift 
+right ×x×0 0010 0001 100×
+4
+1: 0 -> no op ×××0 0010 0001 100×
+2: Multiplier shift right/ Product shift 
+right ×××× 0010 0000 1100
+
+===== PAGE 121 chars=660 =====
+Example of Implementation 3
+                           121
+ Let’s do 0010 x 0110 (2 x 6), unsigned
+Iteration
+Step Multiplier Multiplicand Product|Multiplier
+0 initial values 0110 0010 0000 0110
+1
+1: 0 -> no op 0110 0010 0000 0110
+2: Multiplier shift right/ Product shift right ×011 0010 0000 0011
+2
+1: 1 -> product = product + multiplicand ×011 0010 0010 0011
+2: Multiplier shift right/ Product shift right ××01 0010 0001 0001
+3
+1: 1 -> product = product + multiplicand ××01 0010 0011 0001
+2: Multiplier shift right/ Product shift right ××00 0010 0001 1000
+4
+1: 0 -> no op ×××0 0010 0001 1000
+2: Multiplier shift right/ Product shift right ×××× 0010 0000 1100
+
+===== PAGE 122 chars=312 =====
+Booth’s Algorithm
+                           122
+Current 
+bit
+Bit to 
+right
+Explanation Example Operation
+1 0 Begins run of ‘1’ 00001111000 Subtract
+1 1 Middle of run of ‘1’ 00001111000 Nothing
+0 1 End of a run of ‘1’ 00001111000 Add
+0 0 Middle of a run of ‘0’ 00001111000 Nothing
+• 检测连续的1
+• 111…1 = 2n-1，类比9，999
+
+===== PAGE 123 chars=481 =====
+Example 1 of Booth’s Algorithm
+                           123
+ Let’s do 0010 x 1101 (2 x -3)
+Iteration
+Implementation 3
+Step Multiplicand Product
+0 initial values 0010 0000 1101 0
+1
+10 -> product = product – multiplicand 0010 1110 1101 0
+shift right 1111 0110 1
+2
+01 -> product = product + multiplicand 0010 0001 0110 1
+shift right 0000 1011 0
+3
+10 -> product = product – multiplicand 0010 1110 1011 0
+shift right 1111 0101 1
+4
+11 -> no op 0010 1111 0101 1
+shift right 1111 1010 1
+
+===== PAGE 124 chars=355 =====
+4 x 4 Array Multiplier
+                           124
+x B3       B2        B1        B0
+A3B0  A2B0  A1B0   A0B0
+A3       A2        A1        A0
+   A3B1  A2B1  A1B1  A0B1
+A3B2  A2B2  A1B2  A0B2
+A3B3  A2B3  A1B3  A0B3+
+P7         P6        P5        P4       P3       P2        P1        P0
+0
+P2
+0
+0
+0
+P1 P0P5 P4 P3P7 P6
+A3 A2 A1 A0
+B0
+B1
+B2
+B3
+x
+A B
+P
+44
+8
+
+===== PAGE 125 chars=198 =====
+16-bit Array Multiplier
+                           125
+Conceptually straightforward
+Fairly expensive hardware, integer multiplies relatively rare
+Most used in array address calc: replace with shifts
+
+===== PAGE 126 chars=849 =====
+Example of Implementation 1
+                           126
+ Let’s do 7 ÷ 2
+Iteration Step Quotient Divisor Remainder
+0 Initial values 0000 0010 0000 0000 0111
+1
+1: Rem=Rem-Div 0000 0010 0000 1110 0111
+2b: Rem<0=>+Div, sll Q, Q0=0 0000 0010 0000 0000 0111
+3: Shift Div right 0000 0001 0000 0000 0111
+2
+1: Rem=Rem-Div 0000 0001 0000 1111 0111
+2b: Rem<0=>+Div, sll Q, Q0=0 0000 0001 0000 0000 0111
+3: Shift Div right 0000 0000 1000 0000 0111
+3
+1: Rem=Rem-Div 0000 0000 1000 1111 1111
+2b: Rem<0=>+Div, sll Q, Q0=0 0000 0000 1000 0000 0111
+3: Shift Div right 0000 0000 0100 0000 0111
+4
+1: Rem=Rem-Div 0000 0000 0100 0000 0011
+2a: Rem≥0=> sll Q, Q0=1 0001 0000 0100 0000 0011
+3: Shift Div right 0001 0000 0010 0000 0011
+5
+1: Rem=Rem-Div 0001 0000 0010 0000 0001
+2a: Rem≥0=> sll Q, Q0=1 0011 0000 0010 0000 0001
+3: Shift Div right 0011 0000 0001 0000 0001
+
+===== PAGE 127 chars=575 =====
+Restoring Division
+                           127
+ 
+Iteration Divisor Divide algorithm  
+Step Remainder  
+0 0010 Initial values 0000 0111  0010 Shift Rem left 1 0000 1110 
+1 
+0010 2: Rem = Rem - Div 1110 1110  
+0010 3b: Rem < 0  + Div, sll R, R0 = 0 0001 1100  
+2 0010 2: Rem = Rem - Div 1111 1100  
+0010 3b: Rem < 0  + Div, sll R, R0 = 0 0011 1000  
+3 0010 2: Rem = Rem - Div 0001 1000  
+0010 3a: Rem  0  sll R, R0 = 1 0011 0001  
+4 0010 2: Rem = Rem - Div 0001 0001  
+0010 3a: Rem  0  sll R, R0 = 1 0010 0011  
+Done 0010 shift left half of Rem right 1 0001 0011
+
+===== PAGE 128 chars=503 =====
+Non-Restoring Division
+                           128
+Iteration Step Divisor Remainder
+0 Initial values 0010 0000 0111
+Shift rem left 1 0010 0000 1110
+1 2: Rem = Rem - Div 0010 1110 1110
+3b: Rem < 0 (add next), sll 0 0010 1101 1100
+2 2: Rem = Rem + Div 0010 1111 1100
+3b: Rem < 0 (add next), sll 0 0010 1111 1000
+3 2: Rem = Rem + Div 0010 0001 1000
+3a: Rem > 0 (sub next), sll 1 0010 0011 0001
+4 Rem = Rem – Div 0010 0001 0001
+Rem > 0 (sub next), sll 1 0010 0010 0011
+Shift Rem right by 1 0010 0001 0011
+
+===== PAGE 129 chars=897 =====
+Two-Operand Instructions
+ Here is a possible sequence of instructions for our equation (say the operands are 
+registers):
+Y = (A-B) / (C + (D * E))
+• SUB  A, B ; Register A ← A - B
+• MUL D, E ; Register D ← D * E
+• ADD D, C ; Register D ← D + C
+• DIV  A, D ; Register A ← A / D
+ Get same end result as before, but we changed the contents of registers A and D
+ If we had some later processing that wanted to use the original contents of those 
+registers, we must make a copy of them before performing the computation
+• MOV  R1, A ; Copy A to register R1
+• MOV  R2, D ; Copy D to register R2
+• SUB  R1, B ; Register R1 ← R1 - B
+• MUL R2, E ; Register R2 ← R2 * E
+• ADD R2, C ; Register R2 ← R2 + C
+• DIV  R1, R2 ; Register R1 ← R1 / R2
+ Now the original registers for A-E remain the same as before, but at the cost of some 
+extra instructions to save the results. 
+                           129
+
+===== PAGE 130 chars=662 =====
+One-Operand Instructions
+ Can use the same idea to get rid of the second operand, leaving only one 
+operand
+ The second operand is left implicit; e.g., could assume that the second operand 
+will always be in a register such as the Accumulator:
+Y = (A-B) / (C + (D * E))
+• LDA   D ; Load ACC with D
+• MUL  E ; Acc ← Acc * E
+• ADD  C ; Acc ← Acc + C
+• STO  R1 ;  Store Acc to R1
+• LDA  A ; Acc ← A
+• SUB  B ; Acc ← A-B
+• DIV  R1 ; Acc ← Acc / R1
+ Many early computers relied heavily on one-address based instructions, as it 
+makes the CPU much simpler to design.  As you can see, it does become 
+somewhat more unwieldy to program.
+                           130
+
+===== PAGE 131 chars=312 =====
+Stack-Based Instructions
+Y = (A-B) / (C + (D * E))
+ Instruction Stack Contents (stack increase ->)
+ PUSH B ; B 
+ PUSH A ; B, A
+ SUB ; (A-B)
+ PUSH E ; (A-B), E
+ PUSH D ; (A-B), E, D
+ MUL ; (A-B), (E*D)
+ PUSH C ; (A-B), (E*D), C
+ ADD ; (A-B), (E*D+C)
+ DIV ; (A-B) / (E*D+C)
+                           131
+
+===== PAGE 132 chars=58 =====
+Summary - Addressing Modes
+                           132
+
+===== PAGE 133 chars=209 =====
+Addressing Example
+ These are the values loaded into the accumulator for each 
+addressing mode.
+                           133
+Load R1     Using Indirect Addressing?
+Load #800
+Load 800
+Load [800]
+Load R1[800]
+
+===== PAGE 134 chars=233 =====
+Types of Operations
+ Arithmetic and Logic
+ Shift
+ Data Transfer
+• E.g., MOV/LOAD/STORE
+ String
+ Control
+• BRANCH/JMP/CALL/RET/…
+ System
+• HALT/INTERRUPT ON/INTERRUPT OFF/SWITCH…
+ Input/Output
+ …
+                           134
+
+===== PAGE 135 chars=421 =====
+RISC Example: MIPS
+                           135
+Op
+31 26 01516202125
+Rs Rt immediate
+Op
+31 26 025
+Op
+31 26 01516202125
+Rs Rt
+target
+Rd Funct
+R-format (Register-Register)
+561011
+I-format (Register-Immediate)
+Op
+31 26 01516202125
+Rs Rt immediate
+I-format (Branch)
+J-format (Jump / Call)
+Shamt
+Op
+31 26 01516202125
+Base Dest immediate
+I-format (Load/Store)
+add $1, $2, $3
+addi $1, $2, -5
+lw $1, 24($9)
+beq L1, $4, $0
+j  L2
+
+===== PAGE 136 chars=51 =====
+Stack Architectures
+                           136
+
+===== PAGE 137 chars=57 =====
+Accumulator Architectures
+                           137
+
+===== PAGE 138 chars=59 =====
+Memory-Memory Architectures
+                           138
+
+===== PAGE 139 chars=61 =====
+Register-Memory Architectures
+                           139
+
+===== PAGE 140 chars=56 =====
+Load-Store Architectures
+                           140

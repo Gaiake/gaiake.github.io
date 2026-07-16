@@ -1,0 +1,3784 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Documentation for Gaiake, a high-performance computing project.">
+      
+      
+        <meta name="author" content="Gaiake">
+      
+      
+        <link rel="canonical" href="https://gaiake.github.io/DL/%E7%AC%AC2%E7%AB%A0/">
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="https://s2.loli.net/2024/04/26/PmRdM9iGnvOJHgu.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>机器学习基础（一） - Gaiake Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lxgw-wenkai-webfont@1.1.0/style.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+  
+
+
+  
+  
+
+<script id="__analytics">function __md_analytics(){function e(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],e("js",new Date),e("config",""),document.addEventListener("DOMContentLoaded",(function(){document.forms.search&&document.forms.search.query.addEventListener("blur",(function(){this.value&&e("event","search",{search_term:this.value})}));document$.subscribe((function(){var t=document.forms.feedback;if(void 0!==t)for(var a of t.querySelectorAll("[type=submit]"))a.addEventListener("click",(function(a){a.preventDefault();var n=document.location.pathname,d=this.getAttribute("data-md-value");e("event","feedback",{page:n,data:d}),t.firstElementChild.disabled=!0;var r=t.querySelector(".md-feedback__note [data-md-value='"+d+"']");r&&(r.hidden=!1)})),t.hidden=!1})),location$.subscribe((function(t){e("config","",{page_path:t.pathname})}))}));var t=document.createElement("script");t.async=!0,t.src="https://www.googletagmanager.com/gtag/js?id=",document.getElementById("__analytics").insertAdjacentElement("afterEnd",t)}</script>
+  
+    <script>"undefined"!=typeof __md_analytics&&__md_analytics()</script>
+  
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#2" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../.." title="Gaiake Documentation" class="md-header__button md-logo" aria-label="Gaiake Documentation" data-md-component="logo">
+      
+  <img src="../../about/image/top.jpg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Gaiake Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              机器学习基础（一）
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="关闭自动模式"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="关闭自动模式" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1M8 13h8v-2H8zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4a5 5 0 0 0 5-5 5 5 0 0 0-5-5"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="blue-grey" data-md-color-accent="blue"  aria-label="切换至夜间模式"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="切换至夜间模式" for="__palette_2" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="indigo"  aria-label="切换至日间模式"  type="radio" name="__palette" id="__palette_2">
+    
+      <label class="md-header__button md-icon" title="切换至日间模式" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 6H7c-3.31 0-6 2.69-6 6s2.69 6 6 6h10c3.31 0 6-2.69 6-6s-2.69-6-6-6m0 10H7c-2.21 0-4-1.79-4-4s1.79-4 4-4h10c2.21 0 4 1.79 4 4s-1.79 4-4 4M7 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="分享" aria-label="分享" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/Gaiake" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Gaiake
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="标签" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../about/about/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  About
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../courses/MA101/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Academic Courses
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Gaiake Documentation" class="md-nav__button md-logo" aria-label="Gaiake Documentation" data-md-component="logo">
+      
+  <img src="../../about/image/top.jpg" alt="logo">
+
+    </a>
+    Gaiake Documentation
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/Gaiake" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Gaiake
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    About
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    About
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../about/about/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    What can I say?
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Academic Courses
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Academic Courses
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_1" id="__nav_3_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    基础课程
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    基础课程
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../courses/MA101/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Calculus
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../courses/MA102/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Linear Algebra
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../courses/MA103/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Probability Theory and Mathematical Statistics
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../courses/MA104/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ordinary Differential Equations
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../courses/CS103/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Discrete Mathematics and its Applications
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../courses/PHY/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Physics
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+          
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3_2" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    专业课程
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_2" id="__nav_3_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    专业课程
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../courses/CS101/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Fundamentals of C Programming and Laboratory
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../courses/CS102/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Fundamentals of Data Structures
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../courses/CS105/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Computer System I
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../courses/CS104/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Computer System
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../courses/CS106/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Advanced Data Structures and Algorithm Analysis
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../courses/CS107/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Introduction to Artificial Intelligence
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../courses/CS108/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Object-Oriented Programming
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../courses/CS109/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Course Comprehensive Practice I
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../courses/CS110/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Causal Inference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../courses/CS111/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Social Networks and Security Privacy
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../courses/CS112/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Mathematical Software
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../courses/PE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    体育类课程
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../courses/Political/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    思政类课程
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../courses/General/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    通识类课程
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        目录
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        一、什么是机器学习
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="一、什么是机器学习">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.1 机器学习是一种通用方法论
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2 机器学习的经典定义
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#13" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.3 机器学习的价值
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#14" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.4 机器学习在研究什么？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#15-vs-ml" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.5 大模型时代 vs. 传统ML的区别
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#vs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        二、学习的要素——人类 vs. 机器
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="二、学习的要素——人类 vs. 机器">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1 五要素对应表（最核心的类比）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2 各要素的深度解读
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.2 各要素的深度解读">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        要素一：经验知识 → 训练数据
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hypothesis-class" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        要素二：学习载体 → 假设类 (Hypothesis Class)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#inductive-bias" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        要素三：常识 → 归纳偏置 (Inductive Bias)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#learning-paradigm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        要素四：跟谁学 → 学习范式 (Learning Paradigm)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#learning-algorithm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        要素五：学习方法 → 学习算法 (Learning Algorithm)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        要素六：学习目标 → 损失函数最小化
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        三、机器学习的过程
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        三、机器学习的过程
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="三、机器学习的过程">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1 学习过程的流程图
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2 机器学习在语言模型中的实例
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        四、机器学习基本概念详解
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="四、机器学习基本概念详解">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41-training-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.1 训练数据 (Training Data)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4.1 训练数据 (Training Data)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        数量方面
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        质量方面
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42-hypothesis-class" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.2 假设类 (Hypothesis Class)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4.2 假设类 (Hypothesis Class)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#halfspace" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        例子：半空间 (Halfspace)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        大模型时代的假设类
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#43-inductive-bias" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.3 归纳偏置 (Inductive Bias)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4.3 归纳偏置 (Inductive Bias)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        不同模型的归纳偏置
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#44-learning-paradigm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.4 学习范式 (Learning Paradigm)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4.4 学习范式 (Learning Paradigm)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#llm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        LLM的主流范式：自监督学习
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#45-erm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.5 学习目标——经验风险最小化 (ERM)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#46-loss-function" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.6 损失函数 (Loss Function)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4.6 损失函数 (Loss Function)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        常用损失函数比较
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#47-learning-algorithm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.7 学习算法 (Learning Algorithm)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4.7 学习算法 (Learning Algorithm)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#first-order-optimization" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        一阶优化 (First-order Optimization)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#zero-order-optimization" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        零阶优化 (Zero-order Optimization)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#48-generalization-error" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.8 泛化误差 (Generalization Error)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4.8 泛化误差 (Generalization Error)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#vs_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        训练误差 vs. 泛化误差
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_13" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        估计与检验
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_14" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        五、机器学习的发展历程
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="五、机器学习的发展历程">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.1 三个阶段
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#52" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.2 假设空间的演变
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#53" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.3 学习范式的演变
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_15" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        六、经典泛化理论
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="六、经典泛化理论">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#61-pac" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.1 PAC 学习理论
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6.1 PAC 学习理论">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#611-pac" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.1.1 什么是PAC理论
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#612-pac" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.1.2 PAC理论的基本概念
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#613-pac" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.1.3 PAC学习的基本思想
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#614-pac-pac-learnable" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.1.4 PAC可学习 (PAC Learnable)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#615-pac" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.1.5 高效PAC可学习
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#616-pac" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.1.6 不可分情形与不可知PAC学习
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#617-pac" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.1.7 PAC学习案例：轴平行矩形
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#62" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.2 假设空间的复杂度度量
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#63-vc-vapnik-chervonenkis-dimension" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.3 VC维 (Vapnik-Chervonenkis Dimension)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6.3 VC维 (Vapnik-Chervonenkis Dimension)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#631" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.3.1 核心定义
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#632-vc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.3.2 VC维的意义
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#633-vc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.3.3 线性分类器的VC维
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#634-vc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.3.4 神经网络的VC维
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#64-rademacher" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.4 Rademacher复杂度
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6.4 Rademacher复杂度">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#641" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.4.1 动机
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#642" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.4.2 定义
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#643-rademacher" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.4.3 线性超平面的Rademacher复杂度
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#65" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.5 泛化误差界
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6.5 泛化误差界">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#651" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.5.1 有限可分假设空间的泛化界
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#652" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.5.2 有限不可分假设空间的泛化界
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#653-vc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.5.3 无限假设空间的泛化界（基于VC维）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#654-rademacher" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.5.4 无限假设空间的泛化界（基于Rademacher复杂度）
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#66-erm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.6 经验风险最小化原则 (ERM)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#67" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.7 过拟合与欠拟合
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6.7 过拟合与欠拟合">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#underfitting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        欠拟合 (Underfitting)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#overfitting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        过拟合 (Overfitting)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#capacity" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        容量 (Capacity) 的权衡
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_16" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        容量与误差的典型关系
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_17" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        七、深度学习泛化——打破经典理论的美好假设
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="七、深度学习泛化——打破经典理论的美好假设">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#71-iid" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.1 经典理论建立在i.i.d.假设上
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#72" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.2 深度学习对经典理论的挑战
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#73-double-descent" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.3 双重下降现象 (Double Descent)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#74" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.4 深度学习中的归纳偏置
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#75" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.5 深度学习泛化的几个关键视角
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#76-vcrademacher" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.6 VC维与Rademacher复杂度对大语言模型的启发意义
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_18" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        八、关键概念速查
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  <nav class="md-tags" >
+    
+      
+      
+      
+      
+        <span class="md-tag">PAC</span>
+      
+    
+      
+      
+      
+      
+        <span class="md-tag">Rademacher复杂度</span>
+      
+    
+      
+      
+      
+      
+        <span class="md-tag">VC维</span>
+      
+    
+      
+      
+      
+      
+        <span class="md-tag">机器学习</span>
+      
+    
+      
+      
+      
+      
+        <span class="md-tag">泛化理论</span>
+      
+    
+      
+      
+      
+      
+        <span class="md-tag">深度学习</span>
+      
+    
+      
+      
+      
+      
+        <span class="md-tag">课程笔记</span>
+      
+    
+  </nav>
+
+
+  
+  
+
+
+<div><div class="admonition info">
+<p class="admonition-title">📖 阅读信息</p>
+<p>阅读时间：<strong>18</strong> 分钟 | 中文字符：<strong>7056</strong> | 有效代码行数：<strong>38</strong></p>
+</div>
+<h1 id="2">第2章 机器学习基础（一）<a class="headerlink" href="#2" title="Permanent link">¶</a></h1>
+<blockquote>
+<p>本章从机器学习的核心要素出发，贯穿经典泛化理论（PAC、VC维、Rademacher复杂度），最后探讨深度学习如何打破经典理论的"美好假设"。适合作为从传统机器学习走向深度学习的理论桥梁。</p>
+</blockquote>
+<hr>
+<h2 id="_1">目录<a class="headerlink" href="#_1" title="Permanent link">¶</a></h2>
+<ol>
+<li><a href="./#%E4%B8%80%E3%80%81%E4%BB%80%E4%B9%88%E6%98%AF%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0">什么是机器学习</a></li>
+<li><a href="./#%E4%BA%8C%E3%80%81%E5%AD%A6%E4%B9%A0%E7%9A%84%E8%A6%81%E7%B4%A0%E2%80%94%E2%80%94%E4%BA%BA%E7%B1%BB%20vs.%20%E6%9C%BA%E5%99%A8">学习的要素——人类 vs. 机器</a></li>
+<li><a href="./#%E4%B8%89%E3%80%81%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%9A%84%E8%BF%87%E7%A8%8B">机器学习的过程</a></li>
+<li><a href="./#%E5%9B%9B%E3%80%81%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5%E8%AF%A6%E8%A7%A3">机器学习基本概念详解</a></li>
+<li><a href="./#%E4%BA%94%E3%80%81%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%9A%84%E5%8F%91%E5%B1%95%E5%8E%86%E7%A8%8B">机器学习的发展历程</a></li>
+<li><a href="./#%E5%85%AD%E3%80%81%E7%BB%8F%E5%85%B8%E6%B3%9B%E5%8C%96%E7%90%86%E8%AE%BA">经典泛化理论</a></li>
+<li><a href="./#%E4%B8%83%E3%80%81%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E6%B3%9B%E5%8C%96%E2%80%94%E2%80%94%E6%89%93%E7%A0%B4%E7%BB%8F%E5%85%B8%E7%90%86%E8%AE%BA%E7%9A%84%E7%BE%8E%E5%A5%BD%E5%81%87%E8%AE%BE">深度学习泛化</a></li>
+<li><a href="./#%E5%85%AB%E3%80%81%E5%85%B3%E9%94%AE%E6%A6%82%E5%BF%B5%E9%80%9F%E6%9F%A5">关键概念速查</a></li>
+</ol>
+<hr>
+<h2 id="_2">一、什么是机器学习<a class="headerlink" href="#_2" title="Permanent link">¶</a></h2>
+<h3 id="11">1.1 机器学习是一种通用方法论<a class="headerlink" href="#11" title="Permanent link">¶</a></h3>
+<div class="admonition abstract">
+<p class="admonition-title">核心认知</p>
+<p>机器学习是<strong>通用的方法论</strong>——它的适用范围与<strong>数据类型无关</strong>，与<strong>模型类型无关</strong>。无论是图像、文本、语音还是表格数据，无论是线性模型、决策树还是神经网络，ML方法论都一视同仁。</p>
+</div>
+<p>至今不存在一个放之四海皆准的定义。但我们可以从多个视角来理解它。</p>
+<h3 id="12">1.2 机器学习的经典定义<a class="headerlink" href="#12" title="Permanent link">¶</a></h3>
+<div class="admonition quote">
+<p class="admonition-title"><strong>Tom Mitchell 定义 (1997)</strong> —— 机器学习领域最广为引用的定义</p>
+<p>"A computer program is said to <strong>learn</strong> from experience <strong>E</strong> with respect to some class of tasks <strong>T</strong> and performance measure <strong>P</strong>, if its performance at tasks in T, as measured by P, <strong>improves with experience E</strong>."</p>
+<p>翻译：如果一个计算机程序在完成某类任务 T 时的性能（由度量 P 衡量）随着经验 E 的增加而提升，我们就说这个程序在学习。</p>
+</div>
+<table>
+<thead>
+<tr>
+<th>符号</th>
+<th>含义</th>
+<th>类比</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>E</strong> (Experience)</td>
+<td>训练数据、经验</td>
+<td>做过的模拟题</td>
+</tr>
+<tr>
+<td><strong>T</strong> (Task)</td>
+<td>要解决的任务</td>
+<td>高考本身</td>
+</tr>
+<tr>
+<td><strong>P</strong> (Performance)</td>
+<td>性能度量指标</td>
+<td>考试分数</td>
+</tr>
+</tbody>
+</table>
+<h3 id="13">1.3 机器学习的价值<a class="headerlink" href="#13" title="Permanent link">¶</a></h3>
+<div class="admonition note">
+<p class="admonition-title"><strong>Bill Gates 的名言</strong></p>
+<p>"A breakthrough in machine learning would be worth <strong>ten Microsofts</strong>."</p>
+<p>机器学习突破的价值 = 十个微软——足以看出其战略意义。</p>
+</div>
+<h3 id="14">1.4 机器学习在研究什么？<a class="headerlink" href="#14" title="Permanent link">¶</a></h3>
+<p>机器学习的研究核心可以归结为两个词：</p>
+<p><mark><strong>泛化 (Generalization)</strong></mark> 和 <mark><strong>范式 (Paradigm)</strong></mark></p>
+<ul>
+<li><strong>泛化</strong>：模型在未见过的数据上是否能表现良好？这是机器学习的终极问题。</li>
+<li><strong>范式</strong>：学习的方式是什么？监督？无监督？强化？自监督？</li>
+</ul>
+<div class="admonition tip">
+<p class="admonition-title">本章整体结构</p>
+<p>01 <a href="./#%E5%9B%9B%E3%80%81%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5%E8%AF%A6%E8%A7%A3">基本概念</a> → 02 <a href="./#%E5%85%AD%E3%80%81%E7%BB%8F%E5%85%B8%E6%B3%9B%E5%8C%96%E7%90%86%E8%AE%BA">经典泛化理论</a> → 03 <a href="./#%E4%B8%83%E3%80%81%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E6%B3%9B%E5%8C%96%E2%80%94%E2%80%94%E6%89%93%E7%A0%B4%E7%BB%8F%E5%85%B8%E7%90%86%E8%AE%BA%E7%9A%84%E7%BE%8E%E5%A5%BD%E5%81%87%E8%AE%BE">深度学习泛化</a></p>
+</div>
+<h3 id="15-vs-ml">1.5 大模型时代 vs. 传统ML的区别<a class="headerlink" href="#15-vs-ml" title="Permanent link">¶</a></h3>
+<table>
+<thead>
+<tr>
+<th>维度</th>
+<th>传统机器学习</th>
+<th>大模型时代</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>模型规模</strong></td>
+<td>小规模，参数量可控</td>
+<td>海量参数（数十亿至数千亿）</td>
+</tr>
+<tr>
+<td><strong>特征工程</strong></td>
+<td>人工特征提取</td>
+<td>端到端表征学习</td>
+</tr>
+<tr>
+<td><strong>数据需求</strong></td>
+<td>少量标注数据即可</td>
+<td>海量无标注数据预训练</td>
+</tr>
+<tr>
+<td><strong>涌现能力</strong></td>
+<td>无</td>
+<td>规模带来涌现能力（如推理、ICL）</td>
+</tr>
+<tr>
+<td><strong>泛化理论</strong></td>
+<td>传统PAC/VC维框架有效</td>
+<td>经典理论部分失效，需要新解释</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="vs">二、学习的要素——人类 vs. 机器<a class="headerlink" href="#vs" title="Permanent link">¶</a></h2>
+<div class="admonition info">
+<p class="admonition-title">学习的目的</p>
+<p>无论是人类还是机器，学习的根本目的都是：<strong>在经验知识的指导下，求解未知的问题</strong>。</p>
+</div>
+<h3 id="21">2.1 五要素对应表（最核心的类比）<a class="headerlink" href="#21" title="Permanent link">¶</a></h3>
+<table>
+<thead>
+<tr>
+<th>要素</th>
+<th>🧑 人类学习比喻</th>
+<th>🤖 机器学习</th>
+<th>一句话解释</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><mark><strong>经验知识</strong></mark></td>
+<td>5年高考3年模拟"刷题"</td>
+<td><strong>训练数据</strong> (Training Data)</td>
+<td>学习的原材料</td>
+</tr>
+<tr>
+<td><mark><strong>学习载体</strong></mark></td>
+<td>大脑（脑子是个好东西）</td>
+<td><strong>假设类</strong> (Hypothesis Class)</td>
+<td>承载学习能力的空间</td>
+</tr>
+<tr>
+<td><mark><strong>常识</strong></mark></td>
+<td>尝试摄取知识（知识积累）</td>
+<td><strong>归纳偏置</strong> (Inductive Bias)</td>
+<td>缩小搜索范围的先验</td>
+</tr>
+<tr>
+<td><mark><strong>跟谁学</strong></mark></td>
+<td>老师授课 vs. 在家自学</td>
+<td><strong>学习范式</strong> (Learning Paradigm)</td>
+<td>学习的交互方式</td>
+</tr>
+<tr>
+<td><mark><strong>学习方法</strong></mark></td>
+<td>尖子生的秘籍</td>
+<td><strong>学习算法</strong> (Learning Algorithm)</td>
+<td>如何从数据中提取模式</td>
+</tr>
+<tr>
+<td><mark><strong>学习目标</strong></mark></td>
+<td>模拟题少出错、多拿分</td>
+<td><strong>损失函数最小化</strong></td>
+<td>优化的方向</td>
+</tr>
+</tbody>
+</table>
+<h3 id="22">2.2 各要素的深度解读<a class="headerlink" href="#22" title="Permanent link">¶</a></h3>
+<h4 id="_3">要素一：经验知识 → 训练数据<a class="headerlink" href="#_3" title="Permanent link">¶</a></h4>
+<p>人类学习需要经验材料（课本、习题、老师的经验）；机器学习的"经验"就是<strong>训练数据</strong>。</p>
+<ul>
+<li>人类：反复做"5年高考3年模拟"</li>
+<li>机器：反复"喂"数据集，让模型从数据模式中学习</li>
+</ul>
+<h4 id="hypothesis-class">要素二：学习载体 → 假设类 (Hypothesis Class)<a class="headerlink" href="#hypothesis-class" title="Permanent link">¶</a></h4>
+<p>人类学习需要大脑作为载体；机器学习的"大脑"是<strong>假设类（Hypothesis Class, H）</strong>——所有可能模型的集合。</p>
+<ul>
+<li>对于线性回归：<span class="arithmatex">\(H = \{h(x) = w^Tx + b \mid w \in \mathbb{R}^d, b \in \mathbb{R}\}\)</span></li>
+<li>对于神经网络：所有可能的参数组合构成的函数空间</li>
+<li>大语言模型以<strong>神经网络</strong>作为假设空间</li>
+</ul>
+<div class="admonition warning">
+<p class="admonition-title">假设类的规模</p>
+<p>参数越多，假设空间越大，"大脑"越复杂，但并不总是越好。</p>
+</div>
+<h4 id="inductive-bias">要素三：常识 → 归纳偏置 (Inductive Bias)<a class="headerlink" href="#inductive-bias" title="Permanent link">¶</a></h4>
+<p>人类在做题时依靠常识缩小思考范围；机器学习的"常识"就是<strong>归纳偏置</strong>——预先对模型施加的约束，限制对某些假设进行选择。</p>
+<ul>
+<li>人类：看到数学题先想这是代数还是几何——先验知识引导解题方向</li>
+<li>ML：CNN假设图像具有局部相关性（相邻像素有关）</li>
+<li>ML：RNN假设数据存在时序依赖</li>
+<li>ML：大语言模型常用的归纳偏置是 <mark>上下文之间存在关联</mark></li>
+</ul>
+<div class="admonition tip">
+<p class="admonition-title">归纳偏置的本质</p>
+<p>归纳偏置是机器学习中"<strong>没有免费午餐定理</strong>"的应对策略——没有先验偏置，所有假设平等，学习无从谈起。</p>
+</div>
+<h4 id="learning-paradigm">要素四：跟谁学 → 学习范式 (Learning Paradigm)<a class="headerlink" href="#learning-paradigm" title="Permanent link">¶</a></h4>
+<p>人类可以选择跟着老师学，也可以自学；机器学习也有不同的"学习方式"：</p>
+<table>
+<thead>
+<tr>
+<th>学习范式</th>
+<th>人类类比</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>监督学习</strong> (Supervised)</td>
+<td>老师教：有标准答案的练习题</td>
+<td>给定输入输出对，学习映射</td>
+</tr>
+<tr>
+<td><strong>无监督学习</strong> (Unsupervised)</td>
+<td>自学：没有答案，自己找规律</td>
+<td>无标签数据中挖掘结构</td>
+</tr>
+<tr>
+<td><strong>半监督学习</strong> (Semi-supervised)</td>
+<td>少量老师辅导+大量自学</td>
+<td>少量标签+大量无标签数据</td>
+</tr>
+<tr>
+<td><strong>强化学习</strong> (Reinforcement)</td>
+<td>试错中学习（孩子在探索中学习走路）</td>
+<td>通过奖励信号学习策略</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition tip">
+<p class="admonition-title">LLM的核心范式</p>
+<p>大语言模型（LLM）主要采用 <strong>自监督学习 (Self-supervised Learning)</strong>——这是基于<strong>自动构建标签</strong>的监督学习。
+- 例如：掩码语言模型（MLM）——遮盖一部分词，让模型去预测被遮盖的词
+- 标签自动生成，无需人工标注</p>
+</div>
+<h4 id="learning-algorithm">要素五：学习方法 → 学习算法 (Learning Algorithm)<a class="headerlink" href="#learning-algorithm" title="Permanent link">¶</a></h4>
+<p>人类根据自己的特点选择学习方法（尖子生的秘籍）；机器学习的"学习方法"是<strong>学习算法</strong>，用来在假设空间中搜索最优假设。</p>
+<table>
+<thead>
+<tr>
+<th>算法类型</th>
+<th>例子</th>
+<th>原理</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>1阶优化</strong></td>
+<td>梯度下降 (Gradient Descent)</td>
+<td>利用梯度（一阶导数）信息更新参数</td>
+</tr>
+<tr>
+<td><strong>0阶优化</strong></td>
+<td>进化算法、随机搜索</td>
+<td>仅利用函数值，不依赖导数</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>梯度下降更新公式：
+<span class="arithmatex">\(h_{t+1} = h_t - \eta \nabla_h L(h)\)</span>
+其中 <span class="arithmatex">\(\eta\)</span> 是学习率，<span class="arithmatex">\(\nabla_h L(h)\)</span> 是损失对参数的梯度。</p>
+</blockquote>
+<h4 id="_4">要素六：学习目标 → 损失函数最小化<a class="headerlink" href="#_4" title="Permanent link">¶</a></h4>
+<p>人类的目标是模拟题少出错；机器学习的核心目标是最小化<strong>损失函数</strong>。</p>
+<ul>
+<li>最常见的学习目标：<mark><strong>经验风险最小化（ERM, Empirical Risk Minimization）</strong></mark></li>
+<li>通俗来说：让模型在训练集上犯的错误尽可能少</li>
+<li>最常用的损失函数：<mark><strong>交叉熵 (Cross-Entropy)</strong></mark></li>
+<li>大多数损失函数是错误程度的<strong>代理损失 (Surrogate Loss)</strong></li>
+</ul>
+<div class="admonition abstract">
+<p class="admonition-title">交叉熵损失 vs. 0-1损失</p>
+<p><strong>0-1损失</strong>（理想但不可微）：
+<span class="arithmatex">\(L(h) = \frac{1}{n}\sum_{i=1}^n \mathbb{I}(\operatorname{sign}(h(x_i)) \neq y_i)\)</span></p>
+<p><strong>交叉熵损失</strong>（可微，用于实际训练）：
+<span class="arithmatex">\(L(h) = -\frac{1}{n}\sum_{i=1}^n [y_i \log(p(h(x_i))) + (1-y_i) \log(1-p(h(x_i)))]\)</span></p>
+</div>
+<hr>
+<h2 id="_5">三、机器学习的过程<a class="headerlink" href="#_5" title="Permanent link">¶</a></h2>
+<div class="admonition abstract">
+<p class="admonition-title">一句话总结</p>
+<p>在某种 <strong>学习范式</strong> 下，基于 <strong>训练数据</strong>（经验），利用 <strong>学习算法</strong>，从受 <strong>归纳偏置</strong> 限制的 <strong>假设类</strong> 中选取出可以达到 <strong>学习目标</strong> 的 <strong>假设</strong>，该假设可以 <strong>泛化</strong> 到未知数据上。</p>
+</div>
+<h2 id="_6">三、机器学习的过程<a class="headerlink" href="#_6" title="Permanent link">¶</a></h2>
+<h3 id="31">3.1 学习过程的流程图<a class="headerlink" href="#31" title="Permanent link">¶</a></h3>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-0-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-0-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-0-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-0-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-0-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-0-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-0-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-0-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-0-10">10</a></span>
+<span class="normal"><a href="#__codelineno-0-11">11</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1"></a>[学习范式] ──→ 决定"怎么学"
+<a id="__codelineno-0-2" name="__codelineno-0-2"></a>      │
+<a id="__codelineno-0-3" name="__codelineno-0-3"></a>      ▼
+<a id="__codelineno-0-4" name="__codelineno-0-4"></a>[训练数据] ──→ [学习算法] ──→ 搜索假设空间 H
+<a id="__codelineno-0-5" name="__codelineno-0-5"></a>      │                          │
+<a id="__codelineno-0-6" name="__codelineno-0-6"></a>      │                    [归纳偏置] 限制搜索范围
+<a id="__codelineno-0-7" name="__codelineno-0-7"></a>      │                          │
+<a id="__codelineno-0-8" name="__codelineno-0-8"></a>      └──────────────→ 找到最优假设 h*
+<a id="__codelineno-0-9" name="__codelineno-0-9"></a>                                    │
+<a id="__codelineno-0-10" name="__codelineno-0-10"></a>                                    ▼
+<a id="__codelineno-0-11" name="__codelineno-0-11"></a>                              [泛化] 到未知数据
+</code></pre></div></td></tr></table></div>
+<h3 id="32">3.2 机器学习在语言模型中的实例<a class="headerlink" href="#32" title="Permanent link">¶</a></h3>
+<p>以大语言模型为例，整个流程变为：</p>
+<ol>
+<li><strong>学习范式</strong>：自监督学习（预测下一个词 / 掩码词预测）</li>
+<li><strong>训练数据</strong>：海量文本语料（互联网爬取数据）</li>
+<li><strong>学习算法</strong>：梯度下降 + 反向传播</li>
+<li><strong>假设类</strong>：Transformer 神经网络（数十亿参数）</li>
+<li><strong>归纳偏置</strong>：上下文之间存在关联；注意力机制</li>
+<li><strong>学习目标</strong>：最小化交叉熵损失</li>
+<li><strong>输出</strong>：一个能端到端生成语言序列概率的模型</li>
+</ol>
+<blockquote>
+<p>例如输入"我为什么选这门课"，模型输出：
+- P(因) = 0.666
+- P(为) = 0.333
+- ...</p>
+</blockquote>
+<hr>
+<h2 id="_7">四、机器学习基本概念详解<a class="headerlink" href="#_7" title="Permanent link">¶</a></h2>
+<h3 id="41-training-data">4.1 训练数据 (Training Data)<a class="headerlink" href="#41-training-data" title="Permanent link">¶</a></h3>
+<div class="admonition note">
+<p class="admonition-title">定义</p>
+<p><strong>训练数据（Training Data，记为 S）</strong> 是可用于训练的数据集。训练数据的<strong>数量</strong>和<strong>质量</strong>都会影响机器学习的性能。</p>
+</div>
+<h4 id="_8">数量方面<a class="headerlink" href="#_8" title="Permanent link">¶</a></h4>
+<p>在一定范围内，训练数据的数量显著影响性能：
+- 数据越多 → 模型看到更多模式 → 泛化能力越强
+- 但存在边际效应递减</p>
+<h4 id="_9">质量方面<a class="headerlink" href="#_9" title="Permanent link">¶</a></h4>
+<ul>
+<li><strong>多样性</strong>：数据是否覆盖了各种可能的场景</li>
+<li><strong>噪声</strong>：标签是否正确、数据是否干净</li>
+<li><strong>偏差</strong>：数据是否有系统性偏差（例如全是某一类别的数据）</li>
+</ul>
+<blockquote>
+<p>对于语言模型，训练数据可选用公开语料数据。</p>
+</blockquote>
+<h3 id="42-hypothesis-class">4.2 假设类 (Hypothesis Class)<a class="headerlink" href="#42-hypothesis-class" title="Permanent link">¶</a></h3>
+<div class="admonition note">
+<p class="admonition-title">定义</p>
+<p><strong>假设类（Hypothesis Class，记为 H）</strong> 是指所有可能机器学习模型的集合，其中的元素称为<strong>假设 (Hypothesis)</strong>。</p>
+<p>实践中，通常指定候选模型的参数空间为假设类。</p>
+</div>
+<h4 id="halfspace">例子：半空间 (Halfspace)<a class="headerlink" href="#halfspace" title="Permanent link">¶</a></h4>
+<p><span class="arithmatex">\(H = \{x \mapsto \operatorname{sign}(\langle \theta, x \rangle + \beta) : w \in \mathbb{R}^d, \beta \in \mathbb{R}\}\)</span></p>
+<h4 id="_10">大模型时代的假设类<a class="headerlink" href="#_10" title="Permanent link">¶</a></h4>
+<p>当前大语言模型主要选用<strong>神经网络</strong>作为假设空间（Transformer架构），参数量可达数千亿。</p>
+<div class="admonition warning">
+<p class="admonition-title">假设类的大小与学习难度</p>
+<p>假设类越大（参数越多）→ 表达能力越强 → 但找到最优假设的难度也越大</p>
+</div>
+<h3 id="43-inductive-bias">4.3 归纳偏置 (Inductive Bias)<a class="headerlink" href="#43-inductive-bias" title="Permanent link">¶</a></h3>
+<div class="admonition note">
+<p class="admonition-title">定义</p>
+<p><strong>归纳偏置（Inductive Bias）</strong> 限制对某些假设进行选择。它是一种先验知识，告诉算法"应该优先考虑哪类假设"。</p>
+</div>
+<h4 id="_11">不同模型的归纳偏置<a class="headerlink" href="#_11" title="Permanent link">¶</a></h4>
+<table>
+<thead>
+<tr>
+<th>模型</th>
+<th>归纳偏置</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>SVM</strong></td>
+<td>最大化间隔</td>
+<td>两类样本尽量分得开</td>
+</tr>
+<tr>
+<td><strong>CNN</strong></td>
+<td>局部感受野 + 权值共享</td>
+<td>图像具有局部相关性</td>
+</tr>
+<tr>
+<td><strong>RNN</strong></td>
+<td>时序依赖</td>
+<td>前后状态存在关联</td>
+</tr>
+<tr>
+<td><strong>Transformer</strong></td>
+<td>稀疏注意力 / 上下文关联</td>
+<td>序列中元素互相影响</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>对于语言模型而言，<strong>上下文间存在关联</strong>是最核心的归纳偏置——相邻的词在语义上相关。</p>
+</blockquote>
+<h3 id="44-learning-paradigm">4.4 学习范式 (Learning Paradigm)<a class="headerlink" href="#44-learning-paradigm" title="Permanent link">¶</a></h3>
+<div class="admonition note">
+<p class="admonition-title">广义分类</p>
+<p>广义的学习范式包括：
+1. <strong>监督学习 (Supervised Learning)</strong>：给定样本及其标签，完成分类/回归任务
+2. <strong>无监督学习 (Unsupervised Learning)</strong>：无标签的自组织学习（如聚类）
+3. <strong>半监督学习 (Semi-supervised Learning)</strong>：少量标签 + 大量无标签数据
+4. <strong>强化学习 (Reinforcement Learning)</strong>：从探索中学习，通过奖励信号驱动</p>
+</div>
+<h4 id="llm">LLM的主流范式：自监督学习<a class="headerlink" href="#llm" title="Permanent link">¶</a></h4>
+<p>大语言模型通常采用<strong>自监督学习 (Self-supervised Learning)</strong> 范式——基于自动构建的标签进行的监督学习。</p>
+<div class="admonition example">
+<p class="admonition-title">自监督学习的典型方法</p>
+<ul>
+<li><strong>掩码语言模型</strong>（如BERT）：随机遮盖输入中的部分词，让模型预测被遮盖的词</li>
+<li><strong>自回归语言模型</strong>（如GPT）：基于上文预测下一个词</li>
+</ul>
+<p>两者都不需要人工标注——标签自动从数据中构造。</p>
+</div>
+<h3 id="45-erm">4.5 学习目标——经验风险最小化 (ERM)<a class="headerlink" href="#45-erm" title="Permanent link">¶</a></h3>
+<div class="admonition note">
+<p class="admonition-title">定义</p>
+<p><strong>经验风险最小化（Empirical Risk Minimization, ERM）</strong> 是最为常见的学习目标之一，旨在<strong>最小化模型在训练集上的错误</strong>。</p>
+</div>
+<ul>
+<li>例如不带正则项的监督学习方法就是ERM的直接应用</li>
+<li>不同的学习范式有不同的学习目标</li>
+<li>监督学习：最小化分类/回归损失</li>
+<li>无监督学习：最小化重构误差（如K-Means最小化相对距离）</li>
+<li>强化学习：最大化累积奖励</li>
+</ul>
+<div class="admonition tip">
+<p class="admonition-title">ERM的局限性</p>
+<p>ERM只关注训练集上的表现，如果模型过于复杂，容易导致<strong>过拟合</strong>——训练误差很小但泛化误差很大。</p>
+</div>
+<h3 id="46-loss-function">4.6 损失函数 (Loss Function)<a class="headerlink" href="#46-loss-function" title="Permanent link">¶</a></h3>
+<div class="admonition note">
+<p class="admonition-title">定义</p>
+<p><strong>损失函数（Loss Function）</strong> 用以衡量模型在对应样本上的错误程度。
+- 大多数损失函数是错误程度的<strong>代理损失 (Surrogate Loss)</strong>
+- 损失函数在训练集上的结果的加权和称为<strong>训练损失 (Training Loss)</strong></p>
+</div>
+<h4 id="_12">常用损失函数比较<a class="headerlink" href="#_12" title="Permanent link">¶</a></h4>
+<table>
+<thead>
+<tr>
+<th>损失函数</th>
+<th>特点</th>
+<th>可微性</th>
+<th>用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>0-1损失</strong></td>
+<td>直接统计错误个数</td>
+<td>❌ 不可微</td>
+<td>理论分析</td>
+</tr>
+<tr>
+<td><strong>Hinge损失</strong></td>
+<td>SVM中使用</td>
+<td>分段可微</td>
+<td>SVM</td>
+</tr>
+<tr>
+<td><strong>交叉熵(Logistic)</strong></td>
+<td>概率输出，训练稳定</td>
+<td>✅ 可微</td>
+<td>分类任务（最常用）</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition info">
+<p class="admonition-title">交叉熵为何广泛使用</p>
+<ul>
+<li>可微，适合梯度下降优化</li>
+<li>本质是度量预测分布与真实分布的差异</li>
+<li>当预测越接近真实标签时，梯度越合理</li>
+</ul>
+</div>
+<h3 id="47-learning-algorithm">4.7 学习算法 (Learning Algorithm)<a class="headerlink" href="#47-learning-algorithm" title="Permanent link">¶</a></h3>
+<div class="admonition note">
+<p class="admonition-title">定义</p>
+<p><strong>学习算法</strong>旨在对损失进行优化。其背后的理论基础为<strong>最优化理论</strong>。</p>
+</div>
+<h4 id="first-order-optimization">一阶优化 (First-order Optimization)<a class="headerlink" href="#first-order-optimization" title="Permanent link">¶</a></h4>
+<p>利用梯度（一阶导数）信息更新参数：
+<span class="arithmatex">\(h_{t+1} = h_t - \eta \nabla_h L(h)\)</span></p>
+<ul>
+<li>梯度下降、SGD、Adam等</li>
+<li>需要损失函数可微</li>
+<li>当前深度学习最主流的方法</li>
+</ul>
+<h4 id="zero-order-optimization">零阶优化 (Zero-order Optimization)<a class="headerlink" href="#zero-order-optimization" title="Permanent link">¶</a></h4>
+<p>仅利用函数值，不依赖导数信息：
+<span class="arithmatex">\(h_{t+1} = h_t - \eta \hat{\nabla}_h L(h)\)</span>
+<span class="arithmatex">\(\hat{\nabla}_h L(h) = \mathbb{E}_{d \sim s(d)}\left[\frac{L(h + \alpha d) - L(h)}{\alpha} d\right]\)</span></p>
+<ul>
+<li>进化算法、遗传算法</li>
+<li>适用于不可微的损失函数</li>
+<li>收敛较慢</li>
+</ul>
+<h3 id="48-generalization-error">4.8 泛化误差 (Generalization Error)<a class="headerlink" href="#48-generalization-error" title="Permanent link">¶</a></h3>
+<div class="admonition tip">
+<p class="admonition-title">核心概念</p>
+<p>机器学习的目的在于<strong>减小泛化误差</strong>，即<strong>真实误差 (True Error)</strong>。</p>
+</div>
+<h4 id="vs_1">训练误差 vs. 泛化误差<a class="headerlink" href="#vs_1" title="Permanent link">¶</a></h4>
+<p><strong>训练误差 (Training Error)</strong>——在训练集 S 上的误差：
+<span class="arithmatex">\(L_S(h) \stackrel{def}{=} \frac{|\{i \in [m] : h(x_i) \neq y_i\}|}{m}\)</span></p>
+<p><strong>泛化误差 (Generalization Error)</strong>——在真实数据分布 D 上的误差：
+<span class="arithmatex">\(L_{\mathcal{D}}(h) \stackrel{def}{=} \underset{(x,y) \sim \mathcal{D}}{\mathbb{P}}[h(x) \neq y]\)</span></p>
+<h4 id="_13">估计与检验<a class="headerlink" href="#_13" title="Permanent link">¶</a></h4>
+<table>
+<thead>
+<tr>
+<th>数据集</th>
+<th>用途</th>
+<th>要求</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>训练集</strong></td>
+<td>用于训练模型</td>
+<td>—</td>
+</tr>
+<tr>
+<td><strong>验证集</strong></td>
+<td>估计泛化误差、超参选择、模型选择</td>
+<td>与训练集<strong>独立同分布</strong></td>
+</tr>
+<tr>
+<td><strong>测试集</strong></td>
+<td>检验泛化误差（最终评测）</td>
+<td>与训练集和验证集<strong>独立同分布</strong></td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="_14">五、机器学习的发展历程<a class="headerlink" href="#_14" title="Permanent link">¶</a></h2>
+<blockquote>
+<p>从百家争鸣到神经网络一枝独秀，从单一范式到丰富再趋于单一。</p>
+</blockquote>
+<h3 id="51">5.1 三个阶段<a class="headerlink" href="#51" title="Permanent link">¶</a></h3>
+<table>
+<thead>
+<tr>
+<th>时代</th>
+<th>特征</th>
+<th>主要模型</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>统计学习时代</strong></td>
+<td>基于统计理论，多种模型百花齐放</td>
+<td>决策树、SVM、概率图模型、隐马尔可夫模型等</td>
+</tr>
+<tr>
+<td><strong>表征学习时代</strong></td>
+<td>自动学习特征表示，深度学习崛起</td>
+<td>CNN、RNN、全连接网络</td>
+</tr>
+<tr>
+<td><strong>大模型时代</strong></td>
+<td>规模驱动，自监督预训练 + 微调</td>
+<td>Transformer、GPT、BERT、LLaMA</td>
+</tr>
+</tbody>
+</table>
+<h3 id="52">5.2 假设空间的演变<a class="headerlink" href="#52" title="Permanent link">¶</a></h3>
+<blockquote>
+<p>假设空间从百家争鸣到神经网络一枝独秀。</p>
+</blockquote>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-1-1">1</a></span>
+<span class="normal"><a href="#__codelineno-1-2">2</a></span>
+<span class="normal"><a href="#__codelineno-1-3">3</a></span>
+<span class="normal"><a href="#__codelineno-1-4">4</a></span>
+<span class="normal"><a href="#__codelineno-1-5">5</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1"></a>树 ──┐
+<a id="__codelineno-1-2" name="__codelineno-1-2"></a>森林 ──┤
+<a id="__codelineno-1-3" name="__codelineno-1-3"></a>概率图 ─┼──→ 神经网络 → Transformer
+<a id="__codelineno-1-4" name="__codelineno-1-4"></a>SVM ──┤
+<a id="__codelineno-1-5" name="__codelineno-1-5"></a>... ──┘
+</code></pre></div></td></tr></table></div>
+<h3 id="53">5.3 学习范式的演变<a class="headerlink" href="#53" title="Permanent link">¶</a></h3>
+<p></p><div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-2-1">1</a></span>
+<span class="normal"><a href="#__codelineno-2-2">2</a></span>
+<span class="normal"><a href="#__codelineno-2-3">3</a></span>
+<span class="normal"><a href="#__codelineno-2-4">4</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1"></a>传统监督学习      多标签学习       自监督预训练
+<a id="__codelineno-2-2" name="__codelineno-2-2"></a>传统无监督学习 →  噪声标签学习 →   有监督微调
+<a id="__codelineno-2-3" name="__codelineno-2-3"></a>传统强化学习      对比学习         新型强化学习(RLHF)
+<a id="__codelineno-2-4" name="__codelineno-2-4"></a>                  领域自适应/泛化
+</code></pre></div></td></tr></table></div>
+统计学习时代 → 表征学习时代 → 大模型时代
+<hr>
+<h2 id="_15">六、经典泛化理论<a class="headerlink" href="#_15" title="Permanent link">¶</a></h2>
+<blockquote>
+<p>经典泛化理论提供了深入理解机器学习的"视角"——为什么模型能泛化？</p>
+</blockquote>
+<h3 id="61-pac">6.1 PAC 学习理论<a class="headerlink" href="#61-pac" title="Permanent link">¶</a></h3>
+<h4 id="611-pac">6.1.1 什么是PAC理论<a class="headerlink" href="#611-pac" title="Permanent link">¶</a></h4>
+<div class="admonition abstract">
+<p class="admonition-title"><strong>PAC理论 (Probably Approximately Correct)</strong></p>
+<p>概率近似正确理论——一个<strong>抽象刻画机器学习能力</strong>的框架。</p>
+</div>
+<p>核心问题只有一个：<mark><strong>需要多少训练样本，才能保证学到的假设"大概近似正确"？</strong></mark></p>
+<h4 id="612-pac">6.1.2 PAC理论的基本概念<a class="headerlink" href="#612-pac" title="Permanent link">¶</a></h4>
+<table>
+<thead>
+<tr>
+<th>概念</th>
+<th>符号</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>概念 (Concept)</strong></td>
+<td>c</td>
+<td>从特征空间 <span class="arithmatex">\(\mathcal{X}\)</span> 到标记空间 <span class="arithmatex">\(\mathcal{Y}\)</span> 的映射，决定真实标记</td>
+</tr>
+<tr>
+<td><strong>目标概念</strong></td>
+<td>c</td>
+<td>完全正确的映射（算法追求的终极目标）</td>
+</tr>
+<tr>
+<td><strong>概念类</strong></td>
+<td>C</td>
+<td>一些概念构成的集合</td>
+</tr>
+<tr>
+<td><strong>假设 (Hypothesis)</strong></td>
+<td>h</td>
+<td>学习算法输出的"猜测"，不一定等于目标概念</td>
+</tr>
+<tr>
+<td><strong>假设空间</strong></td>
+<td><span class="arithmatex">\(\mathcal{H}\)</span></td>
+<td>所有可能假设的集合</td>
+</tr>
+<tr>
+<td><strong>可分 (Separable)</strong></td>
+<td><span class="arithmatex">\(c \in \mathcal{H}\)</span></td>
+<td>目标概念在假设空间中，存在假设可以完美分割数据</td>
+</tr>
+<tr>
+<td><strong>不可分</strong></td>
+<td><span class="arithmatex">\(c \notin \mathcal{H}\)</span></td>
+<td>假设空间中没有任何假设与目标概念完全一致</td>
+</tr>
+</tbody>
+</table>
+<h4 id="613-pac">6.1.3 PAC学习的基本思想<a class="headerlink" href="#613-pac" title="Permanent link">¶</a></h4>
+<blockquote>
+<p>希望以<strong>较大的概率</strong>学到（泛化）误差满足预设上限的模型。</p>
+</blockquote>
+<p><strong>PAC辨识 (Identify)</strong>：给定误差参数 <span class="arithmatex">\(\epsilon\)</span> 和置信参数 <span class="arithmatex">\(\delta\)</span>，对于所有 <span class="arithmatex">\(c \in C\)</span> 以及分布 <span class="arithmatex">\(\mathcal{D}\)</span>，若存在学习算法 <span class="arithmatex">\(\mathcal{A}\)</span>，其输出的假设 <span class="arithmatex">\(h \in \mathcal{H}\)</span> 满足：
+<span class="arithmatex">\(P(E(h) \leq \epsilon) \geq 1 - \delta\)</span>
+则称学习算法 <span class="arithmatex">\(\mathcal{A}\)</span> 能从假设空间 <span class="arithmatex">\(\mathcal{H}\)</span> 中辨识概念类 C。</p>
+<h4 id="614-pac-pac-learnable">6.1.4 PAC可学习 (PAC Learnable)<a class="headerlink" href="#614-pac-pac-learnable" title="Permanent link">¶</a></h4>
+<blockquote>
+<p>进一步考虑了训练数据量的要求。</p>
+</blockquote>
+<p>令 m 表示从分布 <span class="arithmatex">\(\mathcal{D}\)</span> 中 <strong>独立同分布 (i.i.d.)</strong> 采样得到的数据个数。对于所有分布 <span class="arithmatex">\(\mathcal{D}\)</span>，若存在学习算法 <span class="arithmatex">\(\mathcal{A}\)</span> 和多项式函数 poly(<span class="arithmatex">\(\cdot, \cdot, \cdot, \cdot\)</span>)，使得对于任何：
+<span class="arithmatex">\(m \geq poly(1/\epsilon, 1/\delta, size(x), size(c))\)</span>
+<span class="arithmatex">\(\mathcal{A}\)</span> 能从假设空间 <span class="arithmatex">\(\mathcal{H}\)</span> 中辨识概念类 C，则称<strong>概念类 C 对假设空间 <span class="arithmatex">\(\mathcal{H}\)</span> 而言是PAC可学习的</strong>。</p>
+<ul>
+<li><strong>样本复杂度</strong>：满足上述条件的<strong>最小 m</strong>。</li>
+</ul>
+<h4 id="615-pac">6.1.5 高效PAC可学习<a class="headerlink" href="#615-pac" title="Permanent link">¶</a></h4>
+<p>若学习算法 <span class="arithmatex">\(\mathcal{A}\)</span> 使概念类 C 为PAC可学习的，且 <span class="arithmatex">\(\mathcal{A}\)</span> 的运行时间也是多项式函数 <span class="arithmatex">\(\text{poly}(1/\epsilon, 1/\delta, \text{size}(x), \text{size}(c))\)</span>，则称<strong>概念类 C 是高效PAC可学习的</strong>，且 <span class="arithmatex">\(\mathcal{A}\)</span> 为PAC学习算法。</p>
+<blockquote>
+<p>若假设学习算法处理每个样本的时间为常数，则其时间复杂度等价于样本复杂度。</p>
+</blockquote>
+<h4 id="616-pac">6.1.6 不可分情形与不可知PAC学习<a class="headerlink" href="#616-pac" title="Permanent link">¶</a></h4>
+<p>当目标概念 <span class="arithmatex">\(c \notin \mathcal{H}\)</span>，即假设空间不如目标概念丰富时，算法无法学到它的 <span class="arithmatex">\(\epsilon\)</span> 近似。</p>
+<p><strong>不可知PAC可学习 (Agnostic PAC Learnable)</strong>：对于所有分布 <span class="arithmatex">\(\mathcal{D}\)</span>，若存在算法 <span class="arithmatex">\(\mathcal{A}\)</span> 和多项式函数，使得 <span class="arithmatex">\(\mathcal{A}\)</span> 能从 <span class="arithmatex">\(\mathcal{H}\)</span> 中输出满足下式的假设 h：
+<span class="arithmatex">\(P\left(E(h) - \min_{h' \in \mathcal{H}} E(h') \leq \epsilon\right) \geq 1 - \delta\)</span>
+则称假设空间 <span class="arithmatex">\(\mathcal{H}\)</span> 是<strong>不可知PAC可学习的</strong>。</p>
+<h4 id="617-pac">6.1.7 PAC学习案例：轴平行矩形<a class="headerlink" href="#617-pac" title="Permanent link">¶</a></h4>
+<blockquote>
+<p>一个经典的PAC可学习性证明案例。</p>
+</blockquote>
+<p>考虑 <span class="arithmatex">\(\mathbb{R}\)</span>^2 上的<strong>轴平行矩形 (Axis-Parallel Rectangle)</strong>——边与坐标轴平行的矩形区域。
+- 矩形内的点标签为 +1，矩形外的点标签为 -1
+- 目标概念 c 是某个特定的未知矩形
+- 概念类：<span class="arithmatex">\(\mathbb{R}\)</span>^2 上所有轴平行矩形的集合</p>
+<p><strong>学习算法</strong>：对于训练集 D，输出一个<strong>包含了 D 中所有正例的最小轴平行矩形 R^D</strong>。</p>
+<div class="admonition info">
+<p class="admonition-title">PAC可学习证明</p>
+<ol>
+<li>令 <span class="arithmatex">\(P(R) &gt; \epsilon\)</span>（目标矩形概率质量大于 <span class="arithmatex">\(\epsilon\)</span>）</li>
+<li>
+<p>沿 R 的四条边定义4个小矩形区域 <span class="arithmatex">\(r_1, r_2, r_3, r_4\)</span>，每个区域概率质量均为 <span class="arithmatex">\(\epsilon/4\)</span></p>
+</li>
+<li>
+<p>若 <span class="arithmatex">\(R^D\)</span> 与所有 <span class="arithmatex">\(r_i\)</span> 都相交，则：
+   <span class="arithmatex">\(E(R^D) = P(R - R^D) \leq P(r_1 \cup r_2 \cup r_3 \cup r_4) = \epsilon\)</span></p>
+</li>
+<li>
+<p>反之，若 <span class="arithmatex">\(E(R^D) &gt; \epsilon\)</span>，则 <span class="arithmatex">\(R^D\)</span> 至少与某个 <span class="arithmatex">\(r_i\)</span> 不相交：
+   <span class="arithmatex">\(P(E(R^D) &gt; \epsilon) \leq 4(1 - \epsilon/4)^m \leq 4e^{-m\epsilon/4}\)</span></p>
+</li>
+<li>
+<p>因此：
+   <span class="arithmatex">\(P(E(R^D) \leq \epsilon) \geq 1 - 4e^{-m\epsilon/4}\)</span></p>
+</li>
+<li>
+<p>令 <span class="arithmatex">\(m \geq \frac{4}{\epsilon}\ln\frac{4}{\delta}\)</span>，则：
+   <span class="arithmatex">\(P(E(R^D) \leq \epsilon) \geq 1 - \delta\)</span></p>
+</li>
+</ol>
+<p><strong>结论：轴平行矩形是PAC可学习的</strong>，样本复杂度为 <span class="arithmatex">\(O(\frac{1}{\epsilon}\ln\frac{1}{\delta})\)</span>。</p>
+</div>
+<h3 id="62">6.2 假设空间的复杂度度量<a class="headerlink" href="#62" title="Permanent link">¶</a></h3>
+<blockquote>
+<p>根据PAC学习理论，假设空间 <span class="arithmatex">\(\mathcal{H}\)</span> 越复杂，找到目标概念的难度就越大。</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>假设空间类型</th>
+<th>复杂度度量</th>
+<th>优点</th>
+<th>缺点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>有限假设空间</strong></td>
+<td>包含的假设数目<span class="arithmatex">\(\mathcal{H}\)</span></td>
+<td>直观、简单</td>
+<td>仅适用于有限空间</td>
+</tr>
+<tr>
+<td><strong>无限假设空间</strong></td>
+<td><strong>VC维</strong> (Vapnik-Chervonenkis Dimension)</td>
+<td>计算简单、通用</td>
+<td>未考虑数据特点，相对粗糙</td>
+</tr>
+<tr>
+<td><strong>无限假设空间</strong></td>
+<td><strong>Rademacher复杂度</strong></td>
+<td>结合数据特点，更准确</td>
+<td>计算困难</td>
+</tr>
+</tbody>
+</table>
+<h3 id="63-vc-vapnik-chervonenkis-dimension">6.3 VC维 (Vapnik-Chervonenkis Dimension)<a class="headerlink" href="#63-vc-vapnik-chervonenkis-dimension" title="Permanent link">¶</a></h3>
+<blockquote>
+<p>度量假设空间<strong>复杂度</strong>的核心指标。</p>
+</blockquote>
+<h4 id="631">6.3.1 核心定义<a class="headerlink" href="#631" title="Permanent link">¶</a></h4>
+<p><strong>限制 (Restriction)</strong>：<span class="arithmatex">\(\mathcal{H}\)</span> 在数据集 D 上的限制是指从 D 到 <span class="arithmatex">\(\{-1, +1\}^{|D|}\)</span> 的一族映射：
+<span class="arithmatex">\(\mathcal{H}_{|D} = \{(h(x_1), h(x_2), \dots, h(x_m)) \mid h \in \mathcal{H}\}\)</span></p>
+<p><strong>增长函数 (Growth Function)</strong>：假设空间 <span class="arithmatex">\(\mathcal{H}\)</span> 对 m 个数据所能赋予标记的最大可能结果数：
+<span class="arithmatex">\(\Pi_{\mathcal{H}}(m) = \max_{|D| = m} |\mathcal{H}_{|D}|\)</span></p>
+<p><strong>打散 (Shattering)</strong>：如果 <span class="arithmatex">\(\mathcal{H}\)</span> 能实现数据集 D 上所有可能的标记结果，即 <span class="arithmatex">\(|\mathcal{H}_{|D}| = 2^m\)</span>，则称 D 能被假设空间 <span class="arithmatex">\(\mathcal{H}\)</span> <strong>打散</strong>。</p>
+<div class="admonition tip">
+<p class="admonition-title"><strong>VC维定义</strong></p>
+<p>假设空间 <span class="arithmatex">\(\mathcal{H}\)</span> 的 <strong>VC维</strong> 是能被 <span class="arithmatex">\(\mathcal{H}\)</span> 打散的<strong>最大样本集的大小</strong>：
+<span class="arithmatex">\(\operatorname{VC}(\mathcal{H}) = \max\{m : \Pi_{\mathcal{H}}(m) = 2^m\}\)</span></p>
+<ul>
+<li>VC维 = d 等价于：存在大小为 d 的样本集能被 <span class="arithmatex">\(\mathcal{H}\)</span> 打散，<strong>且</strong>任意大小为 d+1 的样本集都不能被打散</li>
+<li>VC维的定义<strong>与数据分布无关</strong></li>
+<li>对于有限假设空间：<span class="arithmatex">\(\operatorname{VC}(\mathcal{H}) \leq \log_2 |\mathcal{H}|\)</span></li>
+</ul>
+</div>
+<h4 id="632-vc">6.3.2 VC维的意义<a class="headerlink" href="#632-vc" title="Permanent link">¶</a></h4>
+<table>
+<thead>
+<tr>
+<th>VC维</th>
+<th>含义</th>
+<th>对泛化的影响</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>越大</strong></td>
+<td>假设类表达能力越强</td>
+<td>泛化保证越弱（需要更多样本）</td>
+</tr>
+<tr>
+<td><strong>越小</strong></td>
+<td>假设类表达能力越弱</td>
+<td>泛化保证越强（但可能欠拟合）</td>
+</tr>
+</tbody>
+</table>
+<p><mark><strong>VC维给出了样本复杂度的理论上界</strong></mark></p>
+<h4 id="633-vc">6.3.3 线性分类器的VC维<a class="headerlink" href="#633-vc" title="Permanent link">¶</a></h4>
+<p>对于二分类问题，<strong>齐次线性超平面</strong>（过原点）的假设空间：
+<span class="arithmatex">\(\{h(x) = \operatorname{sign}(w^T x)\}\)</span></p>
+<ul>
+<li><span class="arithmatex">\(\mathbb{R}\)</span>^d 中齐次线性超平面的VC维 == d</li>
+<li><span class="arithmatex">\(\mathbb{R}\)</span>^d 中一般线性超平面（含偏置项 b）的VC维 == d+1</li>
+</ul>
+<div class="admonition proof">
+<p class="admonition-title">证明思路</p>
+<p><strong>打散下界</strong>：<span class="arithmatex">\(\mathbb{R}\)</span>^d 中 d 个单位向量 <span class="arithmatex">\(e_1, \dots, e_d\)</span> 可以被打散。对任意标记 <span class="arithmatex">\(y_1,\dots,y_d\)</span>，取 <span class="arithmatex">\(w_y = (y_1,\dots,y_d)\)</span> 即可。</p>
+<p><strong>打散上界</strong>：<span class="arithmatex">\(\mathbb{R}\)</span>^d 中任意 d+1 个向量必存在线性相关关系，无法被打散。</p>
+</div>
+<h4 id="634-vc">6.3.4 神经网络的VC维<a class="headerlink" href="#634-vc" title="Permanent link">¶</a></h4>
+<p>记 N 为网络的参数量，其VC维上界为 <span class="arithmatex">\(O(N \log N)\)</span>。</p>
+<div class="admonition warning">
+<p class="admonition-title">神经网络的VC维巨大</p>
+<p>一个普通CNN的参数量可达数百万到数十亿，意味着VC维极高。根据经典理论，这应该导致极差的泛化——但实际中深度学习泛化很好，这就是<strong>经典理论的第一个裂缝</strong>。</p>
+</div>
+<h3 id="64-rademacher">6.4 Rademacher复杂度<a class="headerlink" href="#64-rademacher" title="Permanent link">¶</a></h3>
+<h4 id="641">6.4.1 动机<a class="headerlink" href="#641" title="Permanent link">¶</a></h4>
+<p>VC维与数据分布无关，这是一个优点也是一个缺点——它忽略了对泛化至关重要的数据信息。Rademacher复杂度弥补了这一缺陷。</p>
+<p><strong>核心思想</strong>：引入Rademacher随机变量 <span class="arithmatex">\(\sigma_i\)</span>（以0.5概率取值-1或+1），衡量假设空间在<strong>随机噪声</strong>下的拟合能力。</p>
+<p>如果假设空间能很好地拟合随机噪声 → Rademacher复杂度高 → 泛化能力差。</p>
+<h4 id="642">6.4.2 定义<a class="headerlink" href="#642" title="Permanent link">¶</a></h4>
+<p><strong>经验Rademacher复杂度</strong>：对于实值函数空间 <span class="arithmatex">\(\mathcal{F}: \mathcal{X} \mapsto \mathbb{R}\)</span>，关于数据集 D 的Rademacher复杂度为：
+<span class="arithmatex">\(\widehat{\mathfrak{R}}_D(\mathcal{F}) = \mathbb{E}_\sigma\left[\sup_{f \in \mathcal{F}} \frac{1}{m} \sum_{i=1}^m \sigma_i f(x_i)\right]\)</span></p>
+<p><strong>期望Rademacher复杂度</strong>：考虑 D 的随机性：
+<span class="arithmatex">\(\mathfrak{R}_m(\mathcal{F}) = \mathbb{E}_{D \sim \mathcal{D}^m}[\widehat{\mathfrak{R}}_D(\mathcal{F})]\)</span></p>
+<h4 id="643-rademacher">6.4.3 线性超平面的Rademacher复杂度<a class="headerlink" href="#643-rademacher" title="Permanent link">¶</a></h4>
+<p>假设数据分布满足 <span class="arithmatex">\(\|x\| \leq r\)</span>，则超平面族 <span class="arithmatex">\(\mathcal{F} = \{x \mapsto w^T x : \|w\| \leq \Lambda\}\)</span> 满足：
+<span class="arithmatex">\(\widehat{\mathfrak{R}}_D(\mathcal{F}) \leq \sqrt{\frac{r^2 \Lambda^2}{m}}\)</span></p>
+<blockquote>
+<p>这个界<strong>反映了数据相关特性</strong>（r 是数据范数的上界），而VC维是独立于数据的。</p>
+</blockquote>
+<h3 id="65">6.5 泛化误差界<a class="headerlink" href="#65" title="Permanent link">¶</a></h3>
+<h4 id="651">6.5.1 有限可分假设空间的泛化界<a class="headerlink" href="#651" title="Permanent link">¶</a></h4>
+<blockquote>
+<p>目标概念 <span class="arithmatex">\(c \in \mathcal{H}\)</span> 且 <span class="arithmatex">\(\mathcal{H}\)</span> 有上界。</p>
+</blockquote>
+<p>当数据集 D 的大小满足 <span class="arithmatex">\(m \geq \frac{1}{\epsilon}\ln\frac{|\mathcal{H}|}{\delta}\)</span> 时，学习算法只需输出<strong>经验误差为0</strong>的假设 <span class="arithmatex">\(h \in \mathcal{H}\)</span> 即可满足：
+<span class="arithmatex">\(P(E(h) \leq \epsilon) \geq 1 - \delta\)</span></p>
+<div class="admonition tip">
+<p class="admonition-title">解析</p>
+<ul>
+<li>假设空间越大 <span class="arithmatex">\(\uparrow\)</span> → 泛化上界越大 <span class="arithmatex">\(\uparrow\)</span></li>
+<li>数据集越大 <span class="arithmatex">\(\uparrow\)</span> → 泛化上界越小 <span class="arithmatex">\(\downarrow\)</span></li>
+<li>收敛速率：<span class="arithmatex">\(O(1/m)\)</span></li>
+</ul>
+</div>
+<h4 id="652">6.5.2 有限不可分假设空间的泛化界<a class="headerlink" href="#652" title="Permanent link">¶</a></h4>
+<blockquote>
+<p><span class="arithmatex">\(\mathcal{H}\)</span> 有上界但目标概念 c <span class="arithmatex">\(\notin\)</span> <span class="arithmatex">\(\mathcal{H}\)</span>。</p>
+</blockquote>
+<p>对大小为 m 的数据集 D：
+<span class="arithmatex">\(P\left(|E(h) - \hat{E}(h)| \leq \sqrt{\frac{1}{2m}\ln\frac{2|\mathcal{H}|}{\delta}}, \forall h \in \mathcal{H}\right) \geq 1 - \delta\)</span></p>
+<blockquote>
+<p>与可分情况相比，收敛速率从 <span class="arithmatex">\(O(1/m)\)</span> 降低至 <span class="arithmatex">\(O(1/\sqrt{m})\)</span>——需要<strong>更大的数据集</strong>才能用经验误差估计泛化误差。</p>
+</blockquote>
+<h4 id="653-vc">6.5.3 无限假设空间的泛化界（基于VC维）<a class="headerlink" href="#653-vc" title="Permanent link">¶</a></h4>
+<p>若假设空间 <span class="arithmatex">\(\mathcal{H}\)</span> 的VC维为 k，当 m &gt; k 时：
+<span class="arithmatex">\(P\left(|E(h) - \hat{E}(h)| \leq \sqrt{\frac{8k\ln\frac{2em}{k} + 8\ln\frac{4}{\delta}}{m}}, \forall h \in \mathcal{H}\right) \geq 1 - \delta\)</span></p>
+<ul>
+<li>收敛速率：<span class="arithmatex">\(O\left(\sqrt{\frac{\ln(m/k)}{m/k}}\right)\)</span></li>
+<li>比有限不可分情况的 <span class="arithmatex">\(O(1/\sqrt{m})\)</span> 还要慢——VC维影响了收敛速度</li>
+</ul>
+<h4 id="654-rademacher">6.5.4 无限假设空间的泛化界（基于Rademacher复杂度）<a class="headerlink" href="#654-rademacher" title="Permanent link">¶</a></h4>
+<p>对于实值函数空间 <span class="arithmatex">\(\mathcal{F}: \mathcal{X} \mapsto [0,1]\)</span>，大小为 m 的数据集 D：
+<span class="arithmatex">\(\mathbb{E}[f(h)] \leq \frac{1}{m}\sum_{i=1}^m f(h(x_i)) + 2\mathfrak{R}_m(\mathcal{F}) + \sqrt{\frac{\ln(1/\delta)}{2m}}\)</span></p>
+<p>以线性超平面为例：<span class="arithmatex">\(\mathfrak{R}_D(\mathcal{F}) \leq \sqrt{r^2\Lambda^2/m}\)</span> → 收敛速率为 <span class="arithmatex">\(O(1/\sqrt{m})\)</span></p>
+<h3 id="66-erm">6.6 经验风险最小化原则 (ERM)<a class="headerlink" href="#66-erm" title="Permanent link">¶</a></h3>
+<div class="admonition abstract">
+<p class="admonition-title">ERM的核心思想</p>
+<p>经验风险最小化（ERM）为找到具有理想泛化误差的假设提供了一种<strong>统一范式</strong>。</p>
+</div>
+<p>学习算法 <span class="arithmatex">\(\mathcal{A}\)</span> 输出假设空间 <span class="arithmatex">\(\mathcal{H}\)</span> 中具有<strong>最小经验误差</strong>的假设 <span class="arithmatex">\(h^*\)</span>：
+<span class="arithmatex">\(h^* \in \underset{h \in \mathcal{H}}{\operatorname{argmin}} \hat{E}(h)\)</span></p>
+<p>令 g 表示 <span class="arithmatex">\(\mathcal{H}\)</span> 中具有最小泛化误差的假设：
+<span class="arithmatex">\(g \in \underset{h \in \mathcal{H}}{\operatorname{argmin}} E(h)\)</span></p>
+<p>基于Hoeffding不等式和VC维泛化界，可以证明：以至少 <span class="arithmatex">\(1-\delta\)</span> 的概率，
+<span class="arithmatex">\(E(h^*) - E(g) \leq \epsilon\)</span></p>
+<p>这表明：<strong>ERM原则找到的假设以大概率是具有最小泛化误差假设的 <span class="arithmatex">\(\epsilon\)</span> 近似。</strong></p>
+<h3 id="67">6.7 过拟合与欠拟合<a class="headerlink" href="#67" title="Permanent link">¶</a></h3>
+<blockquote>
+<p>一个好的学习算法应该能<strong>降低训练误差</strong>，并且同时<strong>缩小训练误差与泛化误差的差距</strong>，尽管后者无法直接计算。</p>
+</blockquote>
+<h4 id="underfitting">欠拟合 (Underfitting)<a class="headerlink" href="#underfitting" title="Permanent link">¶</a></h4>
+<ul>
+<li><strong>模型不能在训练集上获得足够低的误差</strong></li>
+<li>原因：模型容量不足，无法捕捉数据模式</li>
+</ul>
+<h4 id="overfitting">过拟合 (Overfitting)<a class="headerlink" href="#overfitting" title="Permanent link">¶</a></h4>
+<ul>
+<li><strong>训练误差很小，但是泛化误差（测试误差）很大</strong></li>
+<li>原因：模型记住了训练数据的噪声而忽略了真实模式</li>
+</ul>
+<h4 id="capacity">容量 (Capacity) 的权衡<a class="headerlink" href="#capacity" title="Permanent link">¶</a></h4>
+<p>在1维回归问题中，在 <span class="arithmatex">\(f(x) = wx + b\)</span> 基础上引入高阶特征：
+<span class="arithmatex">\(f(x) = b + \sum_{i=1}^k w_i x^i\)</span></p>
+<ul>
+<li>k 越小 → 欠拟合风险大</li>
+<li>k 越大 → 过拟合风险大</li>
+</ul>
+<div class="admonition tip">
+<p class="admonition-title"><strong>奥卡姆剃刀原则</strong></p>
+<p>在同样能够解释已知观测现象的假设中，我们应该挑选"最简单"的那一个。</p>
+</div>
+<h4 id="_16">容量与误差的典型关系<a class="headerlink" href="#_16" title="Permanent link">¶</a></h4>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-3-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-3-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-3-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-3-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-3-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-3-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-3-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-3-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-3-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-3-10">10</a></span>
+<span class="normal"><a href="#__codelineno-3-11">11</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1"></a>误差
+<a id="__codelineno-3-2" name="__codelineno-3-2"></a>  ↑
+<a id="__codelineno-3-3" name="__codelineno-3-3"></a>  │      ┌─── 泛化误差
+<a id="__codelineno-3-4" name="__codelineno-3-4"></a>  │     ╱
+<a id="__codelineno-3-5" name="__codelineno-3-5"></a>  │    ╱    ─── 训练误差
+<a id="__codelineno-3-6" name="__codelineno-3-6"></a>  │   ╱
+<a id="__codelineno-3-7" name="__codelineno-3-7"></a>  │  ╱
+<a id="__codelineno-3-8" name="__codelineno-3-8"></a>  │ ╱
+<a id="__codelineno-3-9" name="__codelineno-3-9"></a>  │╱
+<a id="__codelineno-3-10" name="__codelineno-3-10"></a>  └──────────────────→ 容量
+<a id="__codelineno-3-11" name="__codelineno-3-11"></a>    欠拟合区  最优容量  过拟合区
+</code></pre></div></td></tr></table></div>
+<ul>
+<li>容量过小 → 两者都高（欠拟合）</li>
+<li>容量最优 → 两者都低（理想情况）</li>
+<li>容量过大 → 训练误差很低，但泛化误差上升（过拟合）</li>
+</ul>
+<hr>
+<h2 id="_17">七、深度学习泛化——打破经典理论的美好假设<a class="headerlink" href="#_17" title="Permanent link">¶</a></h2>
+<h3 id="71-iid">7.1 经典理论建立在i.i.d.假设上<a class="headerlink" href="#71-iid" title="Permanent link">¶</a></h3>
+<p>经典泛化理论（PAC、VC维、Rademacher）都建立在 <strong>独立同分布 (i.i.d.)</strong> 假设上：
+- 数据之间相互独立
+- 训练数据和测试数据来自同一分布</p>
+<h3 id="72">7.2 深度学习对经典理论的挑战<a class="headerlink" href="#72" title="Permanent link">¶</a></h3>
+<div class="admonition danger">
+<p class="admonition-title">经典理论的三大假设被打破</p>
+</div>
+<table>
+<thead>
+<tr>
+<th>经典假设</th>
+<th>深度学习的现实</th>
+<th>影响</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>数据独立</strong></td>
+<td>数据存在<strong>时序依赖</strong>（如NLP中的上下文）</td>
+<td>i.i.d.假设不成立</td>
+</tr>
+<tr>
+<td><strong>同分布</strong></td>
+<td>存在<strong>分布偏移</strong>（训练/测试分布不同）</td>
+<td>经典泛化界不再保证</td>
+</tr>
+<tr>
+<td><strong>模型参数 &lt; 样本量</strong></td>
+<td><strong>过参数化</strong>（参数量远超样本量，泛化却很好）</td>
+<td>VC维理论无法解释</td>
+</tr>
+</tbody>
+</table>
+<p>最具冲击力的实验——拟合随机标签</p>
+<div class="admonition quote">
+<p class="admonition-title">Zhang et al. (ICLR 2017) — "Understanding deep learning requires rethinking generalization"</p>
+<p>当使用<strong>完全随机生成的标签</strong>替换CIFAR-10或ImageNet的真实标签时，诸如Inception或AlexNet等模型<strong>依然能通过SGD达到接近0%的训练误差</strong>。</p>
+</div>
+<ul>
+<li>模型能完美记住随机噪声 → VC维巨大 → 经典理论预测泛化会极差</li>
+<li>但实际中这些模型在真实数据上泛化良好</li>
+<li>核心矛盾：如果假设空间能"打散"随机标签，Rademacher复杂度接近1 → 泛化界毫无意义</li>
+</ul>
+<div class="admonition failure">
+<p class="admonition-title"><strong>传统理论失效！</strong></p>
+</div>
+<h3 id="73-double-descent">7.3 双重下降现象 (Double Descent)<a class="headerlink" href="#73-double-descent" title="Permanent link">¶</a></h3>
+<blockquote>
+<p>经典理论预测：模型复杂度增加 → 测试误差先下降后上升（U型曲线）
+深度学习的实际表现：<strong>测试误差先下降、再上升、随后在进入过参数化区域后再次下降</strong></p>
+</blockquote>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-4-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-4-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-4-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-4-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-4-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-4-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-4-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-4-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-4-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-4-10">10</a></span>
+<span class="normal"><a href="#__codelineno-4-11">11</a></span>
+<span class="normal"><a href="#__codelineno-4-12">12</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1"></a>测试误差
+<a id="__codelineno-4-2" name="__codelineno-4-2"></a>  ↑
+<a id="__codelineno-4-3" name="__codelineno-4-3"></a>  │   ╲
+<a id="__codelineno-4-4" name="__codelineno-4-4"></a>  │    ╲  ──────────── 经典区域
+<a id="__codelineno-4-5" name="__codelineno-4-5"></a>  │     ╲          ╱
+<a id="__codelineno-4-6" name="__codelineno-4-6"></a>  │      ╲   ╱
+<a id="__codelineno-4-7" name="__codelineno-4-7"></a>  │       ╲╱
+<a id="__codelineno-4-8" name="__codelineno-4-8"></a>  │        ╱╲         ╲  现代深度学习区域
+<a id="__codelineno-4-9" name="__codelineno-4-9"></a>  │       ╱  ╲         ╲
+<a id="__codelineno-4-10" name="__codelineno-4-10"></a>  │      ╱    ╲         ╲
+<a id="__codelineno-4-11" name="__codelineno-4-11"></a>  └─────────────────────────→ 模型复杂度
+<a id="__codelineno-4-12" name="__codelineno-4-12"></a>        临界点       过参数化区域
+</code></pre></div></td></tr></table></div>
+<table>
+<thead>
+<tr>
+<th>区域</th>
+<th>行为</th>
+<th>解释</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>经典区域</strong></td>
+<td>先下降后上升（U型）</td>
+<td>偏差-方差权衡主导</td>
+</tr>
+<tr>
+<td><strong>临界点</strong></td>
+<td>正好能拟合所有数据（插值阈值）</td>
+<td>最坏泛化</td>
+</tr>
+<tr>
+<td><strong>过参数化区域</strong></td>
+<td><strong>再次下降</strong></td>
+<td>良性过拟合、隐式正则化</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>深度神经网络在函数空间中表现出一种内在的"奥卡姆剃刀"效应——即使参数很多，网络也倾向于表达那些<strong>简单的函数</strong>。</p>
+</blockquote>
+<h3 id="74">7.4 深度学习中的归纳偏置<a class="headerlink" href="#74" title="Permanent link">¶</a></h3>
+<blockquote>
+<p>模型之所以不产生过拟合，还因为其架构本身内置了极强的<strong>归纳偏置</strong>，这些偏置在参数海洋中划定了合理的搜索范围。</p>
+</blockquote>
+<p>CNN vs. Transformer —— 两种不同的归纳偏置哲学</p>
+<table>
+<thead>
+<tr>
+<th>维度</th>
+<th>CNN</th>
+<th>Transformer</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>核心假设</strong></td>
+<td>图像的<strong>空间平稳性和局部相关性</strong></td>
+<td>几乎没有<strong>硬编码的空间偏置</strong></td>
+</tr>
+<tr>
+<td><strong>感受野</strong></td>
+<td>局部感受野（固定大小卷积核）</td>
+<td>全局自注意力（可捕获长程依赖）</td>
+</tr>
+<tr>
+<td><strong>平移不变性</strong></td>
+<td>✅ 权值共享 → 平移不变性</td>
+<td>❌ 无硬编码平移不变性</td>
+</tr>
+<tr>
+<td><strong>偏向性质</strong></td>
+<td><strong>强局部性偏置</strong></td>
+<td><strong>弱全局性偏置</strong></td>
+</tr>
+<tr>
+<td><strong>小数据表现</strong></td>
+<td>好（先验约束强）</td>
+<td>差（缺乏先验，严重过拟合）</td>
+</tr>
+<tr>
+<td><strong>大数据表现</strong></td>
+<td>不如Transformer</td>
+<td><strong>超强</strong>（微弱偏置释放数据潜力）</td>
+</tr>
+<tr>
+<td><strong>预训练后</strong></td>
+<td>—</td>
+<td>从海量数据中学到更优的归纳偏置，展现更强稳健性</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition example">
+<p class="admonition-title">CNN vs. Transformer 的核心区别</p>
+<p><strong>CNN</strong>：设计者预先定义了"图像中相邻像素有关"的偏置，极大地缩小了假设空间，在小数据上表现优异。</p>
+<p><strong>Transformer</strong>：几乎没有硬编码的空间偏置，依赖自注意力机制学习依赖关系。虽然在小数据上容易过拟合，但在超大规模数据下，这种<strong>微弱的归纳偏置</strong>反而释放了模型捕获复杂模式的潜力。</p>
+</div>
+<h3 id="75">7.5 深度学习泛化的几个关键视角<a class="headerlink" href="#75" title="Permanent link">¶</a></h3>
+<table>
+<thead>
+<tr>
+<th>视角</th>
+<th>核心观点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>隐式正则化</strong></td>
+<td>SGD本身趋向于找到"简单"的解（而不是任意复杂函数）</td>
+</tr>
+<tr>
+<td><strong>模型容量的有效性</strong></td>
+<td>虽然参数量巨大，但网络的有效自由度远低于参数数量</td>
+</tr>
+<tr>
+<td><strong>数据分布结构</strong></td>
+<td>真实数据（如图像、文本）具有高度结构化特征，不是随机噪声</td>
+</tr>
+<tr>
+<td><strong>双重下降</strong></td>
+<td>过参数化后的泛化改善揭示了经典理论之外的新规律</td>
+</tr>
+<tr>
+<td><strong>归纳偏置</strong></td>
+<td>网络架构本身带来了强有力的先验约束</td>
+</tr>
+</tbody>
+</table>
+<h3 id="76-vcrademacher">7.6 VC维与Rademacher复杂度对大语言模型的启发意义<a class="headerlink" href="#76-vcrademacher" title="Permanent link">¶</a></h3>
+<blockquote>
+<p>经典理论虽被挑战，但其思维框架对LLM的<strong>架构设计、预训练、后训练</strong>仍具有重要指导意义。</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>方面</th>
+<th>理论支撑</th>
+<th>实践含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>架构设计</strong></td>
+<td>VC维 <span class="arithmatex">\(\approx O(N \log N)\)</span></td>
+<td>MoE通过激活部分参数控制有效VC维；LayerNorm规整假设空间</td>
+</tr>
+<tr>
+<td><strong>预训练</strong></td>
+<td>Rademacher复杂度约束</td>
+<td>海量数据将高复杂度模型约束到低有效复杂度空间</td>
+</tr>
+<tr>
+<td><strong>后训练(SFT/RLHF)</strong></td>
+<td>Rademacher复杂度控制</td>
+<td>LoRA冻结主干更新低秩矩阵，维持低复杂度；RLHF通过偏好对齐缩小假设空间</td>
+</tr>
+<tr>
+<td><strong>模型规模与数据量</strong></td>
+<td>VC维上界</td>
+<td>模型规模与预训练数据量需同步增长</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="_18">八、关键概念速查<a class="headerlink" href="#_18" title="Permanent link">¶</a></h2>
+<table>
+<thead>
+<tr>
+<th>概念</th>
+<th>一句话总结</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><mark><strong>ERM</strong></mark></td>
+<td>最小化训练集上的平均损失——最基础的学习目标</td>
+</tr>
+<tr>
+<td><mark><strong>PAC</strong></mark></td>
+<td>概率近似正确——回答"需要多少数据才能学得够好"的理论框架</td>
+</tr>
+<tr>
+<td><mark><strong>VC维</strong></mark></td>
+<td>假设类复杂度的度量——越大表达能力越强，但需要更多数据</td>
+</tr>
+<tr>
+<td><mark><strong>Rademacher复杂度</strong></mark></td>
+<td>结合数据分布的复杂度度量——值越高，泛化越差</td>
+</tr>
+<tr>
+<td><mark><strong>归纳偏置</strong></mark></td>
+<td>模型对某些假设的偏好，限制搜索空间的先验知识</td>
+</tr>
+<tr>
+<td><mark><strong>泛化</strong></mark></td>
+<td>在未见过数据上的表现能力——机器学习的最终目标</td>
+</tr>
+<tr>
+<td><mark><strong>过参数化</strong></mark></td>
+<td>参数远多于样本，但仍能泛化良好——经典理论无法解释的现象</td>
+</tr>
+<tr>
+<td><mark><strong>双重下降</strong></mark></td>
+<td>测试误差随模型复杂度增加"降-升-再降"</td>
+</tr>
+<tr>
+<td><mark><strong>隐式正则化</strong></mark></td>
+<td>SGD/Optimizer自身带来的"偏好简单解"的倾向</td>
+</tr>
+<tr>
+<td><mark><strong>奥卡姆剃刀</strong></mark></td>
+<td>在同样好地解释观测的假设中，选最简单的那个</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<div class="admonition abstract">
+<p class="admonition-title">本章小结</p>
+<p>本章构成了深度学习的理论基石。从机器学习的五要素出发，我们理解了学习问题的一般框架；通过经典泛化理论（PAC、VC维、Rademacher），我们掌握了分析学习算法能力的理论工具；最后，深度学习对经典理论的挑战揭示了<strong>理论发展的动态性</strong>——经典理论在深度学习时代仍然提供思维框架，但需要新的视角来理解过参数化、隐式正则化等新现象。这是后续章节深入研究深度学习和扩展模型的重要基础。</p>
+</div>
+<hr>
+<p><strong>参考</strong>：Zhang et al. "Understanding deep learning requires rethinking generalization." ICLR 2017.</p></div>
+
+
+
+
+
+
+
+  
+  
+
+
+
+  
+
+
+
+  <form class="md-feedback" name="feedback" hidden>
+    <fieldset>
+      <legend class="md-feedback__title">
+        此页面有帮助吗？
+      </legend>
+      <div class="md-feedback__inner">
+        <div class="md-feedback__list">
+          
+            <button class="md-feedback__icon md-icon" type="submit" title="This page was helpful" data-md-value="1">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M5 9v12H1V9zm4 12a2 2 0 0 1-2-2V9c0-.55.22-1.05.59-1.41L14.17 1l1.06 1.06c.27.27.44.64.44 1.05l-.03.32L14.69 8H21a2 2 0 0 1 2 2v2c0 .26-.05.5-.14.73l-3.02 7.05C19.54 20.5 18.83 21 18 21zm0-2h9.03L21 12v-2h-8.79l1.13-5.32L9 9.03z"/></svg>
+            </button>
+          
+            <button class="md-feedback__icon md-icon" type="submit" title="This page could be improved" data-md-value="0">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 15V3h4v12zM15 3a2 2 0 0 1 2 2v10c0 .55-.22 1.05-.59 1.41L9.83 23l-1.06-1.06c-.27-.27-.44-.64-.44-1.06l.03-.31.95-4.57H3a2 2 0 0 1-2-2v-2c0-.26.05-.5.14-.73l3.02-7.05C4.46 3.5 5.17 3 6 3zm0 2H5.97L3 12v2h8.78l-1.13 5.32L15 14.97z"/></svg>
+            </button>
+          
+        </div>
+        <div class="md-feedback__note">
+          
+            <div data-md-value="1" hidden>
+              
+              
+                
+              
+              
+              
+                
+                
+              
+              谢谢你的反馈！
+            </div>
+          
+            <div data-md-value="0" hidden>
+              
+              
+                
+              
+              
+              
+                
+                
+              
+              Thanks for your feedback! Help us improve this page by using our <a href="https://marketingplatform.google.com/about/analytics/" target="_blank" rel="noopener">feedback form</a>.
+            </div>
+          
+        </div>
+      </div>
+    </fieldset>
+  </form>
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  回到页面顶部
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2024~2025 Gaiake/All Rights Reserved.
+    </div>
+  
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+    <a href="image/wechat.jpg" target="_blank" rel="noopener" title="Wechat" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M385.2 167.6c6.4 0 12.6.3 18.8 1.1C387.4 90.3 303.3 32 207.7 32 100.5 32 13 104.8 13 197.4c0 53.4 29.3 97.5 77.9 131.6l-19.3 58.6 68-34.1c24.4 4.8 43.8 9.7 68.2 9.7 6.2 0 12.1-.3 18.3-.8-4-12.9-6.2-26.6-6.2-40.8-.1-84.9 72.9-154 165.3-154m-104.5-52.9c14.5 0 24.2 9.7 24.2 24.4 0 14.5-9.7 24.2-24.2 24.2-14.8 0-29.3-9.7-29.3-24.2.1-14.7 14.6-24.4 29.3-24.4m-136.4 48.6c-14.5 0-29.3-9.7-29.3-24.2 0-14.8 14.8-24.4 29.3-24.4 14.8 0 24.4 9.7 24.4 24.4 0 14.6-9.6 24.2-24.4 24.2M563 319.4c0-77.9-77.9-141.3-165.4-141.3-92.7 0-165.4 63.4-165.4 141.3S305 460.7 397.6 460.7c19.3 0 38.9-5.1 58.6-9.9l53.4 29.3-14.8-48.6C534 402.1 563 363.2 563 319.4m-219.1-24.5c-9.7 0-19.3-9.7-19.3-19.6 0-9.7 9.7-19.3 19.3-19.3 14.8 0 24.4 9.7 24.4 19.3 0 10-9.7 19.6-24.4 19.6m107.1 0c-9.7 0-19.3-9.7-19.3-19.6 0-9.7 9.7-19.3 19.3-19.3 14.5 0 24.4 9.7 24.4 19.3.1 10-9.9 19.6-24.4 19.6"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/Gaiake" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="mailto:<mayuxi660@gmail.com>" target="_blank" rel="noopener" title="" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M61.4 64C27.5 64 0 91.5 0 125.4c0 .9 0 1.7.1 2.6H0v256c0 35.3 28.7 64 64 64h384c35.3 0 64-28.7 64-64V128h-.1c0-.9.1-1.7.1-2.6 0-33.9-27.5-61.4-61.4-61.4zM464 192.3V384c0 8.8-7.2 16-16 16H64c-8.8 0-16-7.2-16-16V192.3l154.8 117.4c31.4 23.9 74.9 23.9 106.4 0zM48 125.4c0-7.4 6-13.4 13.4-13.4h389.2c7.4 0 13.4 6 13.4 13.4 0 4.2-2 8.2-5.3 10.7L280.2 271.5c-14.3 10.8-34.1 10.8-48.4 0L53.3 136.1c-3.3-2.5-5.3-6.5-5.3-10.7"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["announce.dismiss", "navigation.tracking", "navigation.tabs", "navigation.sections", "navigation.top", "navigation.footer", "search.suggest", "search.highlight", "search.share", "navigation.expand", "navigation.indexes", "content.tabs.link", "content.tooltips", "content.code.copy", "content.code.select", "content.code.annotate"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>
